@@ -5,6 +5,7 @@
 import { normalizeHours } from '../../assets/js/hours.js';
 import { CONFIG } from '../../assets/js/config.js';
 import { hostOf, isGovHost } from './source-policy.mjs';
+import { canonRoutes, UA_NAME } from './common.mjs';
 
 // Some public lookups only show a record to a visitor who came from their search form, as a browser would.
 const REFERER = { 'cslb.ca.gov': 'https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx' };
@@ -13,8 +14,9 @@ const refererFor = url => { const h = hostOf(url); const k = Object.keys(REFERER
 // In the usual form for an automated checker ("Mozilla/5.0 (compatible; name/version; purpose)"): some sites' firewalls
 // turn away any client that doesn't start this way, even from robots.txt. It still names the tool and what it does.
 // No apostrophes or quotes: some firewalls read them as an attack and refuse the request.
-export const UA = 'Mozilla/5.0 (compatible; FortBraggLocal-fact-checker/1.0; checks business addresses and phone numbers for a static community directory)';
-const UA_TOKEN = 'fortbragglocal';
+export const UA = `Mozilla/5.0 (compatible; ${UA_NAME}-fact-checker/1.0; checks business addresses and phone numbers for a static community directory)`;
+// The robots.txt name for this checker ("willitslocal"): the UA's product name in lower case, so the two always agree.
+const UA_TOKEN = UA_NAME.toLowerCase();
 export const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // ----------------------------------------------------------------------------- robots.txt
@@ -121,9 +123,9 @@ export function hoursFromLd(o) {
 }
 
 const ABBR = { dr: 'drive', rd: 'road', st: 'street', ave: 'avenue', av: 'avenue', blvd: 'boulevard', pkwy: 'parkway', ln: 'lane', ct: 'court', pl: 'place', plz: 'plaza', hwy: 'highway', cir: 'circle', ter: 'terrace', tpke: 'turnpike', sq: 'square', n: 'north', s: 'south', e: 'east', w: 'west' };
-// State routes are written many ways ("CA-20", "SR 20", "State Hwy 20", "Highway One"): all read as "highway 20".
-const ROUTE = /\b(?:ca|sr|state\s+(?:route|highway|hwy))[\s-]*(\d{1,3})\b/g;
-export const normAddr = s => ` ${String(s).toLowerCase().replace(ROUTE, 'highway $1').replace(/\b(hwy|highway)\s+one\b/g, 'highway 1').replace(/\bfort\s+bragg[\s-]+willits\s+(?:road|rd)\b/g, 'highway 20').replace(/\bboat\s+yard\b/g, 'boatyard').replace(/[.,#]/g, ' ').replace(/\s+/g, ' ').split(' ').map(w => ABBR[w] || w).join(' ')} `;
+// Routes are written many ways ("CA-20", "US Hwy 101", "Fort Bragg Rd"): the shared ROUTE_ALIASES in common.mjs turn
+// them into the same form prettyStreet gives a listing's address ("highway 20", "highway 101").
+export const normAddr = s => ` ${canonRoutes(String(s)).toLowerCase().replace(/[.,#]/g, ' ').replace(/\s+/g, ' ').split(' ').map(w => ABBR[w] || w).join(' ')} `;
 const DIRS = new Set(['north', 'south', 'east', 'west']);
 export function addressNeedle(address) {
   const words = normAddr(address).replace(/^\s*(\d+)\s*-?\s*([a-z])\s/, ' $1$2 ').trim().split(' ');
@@ -170,9 +172,11 @@ export async function getText(url) {
   return { status: res.status, finalUrl: res.url, type, body: (await res.text()).slice(0, 4_000_000) };
 }
 
-/** The lines of a long text download that mention the town (any case), read as a stream up to `limit` bytes. */
+/** The lines of a long text download that mention the town or another of its place names (any case), read as a
+ *  stream up to `limit` bytes. */
 async function townLines(res, limit) {
-  const town = CONFIG.town.toLowerCase();
+  const names = (CONFIG.placeNames || [CONFIG.town]).map(n => n.toLowerCase());
+  const mentions = line => { const l = line.toLowerCase(); return names.some(n => l.includes(n)); };
   const decoder = new TextDecoder();
   const keep = [];
   let rest = '', read = 0, first = true;
@@ -182,11 +186,11 @@ async function townLines(res, limit) {
     rest = lines.pop();
     for (const line of lines) {
       if (first) { keep.push(line); first = false; continue; } // the header row names the columns
-      if (line.toLowerCase().includes(town)) keep.push(line);
+      if (mentions(line)) keep.push(line);
     }
     if (read > limit) break;
   }
-  if (rest.toLowerCase().includes(town)) keep.push(rest);
+  if (mentions(rest)) keep.push(rest);
   return keep.join('\n');
 }
 

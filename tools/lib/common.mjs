@@ -1,10 +1,41 @@
 // Shared helpers for the directory's data tools.
 
+import { CONFIG } from '../../assets/js/config.js';
+
+// The name the data tools give themselves when they ask other websites for something ("WillitsLocal"): the site's
+// name with only letters and digits, so it never holds a quote or apostrophe (some firewalls refuse those). The
+// robots.txt token in pagecheck.mjs is this name in lower case.
+export const UA_NAME = CONFIG.siteName.replace(/[^A-Za-z0-9]/g, '');
+
 export const STREET_SUFFIXES = [
   ['Rd', 'Road'], ['Dr', 'Drive'], ['St', 'Street'], ['Ave', 'Avenue'], ['Av', 'Avenue'], ['Blvd', 'Boulevard'],
   ['Ln', 'Lane'], ['Ct', 'Court'], ['Pl', 'Place'], ['Pkwy', 'Parkway'], ['Cir', 'Circle'], ['Hwy', 'Highway'],
   ['Ter', 'Terrace'], ['Sq', 'Square'], ['Tpke', 'Turnpike'], ['Trl', 'Trail'], ['Plz', 'Plaza'], ['Ctr', 'Center'],
 ];
+
+// Routes are written many ways. Each rule turns one route's spellings into the one form the directory uses, and
+// both prettyStreet (listing addresses) and normAddr in pagecheck.mjs (text on a web page) read this one list, so a
+// listing's address and the same address on a business's own page always agree. The rules work on raw text and on
+// text whose abbreviations are already spelt out ("Hwy." and "Highway", "Rd" and "Road"), mostly in any letter case.
+// The canonical forms are what data/areas.json street rules match, in lower case ("highway 20", "highway 101").
+export const ROUTE_ALIASES = [
+  // State routes: "CA-20", "SR 20", "State Hwy 20", "State Route 20", "CA Hwy 20" -> "Highway 20".
+  [/\b(?:CA|SR|State\s+(?:Route|Rte|Highway|Hwy)\.?)[\s-]*(?:(?:Highway|Hwy|Route|Rte)\.?[\s-]*)?(\d{1,3})\b/gi, 'Highway $1'],
+  // U.S. routes: "US Hwy 101", "U.S. Highway 101", "US Route 101", in any case -> "Highway 101".
+  [/\bU\.?\s?S\.?[\s-]*(?:Highway|Hwy|Route|Rte)\.?[\s-]*(\d{1,3})\b/gi, 'Highway $1'],
+  // ... and "US 101", "U.S. 101", "US-101", "US101" with no route word. Without one, the "US" must be in capitals or
+  // joined by a hyphen, so page text such as "call us 707 459 1234" or "email us 7 days a week" is left alone; and
+  // never a phone number ("US-707-459-...").
+  [/\b(?:U\.?\s?S\.?|[Uu][Ss](?=-))[\s-]*(\d{1,3})\b(?!-\d)/g, 'Highway $1'],
+  [/\b(?:Highway|Hwy)\.?\s+One\b/gi, 'Highway 1'],
+  // Highway 20 west of Willits is also called the Fort Bragg-Willits Road, or just Fort Bragg Road in town.
+  [/\b(?:Fort|Ft)\.?\s+Bragg[\s-]+Willits\s+(?:Road|Rd)\b\.?/gi, 'Highway 20'],
+  [/\b(?:Fort|Ft)\.?\s+Bragg\s+(?:Road|Rd)\b\.?/gi, 'Highway 20'],
+];
+// "Redwood Highway" (old 101, north and south of Main Street) is a street name of its own and is left as it is.
+
+/** Apply ROUTE_ALIASES: "18100 CA-20" -> "18100 Highway 20", "1 US Hwy 101" -> "1 Highway 101". */
+export const canonRoutes = s => ROUTE_ALIASES.reduce((t, [re, to]) => t.replace(re, to), String(s ?? ''));
 
 /** "401 n main st." -> "401 North Main Street", "18100 hwy 20" -> "18100 Highway 20" (full words read better for older eyes). */
 export function prettyStreet(addr) {
@@ -14,11 +45,8 @@ export function prettyStreet(addr) {
   s = s.replace(/\b(suite|ste|unit|#)\s*[\w-]+$/i, '').trim();
   s = s.replace(/\./g, '');
   for (const [abbr, full] of STREET_SUFFIXES) s = s.replace(new RegExp(`\\b${abbr}\\b`, 'gi'), full);
-  // State routes have many spellings ("CA-20", "SR 20", "State Hwy 20", "State Route 1"): use "Highway 20".
-  s = s.replace(/\b(?:CA|SR|State\s+(?:Route|Highway))[\s-]*(\d{1,3})\b/i, 'Highway $1')
-    // Highway 20 is also called the Fort Bragg-Willits Road, and the Boatyard Shopping Center's street is spelt both ways.
-    .replace(/\bFort\s+Bragg[\s-]+Willits\s+(?:Road|Rd\.?)/i, 'Highway 20').replace(/\bBoat\s+Yard\b/i, 'Boatyard');
-  s = s.replace(/\bHighway One\b/i, 'Highway 1');
+  // In an address (not page text) a lower-case "us 101" can only be the route.
+  s = canonRoutes(s.replace(/\bus(?=[\s-]*\d)/gi, 'US'));
   // A compass point after the house number is part of the street's name: "401 N Main St" -> "401 North Main Street".
   s = s.replace(/^(\d+(?:-?[A-Za-z]|-\d+)?\s+)([NSEW])\s+(?=\S)/i, (m, num, d) => num + { n: 'North', s: 'South', e: 'East', w: 'West' }[d.toLowerCase()] + ' ');
   // Title-case words that are all lower or all upper, keep things like "McKerricher".
@@ -35,7 +63,7 @@ export function extractUnit(addr) {
   return m ? `Suite ${m[2]}` : '';
 }
 
-/** "+1-707-964-5555" / "7079645555" -> "(707) 964-5555"; '' if not a US number. */
+/** "+1-707-459-5555" / "7074595555" -> "(707) 459-5555"; '' if not a US number. */
 export function formatPhone(raw) {
   if (!raw) return '';
   const first = String(raw).split(/[;,/]| or /)[0];
@@ -67,7 +95,7 @@ export function cleanUrl(u) {
   } catch { return ''; }
 }
 
-const NAME_NOISE = new Set(['the', 'of', 'and', 'at', 'in', 'fort', 'ft', 'bragg', 'ca', 'california', 'llc', 'inc',
+const NAME_NOISE = new Set(['the', 'of', 'and', 'at', 'in', 'willits', 'ca', 'california', 'llc', 'inc',
   'co', 'corp', 'ltd', 'pc', 'pllc', 'plc', 'dds', 'dmd', 'md', 'od', 'cpa', 'esq', 'company', 'restaurant', 'cafe',
   'store', 'shop', 'location', 'branch', 'office', 'group', 'associates']);
 
@@ -94,15 +122,15 @@ export function nameSimilarity(a, b) {
 }
 
 // Words that say where a place is or what kind of place it is, but not which business it is. Two names at one
-// address that share only these (Noyo Harbor Inn and Noyo Fish Company, Wells Fargo Bank and Chase Bank, Coast
-// Cinemas and Coast Dental) are different businesses.
+// address that share only these (Little Lake Grange and Little Lake Dental, Wells Fargo Bank and Chase Bank,
+// Brooktrails Lodge and Brooktrails Market) are different businesses. ("Willits" itself is in NAME_NOISE.)
 const WEAK_TOKENS = new Set([
   'corner', 'center', 'centre', 'mall', 'plaza', 'square', 'shopping', 'village', 'station', 'depot',
   'tower', 'building', 'suite', 'ste', 'level', 'floor', 'unit', 'ii', 'north', 'south', 'east', 'west',
   'rd', 'road', 'dr', 'drive', 'st', 'street', 'ave', 'avenue', 'blvd', 'boulevard', 'ln', 'lane', 'hwy', 'highway',
   'way', 'pl', 'place', 'ct', 'court', 'main',
-  'mendocino', 'coast', 'coastal', 'noyo', 'harbor', 'harbour', 'ocean', 'pacific', 'sea', 'seaside', 'beach', 'bay',
-  'redwood', 'redwoods', 'cleone', 'glass', 'headlands',
+  'mendocino', 'county', 'coast', 'coastal', 'pacific', 'redwood', 'redwoods',
+  'little', 'lake', 'valley', 'brooktrails', 'ridgewood', 'baechtel', 'sherwood', 'frontier', 'ranch',
   'bank', 'bakery', 'factory', 'express', 'pizza', 'dentistry', 'dental', 'dentist', 'smiles', 'smile', 'orthodontics',
   'eyecare', 'eye', 'vision', 'optical', 'health', 'healthcare', 'medical', 'medicine', 'pharmacy', 'clinic', 'care',
   'studio', 'studios', 'salon', 'spa', 'nails', 'nail', 'hair', 'beauty', 'barber', 'wellness', 'fitness', 'gym', 'yoga',
@@ -124,8 +152,8 @@ export function addressKey(addr) {
   const s = prettyStreet(addr).toLowerCase();
   const m = s.match(/^(\d+)[a-z]?\s+(.*)$/);
   if (!m) return '';
-  // Highway 1's county addresses carry a direction ("North Highway 1") that the post office often leaves off; the
-  // house numbers north and south of town don't overlap, so the number and the route are enough.
+  // Highway 101's county addresses carry a direction ("North Highway 101") that the post office often leaves off; the
+  // house numbers north and south of town are assumed not to overlap, so the number and the route are enough.
   const street = m[2].replace(/\b(?:north|south|east|west)\s+(?=highway\b)/g, '')
     .replace(/\b(road|drive|street|avenue|boulevard|lane|court|place|parkway|circle|highway|terrace|square|pike)\b/g, '').replace(/\s+/g, ' ').trim();
   return `${m[1]} ${street}`;

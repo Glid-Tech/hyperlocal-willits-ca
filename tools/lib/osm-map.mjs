@@ -60,6 +60,12 @@ const MAP = {
     fishing: ['shopping', 'Fishing tackle & bait'], surf: ['shopping', 'Surf shop'], wool: ['shopping', 'Yarn shop'],
     esoteric: ['shopping', 'Crystals & metaphysical'], discount: ['shopping', 'Discount store'], trade: ['home', 'Building supply'],
     tattoo: ['beauty', 'Tattoo studio'], boat: ['auto', 'Boat dealer'], hunting: null,
+    // Rural trades. (shop=farm is a farm's own produce stand or shop, not farm supply.)
+    agrarian: ['home', 'Feed & farm supply'], country_store: ['home', 'Country store & farm supply'],
+    farm: ['groceries', 'Farm stand'], equestrian: ['shopping', 'Tack & riding supply'],
+    gas: ['home', 'Propane & bottled gas'],
+    motorcycle: ['auto', 'Motorcycle dealer'], motorcycle_repair: ['auto', 'Motorcycle repair'],
+    atv: ['auto', 'ATV & off-road dealer'], trailer: ['auto', 'Trailer sales'],
   },
   office: {
     estate_agent: ['real-estate', 'Real estate office'], property_management: ['real-estate', 'Property management'],
@@ -75,6 +81,7 @@ const MAP = {
     photographer: ['professional', 'Photographer'], tailor: ['errands', 'Tailor & alterations'], shoemaker: ['errands', 'Shoe repair'],
     jeweller: ['shopping', 'Jewelry'], upholsterer: ['home', 'Upholstery'], caterer: ['restaurants', 'Caterer'], winery: ['groceries', 'Winery'],
     brewery: ['groceries', 'Brewery'], distillery: ['groceries', 'Distillery'], boatbuilder: ['auto', 'Boat builder & repair'],
+    sawmill: ['home', 'Sawmill & lumber'], welder: ['home', 'Welding & fabrication'],
   },
   healthcare: {
     counselling: ['health', 'Counseling'], psychotherapist: ['health', 'Counseling'], physiotherapist: ['health', 'Physical therapy'],
@@ -87,12 +94,16 @@ const MAP = {
     fitness_centre: ['fitness', 'Gym'], sports_centre: ['fitness', 'Sports & fitness center'], dance: ['fitness', 'Dance studio'],
     golf_course: ['fitness', 'Golf club'], swimming_pool: ['fitness', 'Swim club'], escape_game: ['arts-fun', 'Escape room'],
     bowling_alley: ['arts-fun', 'Bowling'], miniature_golf: ['arts-fun', 'Mini golf'], amusement_arcade: ['arts-fun', 'Arcade'],
-    trampoline_park: ['arts-fun', 'Trampoline park'],
+    trampoline_park: ['arts-fun', 'Trampoline park'], horse_riding: ['arts-fun', 'Horseback riding'],
   },
   tourism: {
     hotel: ['hotels-events', 'Hotel'], motel: ['hotels-events', 'Motel'], guest_house: ['hotels-events', 'Guest house'],
     gallery: ['arts-fun', 'Art gallery'], museum: ['arts-fun', 'Museum'], hostel: ['hotels-events', 'Hostel'],
     caravan_site: ['hotels-events', 'RV park'], camp_site: ['hotels-events', 'Campground'], apartment: null,
+    // Landmarks, viewpoints and businesses alike carry this tag. An OpenStreetMap place is published only when a
+    // checker confirms it (data/sources/confirmed/) or its own website shows its phone or address
+    // (tools/check-firstparty.mjs), so a landmark with no website of its own stays a candidate until someone judges it.
+    attraction: ['arts-fun', 'Attraction'],
   },
 };
 

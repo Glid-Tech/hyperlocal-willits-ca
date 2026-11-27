@@ -13,22 +13,30 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { prettyStreet } from './lib/common.mjs';
+import { prettyStreet, UA_NAME } from './lib/common.mjs';
 import { CONFIG } from '../assets/js/config.js';
 import { TIME_ZONE } from '../assets/js/hours.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'data/sources');
 const CACHE_FILE = path.join(SRC, 'geocode-cache.json');
-const UA = 'FortBraggLocal-directory-builder/1.0 (static site data build)';
+const UA = `${UA_NAME}-directory-builder/1.0 (static site data build)`; // WillitsLocal-directory-builder/1.0
 const TODAY = new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE }).format(new Date()); // the town's date
 const STATE_NAME = { CA: 'California' }[CONFIG.state] || CONFIG.state;
 const RETRY = process.argv.includes('--retry-misses');
 
-// A generous box around ZIP 95437: Cleone and MacKerricher to the north, the Noyo River to the south and the
-// Highway 20 corridor to the east. Anything outside it is a bad match.
-const BOX = { south: 39.33, north: 39.56, west: -123.85, east: -123.55 };
+// CONFIG.geocodeBox, [south, west, north, east]: ZIP 95490 (Brooktrails, Ridgewood, Longvale) but not Laytonville to
+// the north (ZIP 95454), where a same-named street could otherwise pass. It is tighter than the OpenStreetMap box
+// (CONFIG.bbox). Anything outside it is a bad match.
+const [south, west, north, east] = CONFIG.geocodeBox;
+const BOX = { south, west, north, east };
 const inBox = (lat, lon) => lat >= BOX.south && lat <= BOX.north && lon >= BOX.west && lon <= BOX.east;
+// Nominatim's display_name for a good hit names the town, Brooktrails (CONFIG.placeNames) or ZIP 95490.
+const PLACE_WORDS = [...(CONFIG.placeNames || [CONFIG.town]), ...CONFIG.zips].map(w => String(w).toLowerCase());
+const namesTown = displayName => {
+  const words = ` ${String(displayName || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ')} `;
+  return PLACE_WORDS.some(w => words.includes(` ${w.replace(/[^a-z0-9]+/g, ' ').trim()} `));
+};
 
 const readJson = (f, fallback) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return fallback; } };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -157,7 +165,9 @@ async function nominatimLookup(it) {
     const hit = arr && arr[0];
     if (!hit) continue;
     const lat = +(+hit.lat).toFixed(6), lon = +(+hit.lon).toFixed(6);
-    if (inBox(lat, lon)) return { lat, lon, matched: hit.display_name || '' };
+    // The county-wide try can find a same-named street in another town inside the box: keep only hits that name
+    // the town (or another of its place names) or one of its ZIP codes.
+    if (inBox(lat, lon) && namesTown(hit.display_name)) return { lat, lon, matched: hit.display_name || '' };
   }
   return null;
 }

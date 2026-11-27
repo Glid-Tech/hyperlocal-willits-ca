@@ -1,24 +1,30 @@
 #!/usr/bin/env node
-// Download named points of interest for Fort Bragg, CA from OpenStreetMap (Overpass API)
+// Download named points of interest for the town (CONFIG.town, Willits, CA) from OpenStreetMap (Overpass API)
 // and save a compact snapshot to data/sources/osm.json.
 //
 //   node tools/fetch-osm.mjs
 //
-// Scope: everything inside the City of Fort Bragg, plus places in the surrounding box (Cleone,
-// MacKerricher, Noyo, the Highway 20 corridor) whose address says Fort Bragg / ZIP 95437.
+// Scope: everything inside the City of Willits (CONFIG.osmCityRelation), plus places in the ZIP 95490 box
+// (CONFIG.bbox: Brooktrails, Ridgewood, Longvale, Sherwood Road and the Highway 20 and 101 corridors) whose address
+// names Willits or Brooktrails (CONFIG.placeNames) or ZIP 95490 (CONFIG.zips). Only the city's own places are marked
+// inCity; tools/build-data.mjs keeps the others only when their address names the town or its ZIP code.
 // OSM data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CONFIG } from '../assets/js/config.js';
+import { slugify } from './lib/common.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'data/sources/osm.json');
 const ENDPOINT = 'https://overpass-api.de/api/interpreter';
-const CITY_AREA = 3600111761; // relation 111761, City of Fort Bragg (boundary=administrative, admin_level=8)
-const BBOX = '39.33,-123.85,39.56,-123.55';
+// Overpass area id = 3600000000 + the relation id: relation 111764, City of Willits (boundary=administrative, admin_level=8).
+const CITY_AREA = 3600000000 + CONFIG.osmCityRelation;
+// Overpass wants the box as 'south,west,north,east', the same order as CONFIG.bbox.
+const BBOX = CONFIG.bbox.join(',');
 const KEYS = ['shop', 'amenity', 'office', 'craft', 'healthcare', 'leisure', 'tourism'];
-const UA = 'fortbragg-local-directory/1.0 (static community directory build script)';
+const UA = `${slugify(CONFIG.siteName)}-directory/1.0 (static community directory build script)`; // willits-local-directory/1.0
 
 const sel = area => KEYS.map(k => `  nwr["name"]["${k}"](area.${area});`).join('\n');
 
@@ -29,10 +35,26 @@ ${sel('city')}
 );
 out center tags;`;
 
+// Optional: other places wholly inside the ZIP code whose OpenStreetMap entries often carry no address, such as the
+// Brooktrails census-designated place (relation 19964312). List their relation ids in CONFIG.osmPlaceRelations
+// (none by default). Their places count as in town (inCity), or build-data.mjs would drop the ones with no address.
+const PLACE_AREAS = (CONFIG.osmPlaceRelations || []).map(id => 3600000000 + id);
+const queryArea = area => `[out:json][timeout:180];
+area(id:${area})->.place;
+(
+${sel('place')}
+);
+out center tags;`;
+
+// "^(Willits|Brooktrails)$" and "^(95490)": the town's addr:city spellings and its ZIP codes (ZIP+4 too).
+const reEscape = s => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&'); // escaped twice: once for the query, once for the regex
+const CITY_RE = `^(${(CONFIG.placeNames || [CONFIG.town]).map(reEscape).join('|')})$`;
+const ZIP_RE = `^(${CONFIG.zips.map(reEscape).join('|')})`;
+
 const QUERY_AROUND = `[out:json][timeout:180];
 (
-  nwr["name"]["addr:city"~"^(Fort|Ft\\\\.?) ?Bragg$",i](${BBOX});
-  nwr["name"]["addr:postcode"~"^95437"](${BBOX});
+  nwr["name"]["addr:city"~"${CITY_RE}",i](${BBOX});
+  nwr["name"]["addr:postcode"~"${ZIP_RE}"](${BBOX});
 );
 out center tags;`;
 
@@ -63,12 +85,17 @@ const compact = (e, inCity) => ({
 });
 
 async function main() {
-  console.log('Querying Overpass (City of Fort Bragg)…');
+  console.log(`Querying Overpass (City of ${CONFIG.town})…`);
   const inside = await overpass(QUERY_CITY);
-  console.log('Querying Overpass (Fort Bragg addresses nearby)…');
+  const places = [];
+  for (const area of PLACE_AREAS) {
+    console.log(`Querying Overpass (area ${area})…`);
+    places.push(...await overpass(queryArea(area)));
+  }
+  console.log(`Querying Overpass (${CONFIG.town} and ${CONFIG.zips.join(', ')} addresses nearby)…`);
   const around = await overpass(QUERY_AROUND);
   const all = new Map();
-  for (const e of inside) all.set(`${e.type}/${e.id}`, compact(e, true));
+  for (const e of [...inside, ...places]) all.set(`${e.type}/${e.id}`, compact(e, true));
   for (const e of around) if (!all.has(`${e.type}/${e.id}`)) all.set(`${e.type}/${e.id}`, compact(e, false));
   const elements = [...all.values()];
   await fs.mkdir(path.dirname(OUT), { recursive: true });
@@ -78,7 +105,7 @@ async function main() {
     license: 'ODbL 1.0, (c) OpenStreetMap contributors',
     elements,
   }, null, 1));
-  console.log(`Saved ${elements.length} elements (${inside.length} inside the city limits) to ${path.relative(ROOT, OUT)}`);
+  console.log(`Saved ${elements.length} elements (${inside.length} inside the city limits${places.length ? `, ${places.length} in the other listed places` : ''}) to ${path.relative(ROOT, OUT)}`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

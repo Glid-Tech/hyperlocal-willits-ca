@@ -1,6 +1,6 @@
 // Record the site's public address everywhere it's needed (share previews, search engines).
 //
-//   node tools/set-site-url.mjs https://your-name.github.io/fortbragg-local/
+//   node tools/set-site-url.mjs https://your-name.github.io/willits-local/
 //
 // Updates assets/js/config.js (siteUrl), the share and canonical tags in index.html, the
 // structured data, directory.html, robots.txt and sitemap.xml. Safe to run again.
@@ -18,7 +18,7 @@ let raw = (process.argv[2] || '').trim();
 let url;
 try { url = new URL(raw); } catch { url = null; }
 if (!url || !/^https?:$/.test(url.protocol) || url.search || url.hash) {
-  console.error('usage: node tools/set-site-url.mjs https://your-name.github.io/fortbragg-local/');
+  console.error('usage: node tools/set-site-url.mjs https://your-name.github.io/willits-local/');
   process.exit(1);
 }
 if (!url.pathname.endsWith('/')) url.pathname += '/';

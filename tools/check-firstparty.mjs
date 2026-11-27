@@ -14,12 +14,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isOwnWebsite, hostOf } from './lib/source-policy.mjs';
+import { TIME_ZONE } from '../assets/js/hours.js';
 import { UA, sleep, robotsFor, robotsAllows, getPage, pageFacts, addressNeedle, addressOnPage, phoneDigits, hoursFromLd } from './lib/pagecheck.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'data/sources');
 const OUT = path.join(SRC, 'firstparty.json');
-const TODAY = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date()); // Fort Bragg's date
+const TODAY = new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE }).format(new Date()); // the town's date
 const CONCURRENCY = 8;
 const PER_HOST_GAP_MS = 1500;
 const MAX_PAGES = 3;

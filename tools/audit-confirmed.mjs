@@ -49,7 +49,7 @@ const osm = new Map((readJson(path.join(SRC, 'osm.json'), {}).elements || []).ma
 // ----------------------------------------------------------------------------- what a page shows
 
 const fold = s => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const NAME_SKIP = new Set(['the', 'and', 'of', 'at', 'in', 'a', 'an', 'inc', 'llc', 'ltd', 'co', 'company', 'corp', 'pc', 'pllc', 'fort', 'ft', 'bragg', 'ca', 'california']);
+const NAME_SKIP = new Set(['the', 'and', 'of', 'at', 'in', 'a', 'an', 'inc', 'llc', 'ltd', 'co', 'company', 'corp', 'pc', 'pllc', 'willits', 'ca', 'california']);
 const nameWords = name => fold(name).replace(/&/g, ' ').split(/[^a-z0-9]+/).filter(w => w.length >= 2 && !NAME_SKIP.has(w));
 
 /** Minutes after midnight for every time written on the page: "9am", "9:30 AM", "21:00", "noon"... */
@@ -77,13 +77,13 @@ function factOnPage(field, value, page, cand) {
       if (!needle) return 'address has no street number';
       return addressOnPage(needle, facts.addrText) || 'address not on the page';
     }
-    case 'zip': return new RegExp(`\\b${String(value).slice(0, 5)}(?:-?\\d{4})?\\b`).test(text) || 'ZIP code not on the page'; // ZIP+4 is often written 954374321
+    case 'zip': return new RegExp(`\\b${String(value).slice(0, 5)}(?:-?\\d{4})?\\b`).test(text) || 'ZIP code not on the page'; // ZIP+4 is often written 954901234
     case 'unit': {
       const n = String(value).match(/[0-9]+[a-z]?|\b[a-z]\b/i)?.[0];
       return (!!n && new RegExp(`\\b${n}\\b`, 'i').test(text)) || 'suite number not on the page';
     }
     case 'center': {
-      // A shopping centre's name is short and made of common words ("Boatyard Shopping Center"), so the whole name
+      // A shopping centre's name is short and made of common words ("Willits Shopping Center"), so the whole name
       // must appear together.
       const flat = t => ` ${fold(t).replace(/[^a-z0-9]+/g, ' ').trim()} `;
       return flat(`${text} ${html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || ''}`).includes(flat(value)) || 'shopping center not on the page';

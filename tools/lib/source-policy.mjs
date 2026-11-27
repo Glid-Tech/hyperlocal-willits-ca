@@ -33,22 +33,33 @@ export const NEVER_VISIT = [
   'avvo.com', 'justia.com', 'martindale.com', 'lawyers.com', 'healthgrades.com', 'zocdoc.com', 'vitals.com',
   'webmd.com', 'sharecare.com', 'doximity.com', 'ratemds.com', 'cargurus.com', 'cars.com', 'edmunds.com',
   'dealerrater.com', 'storelocators.com', 'bestprosintown.com', 'expertise.com', 'groupon.com', 'linktr.ee',
-  // Travel booking, vacation rentals and tour marketplaces, which a coastal tourist town draws plenty of.
+  // Travel booking, vacation rentals and tour marketplaces, which a town on the way to the redwoods and the coast
+  // draws plenty of.
   'airbnb.com', 'vrbo.com', 'homeaway.com', 'booking.com', 'expedia.com', 'hotels.com', 'kayak.com', 'priceline.com',
   'trivago.com', 'orbitz.com', 'travelocity.com', 'agoda.com', 'hipcamp.com', 'campendium.com', 'rvparky.com',
   'goodsam.com', 'koa.com', 'viator.com', 'getyourguide.com', 'fareharbor.com', 'peek.com', 'rezdy.com',
   'tockify.com', 'eventbrite.com', 'hostaway.com', 'lodgify.com', 'tripadvisor.co.uk',
+  // Trip planners and lists of places copied from other sources, and a lapsed museum domain that someone else may
+  // now hold.
+  'roadtrippers.com', '101things.com', 'localharvest.org', 'sygic.com', 'whichmuseum.com', 'local.aarp.org',
+  'mendocinomuseum.org',
 ];
 
 // Tips only: fine for learning that a business exists or has closed, never a source of published facts.
 export const TIPS_ONLY = [
-  // Local and regional news
-  'advocate-news.com', 'mendocinobeacon.com', 'mendovoice.com', 'theava.com', 'kzyx.org', 'mendofever.com',
-  'ukiahdailyjournal.com', 'willitsnews.com', 'pressdemocrat.com', 'sfgate.com', 'sfchronicle.com', 'patch.com',
-  'lostcoastoutpost.com', 'northbaybiz.com', 'bizjournals.com', 'mendocinosportsplus.com',
-  // Tourism boards, the chamber of commerce and business associations
-  'mendocinocoast.com', 'visitmendocino.com', 'visitfortbragg.com', 'visitcalifornia.com', 'fortbraggmainstreet.org',
+  // Local and regional news. willitsnews.com, ukiahdailyjournal.com and localnewsmatters.org turn away automated
+  // readers like ours, so they are listed only to classify a link someone else found: never fetch them.
+  'willitsweekly.com', 'willitsnews.com', 'ukiahdailyjournal.com', 'localnewsmatters.org', 'mendovoice.com',
+  'theava.com', 'kzyx.org', 'mendofever.com', 'advocate-news.com', 'mendocinobeacon.com', 'pressdemocrat.com',
+  'sfgate.com', 'sfchronicle.com', 'patch.com', 'lostcoastoutpost.com', 'northbaybiz.com', 'bizjournals.com',
+  'mendocinosportsplus.com',
+  // Tourism boards, the chamber of commerce (willits.org, and visitwillits.com, which the chamber runs) and business
+  // associations
+  'willits.org', 'visitwillits.com', 'visitmendocino.com', 'visitcalifornia.com',
   'macaronikid.com', 'beehiiv.com', 'substack.com',
+  // The Brooktrails community's own site, which no business there should be able to pass off as its website
+  // ("Brooktrails Lodge" is not brooktrails.org).
+  'brooktrails.org',
 ];
 
 // Website builders whose subdomains are separate businesses' own sites.
@@ -78,8 +89,12 @@ export function siteKey(host) {
 // Affairs posts its licence lists on its Box account, but Box's robots.txt asks automated tools not to download them,
 // so they aren't used.)
 export const GOV_HOSTS = [
+  // Keep this list the same as the one in assets/js/app.js (the "a government website" source label).
   'usps.com', // the U.S. Postal Service, an independent federal agency (post office addresses and hours)
-  'noyoharbordistrict.org', // the Noyo Harbor District, the public special district that runs the harbor
+  'cityofwillits.org', // the City of Willits
+  'btcsd.org', // the Brooktrails Township Community Services District (water, sewer, fire, parks)
+  'littlelakefire.org', // the Little Lake Fire Protection District
+  'willitsunified.com', // Willits Unified School District
 ];
 
 export const isGovHost = host =>
@@ -98,9 +113,10 @@ export function isOwnWebsite(url, name) {
   const host = hostOf(url);
   if (!host || isOsmHost(host) || inList(host, NEVER_VISIT)) return false;
   if (inList(host, TIPS_ONLY)) {
-    // only the paper or board itself: "Mendocino Voice" -> mendovoice.com, but not "Mendocino Coast Clinics"
-    // Many names here start with the same place words ("Mendocino Coast..."), so the site's own name must match the
-    // whole business name, not just its first words: mendocinocoast.com is not Mendocino Coast Clinics' website.
+    // only the paper or board itself: "Willits Weekly" -> willitsweekly.com, but not "Willits Weekly Deals"
+    // Many names here start with the same place words ("Willits...", "Brooktrails..."), so the site's own name must
+    // match the whole business name, not just its first words: willits.org is not Willits Furniture's website, and
+    // brooktrails.org is not Brooktrails Lodge's.
     const n = squash(name), label = siteKey(host).split('.')[0];
     return n.length >= 5 && label.startsWith(n);
   }
