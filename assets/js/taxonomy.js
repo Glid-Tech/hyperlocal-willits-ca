@@ -1,4 +1,4 @@
-// Category taxonomy for Fort Bragg Local.
+// Category taxonomy for Willits Local.
 // Shared by the website (browser) and the data tools (Node), so keep it dependency-free.
 // Colours come from tools/gen-colors.mjs (OKLCH hues, every text pairing checked to WCAG AA).
 

@@ -7,8 +7,8 @@ import { INTENTS } from '../assets/js/intents.js';
 
 let n = 0;
 const biz = o => ({
-  id: `c${++n}`, sub: '', tags: [], desc: '', address: `${2000 + n} Test Road`, unit: '', zip: '95437', center: '',
-  area: 'downtown', lat: 39.44, lon: -123.80, phone: `(707) 555-${String(200 + n).padStart(4, '0')}`, website: '',
+  id: `c${++n}`, sub: '', tags: [], desc: '', address: `${2000 + n} Test Road`, unit: '', zip: '95490', center: '',
+  area: 'downtown', lat: 39.41, lon: -123.36, phone: `(707) 555-${String(200 + n).padStart(4, '0')}`, website: '',
   hours: '', status: 'open', verified: null, sources: [], ...o,
 });
 
@@ -22,7 +22,7 @@ const DOCS = [
   biz({ name: 'Nguyen Family Dental', category: 'dental', sub: 'Dentist', tags: ['dentist', 'vietnamese'] }),
   biz({ name: 'Rajput Photography', category: 'professional', sub: 'Wedding photographer', tags: ['wedding photography', 'indian weddings'] }),
 ];
-const index = buildIndex(DOCS, { areas: [{ id: 'downtown', name: 'Downtown Fort Bragg' }] });
+const index = buildIndex(DOCS, { areas: [{ id: 'downtown', name: 'Downtown Willits' }] });
 const names = q => search(index, q).results.map(r => r.doc.b.name);
 
 test('"chinese food" finds Chinese restaurants only', () => {

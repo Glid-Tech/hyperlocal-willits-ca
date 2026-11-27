@@ -8,8 +8,8 @@ import { INTENTS } from '../assets/js/intents.js';
 
 let n = 0;
 const biz = o => ({
-  id: `r${++n}`, sub: '', tags: [], desc: '', address: `${2000 + n} Review Road`, unit: '', zip: '95437', center: '',
-  area: 'downtown', lat: 39.44, lon: -123.80, phone: `(707) 555-${String(100 + n).padStart(4, '0')}`, website: '',
+  id: `r${++n}`, sub: '', tags: [], desc: '', address: `${2000 + n} Review Road`, unit: '', zip: '95490', center: '',
+  area: 'downtown', lat: 39.41, lon: -123.36, phone: `(707) 555-${String(100 + n).padStart(4, '0')}`, website: '',
   hours: '', status: 'open', verified: null, sources: [], ...o,
 });
 
@@ -17,7 +17,7 @@ const DOCS = [
   biz({ name: 'Open Road Outpost & Biergarten', category: 'restaurants', sub: 'American restaurant and beer garden', tags: ['beer garden', 'burgers'] }),
   biz({ name: 'Yard House', category: 'restaurants', sub: 'American restaurant', tags: ['beer', 'burgers'] }),
   biz({ name: 'Green Acres Landscaping', category: 'home', sub: 'Landscaper', tags: ['lawn care', 'yard work', 'house'] }),
-  biz({ name: 'Fort Bragg Cleaners', category: 'errands', sub: 'Dry cleaner', tags: ['dry cleaning'] }),
+  biz({ name: 'Willits Cleaners', category: 'errands', sub: 'Dry cleaner', tags: ['dry cleaning'] }),
   biz({ name: 'Langley Cleaners', category: 'errands', sub: 'Dry cleaner', tags: ['dry cleaning', 'alterations'] }),
   biz({ name: 'Sunday Morning Bakehouse', category: 'cafes-treats', sub: 'Bakery cafe', tags: ['bakery', 'pastries'], hours: 'Mo-Fr 07:00-15:00' }),
   biz({ name: 'Chipotle Mexican Grill', category: 'restaurants', sub: 'Mexican fast-casual', tags: ['burritos', 'tacos'] }),
@@ -35,7 +35,7 @@ const DOCS = [
   biz({ name: 'Cool Air Comfort', category: 'home', sub: 'HVAC contractor', tags: ['air conditioning', 'heating', 'furnace'] }),
   biz({ name: 'Polar Heating & Cooling', category: 'home', sub: 'HVAC contractor', tags: ['heating', 'cooling', 'heat pumps'] }),
   biz({ name: 'Handy Helpers', category: 'home', sub: 'Handyman', tags: ['handyman', 'home repair'] }),
-  biz({ name: 'Noyo Auto Repair', category: 'auto', sub: 'Auto repair shop', tags: ['mechanic', 'oil change', 'brakes'] }),
+  biz({ name: 'Baechtel Auto Repair', category: 'auto', sub: 'Auto repair shop', tags: ['mechanic', 'oil change', 'brakes'] }),
   biz({ name: 'Corner Gas', category: 'auto', sub: 'Gas station', tags: ['gas', 'fuel'] }),
   biz({ name: 'Shine Car Wash', category: 'auto', sub: 'Car wash', tags: ['car wash'] }),
   biz({ name: 'Tony’s Pizza', category: 'restaurants', sub: 'Pizza restaurant', tags: ['pizza', 'delivery'], hours: 'Mo-Su 11:00-21:00' }),
@@ -45,11 +45,11 @@ const DOCS = [
   biz({ name: 'Saturday Lounge', category: 'restaurants', sub: 'Lounge', tags: ['cocktails'], hours: 'Mo-Fr 11:00-20:00; Sa 11:00-23:00' }),
   biz({ name: 'Lucky Strike Lanes', category: 'arts-fun', sub: 'Bowling alley', tags: ['bowling'] }),
   biz({ name: 'Main Street Books', category: 'shopping', sub: 'Bookstore', tags: ['books', 'gifts'] }),
-  biz({ name: 'Harbor Gifts', category: 'shopping', sub: 'Gift shop', tags: ['gifts'], area: 'harbor' }),
+  biz({ name: 'Ridgewood Gifts', category: 'shopping', sub: 'Gift shop', tags: ['gifts'], area: 'ridgewood' }),
   biz({ name: 'Liftmaster Garage Doors', category: 'home', sub: 'Garage door installer', tags: ['garage doors', 'openers'] }),
 ];
 
-const index = buildIndex(DOCS, { areas: [{ id: 'downtown', name: 'Downtown Fort Bragg' }] });
+const index = buildIndex(DOCS, { areas: [{ id: 'downtown', name: 'Downtown Willits' }] });
 const MON_NOON = { day: 0, minutes: 12 * 60 };
 const run = (q, opts = {}) => search(index, q, { now: MON_NOON, ...opts });
 const names = r => r.results.map(x => x.doc.b.name);
@@ -85,11 +85,11 @@ test('hour words still work as filters when they are not part of a name', () => 
   assert.deepEqual(run('pizza open now').query.filters, { open: true });
 });
 
-test('typing a business’s exact name puts it first as a best match: "Yard House", "Fort Bragg Cleaners"', () => {
+test('typing a business’s exact name puts it first as a best match: "Yard House", "Willits Cleaners"', () => {
   const y = run('Yard House');
   assert.equal(names(y)[0], 'Yard House');
   assert.equal(y.results[0].strong, true);
-  assert.equal(names(run('Fort Bragg Cleaners'))[0], 'Fort Bragg Cleaners');
+  assert.equal(names(run('Willits Cleaners'))[0], 'Willits Cleaners', 'the town name is a stopword, but not in a name typed in full');
 });
 
 test('spelling corrections name a real word, never a chopped-off one', () => {
@@ -184,7 +184,7 @@ test('fixing a car means a repair shop, not a car wash: "get my car fixed", "fix
   for (const q of ['get my car fixed', 'fix my car', 'my car is broken', 'car broke down']) {
     const r = run(q);
     assert.deepEqual(r.query.corrections, [], `${q}: "fixed" is not "fired"`);
-    assert.equal(names(r)[0], 'Noyo Auto Repair', q);
+    assert.equal(names(r)[0], 'Baechtel Auto Repair', q);
     assert.ok(!strongNames(r).includes('Shine Car Wash') && !strongNames(r).includes('Corner Gas'), q);
   }
 });
@@ -242,13 +242,13 @@ test('an appliance that broke down or won’t start isn’t a car problem: “my
     const r = run(q);
     assert.equal(r.partial, false, q);
     assert.deepEqual(strongNames(r).sort(), ['Cool Air Comfort', 'Polar Heating & Cooling'], q);
-    assert.ok(!names(r).includes('Noyo Auto Repair'), q);
+    assert.ok(!names(r).includes('Baechtel Auto Repair'), q);
   }
-  for (const q of ['my car won’t start', 'my car broke down', 'broke down', 'won’t start']) assert.equal(names(run(q))[0], 'Noyo Auto Repair', q);
+  for (const q of ['my car won’t start', 'my car broke down', 'broke down', 'won’t start']) assert.equal(names(run(q))[0], 'Baechtel Auto Repair', q);
 });
 
 test('“shops” on its own means shops, and “close” never means a kind of place', () => {
-  for (const q of ['shops', 'shop', 'local shops', 'shops near me']) assert.deepEqual(names(run(q)).sort(), ['Harbor Gifts', 'Main Street Books'], q);
+  for (const q of ['shops', 'shop', 'local shops', 'shops near me']) assert.deepEqual(names(run(q)).sort(), ['Main Street Books', 'Ridgewood Gifts'], q);
   assert.deepEqual(names(run('shops downtown')), ['Main Street Books']);
   assert.deepEqual(run('close to me').query.concepts, [], 'it says how near, not a closing on a house');
 });
@@ -324,7 +324,7 @@ test('“shop” means Shopping only when the other words just say where: “bak
   // With only a street or neighborhood beside it, the shop word still means Shopping.
   assert.ok(names(run('shops on review road')).includes('Main Street Books'));
   assert.ok(names(run('shops downtown')).includes('Main Street Books'));
-  assert.ok(names(run('shops')).includes('Harbor Gifts'));
+  assert.ok(names(run('shops')).includes('Ridgewood Gifts'));
 });
 
 test('real words near an emergency word don’t raise the 911 notice, but slips in two-word emergencies do', () => {

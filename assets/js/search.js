@@ -1,4 +1,4 @@
-// Fort Bragg Local search engine: forgiving, plain-English, fully client-side.
+// Willits Local search engine: forgiving, plain-English, fully client-side.
 //
 //  - normalises text (accents, apostrophes, "&"), drops filler words ("I need a good ___ near me")
 //  - understands everyday phrases via intents.js ("fix my sink" -> Plumbers)
@@ -141,7 +141,7 @@ export function buildIndex(businesses, opts = {}) {
       cat: cat ? `${cat.name} ${cat.short}` : '',
       center: b.center || '',
       area: areaNames[b.area] || '',
-      street: (b.address || '').replace(/^\d+(?:\s*-?\s*[a-z])?\s+/i, ''), // "8347-A Greensboro Drive" -> "Greensboro Drive"
+      street: (b.address || '').replace(/^\d+(?:\s*-?\s*[a-z])?\s+/i, ''), // "1450-A South Main Street" -> "South Main Street"
       desc: b.desc || '',
     };
     for (const text of [fields.center, fields.area, fields.street]) {
@@ -161,7 +161,7 @@ export function buildIndex(businesses, opts = {}) {
         }
       }
     }
-    // Street numbers and phone digits are searchable too ("1250", "(707) 964-1234", "707-964").
+    // Street numbers and phone digits are searchable too ("1250", "(707) 459-1234", "707-459").
     const num = (b.address || '').match(/^\d+/);
     if (num) addPosting(postings, num[0], i, 2);
     const digits = (b.phone || '').replace(/\D/g, '');
@@ -261,7 +261,7 @@ export function parseQuery(index, raw, opts = {}) {
   if (!EMERGENCY_RE.test(tokens.map(t => urgent.get(t) ?? t).join(' '))) urgent.clear();
   for (const c of unmatched) {
     const max = maxTypos(c.words.length);
-    // Closest everyday phrase ("dentsit" -> dentist) and closest indexed word ("chesapeak").
+    // Closest everyday phrase ("dentsit" -> dentist) and closest indexed word ("baechtl").
     let bestIntent = null, bestVocab = null;
     for (const w of INTENT_WORDS) {
       const d = Math.min(editDistance(c.stem, w, max), editDistance(c.words, w, max));
@@ -288,8 +288,8 @@ export function parseQuery(index, raw, opts = {}) {
     corrections.push({ from: c.words, to: displayWordFor(index, best.word, c) });
   }
 
-  // A filler word names a kind of place only when the other words just say where: "shops" and "shops at noyo
-  // harbor" are Shopping, but "pizza shop" is Pizza and "bake shop" is bakeries.
+  // A filler word names a kind of place only when the other words just say where: "shops" and "shops on
+  // south main" are Shopping, but "pizza shop" is Pizza and "bake shop" is bakeries.
   const where = c => c.kind === 'term' && index.placeWords?.has(c.stem);
   if (concepts.some(c => !c.filler && !c.optional && !where(c))) concepts = concepts.filter(c => !c.filler);
 
@@ -358,7 +358,7 @@ function addFilter(filters, f, now) {
   else Object.assign(filters, f);
 }
 
-/** A phone number typed the way it's printed ("(707) 964-5298", "707-964"): its digits, or null. */
+/** A phone number typed the way it's printed ("(707) 459-5298", "707-459"): its digits, or null. */
 function phoneNumber(raw) {
   const text = String(raw || '').trim();
   if (!/^[\d\s().+-]+$/.test(text)) return null;
@@ -461,7 +461,7 @@ function termCandidates(index, c, { fuzzy = true } = {}) {
     for (const t of prefixRange(index.vocab, c.stem).slice(0, 60)) push(t, c.partial ? 0.9 : 0.8);
     if (raw !== c.stem && raw.length >= minPrefix) for (const t of prefixRange(index.vocab, raw).slice(0, 60)) push(t, 0.85);
   }
-  // A local number without the area code ("852-5298") ends a full phone number.
+  // A local number without the area code ("459-5298") ends a full phone number.
   if (/^\d{7}$/.test(c.stem)) {
     for (const t of index.vocab) {
       if (!/^\d/.test(t)) break;
@@ -603,7 +603,7 @@ function scoreIntent(index, c, wide = false) {
     for (const doc of r.strong) strong.add(doc);
   }
   // The literal words also count, so typing a business name that happens to be an
-  // intent phrase ("Giant", "CVS", "UPS Store") puts that business first. Outside the
+  // intent phrase ("Safeway", "Starbucks", "UPS Store") puts that business first. Outside the
   // intent's categories a name match only earns a low score ("Flower Child" for "flowers").
   const lit = ` ${normalize(c.words)} `;
   const cats = new Set(c.intents.flatMap(i => scopeOf(INTENTS[i], wide) || []));
@@ -650,7 +650,7 @@ export function search(index, raw, opts = {}) {
   const query = parseQuery(index, raw || '', { live: opts.live, literal: opts.literal, now, hoursAsWords });
   const filters = { ...query.filters };
   if (opts.open) filters.open = true;
-  // Typing a business's exact name finds it first, whatever its words mean elsewhere ("Yard House").
+  // Typing a business's exact name finds it first, whatever its words mean elsewhere ("Pizza To Go").
   const typedName = normalize(raw);
   const exact = (typedName && index.byName?.get(typedName)) || [];
 
@@ -678,7 +678,7 @@ export function search(index, raw, opts = {}) {
     scored = [...acc].map(([i, a]) => {
       const d = index.docs[i];
       // Phrase bonus: the words appear together in the business name.
-      // Two or more words that run together in a name are that name, whatever they mean elsewhere ("whole foods").
+      // Two or more words that run together in a name are that name, whatever they mean elsewhere ("good guys gym").
       const nameHit = qNorm.length >= 3 && ((conceptsAllInName(query.concepts, d) &&
         (d.nameNorm.includes(qNorm) || query.concepts.length > 0)) || (qNorm.includes(' ') && ` ${d.nameNorm} `.includes(` ${qNorm} `)));
       let score = a.score + (nameHit ? 25 : 0) + (d.nameNorm === qNorm ? 40 : 0);
@@ -789,7 +789,7 @@ export function suggest(index, raw, limit = 7) {
     }
     if (best < Infinity) intentHits.push({ idx, best });
   });
-  // Neighborhoods ("noy" -> Noyo Harbor), ranked alongside the kinds of business.
+  // Neighborhoods ("brook" -> Brooktrails), ranked alongside the kinds of business.
   if (norm.length >= 3) {
     for (const a of index.areas || []) {
       const best = a.norm.startsWith(norm) ? 0 : a.norm.split(' ').some(w => w.startsWith(norm)) ? 0.5 : Infinity;

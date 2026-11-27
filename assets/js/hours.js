@@ -1,4 +1,4 @@
-// Opening-hours utilities for Fort Bragg Local (browser + Node, no dependencies).
+// Opening-hours utilities for Willits Local (browser + Node, no dependencies).
 //
 // Data uses a practical subset of the OpenStreetMap `opening_hours` syntax:
 //   "Mo-Fr 09:00-17:00; Sa 10:00-14:00; Su off"
@@ -101,7 +101,7 @@ function expandDays(sel) {
   return [...out].sort((x, y) => x - y);
 }
 
-/** Current day (0 = Monday) and minute-of-day in Fort Bragg, regardless of the visitor's own time zone. */
+/** Current day (0 = Monday) and minute-of-day in Willits, regardless of the visitor's own time zone. */
 export function localNow(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: TIME_ZONE, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',

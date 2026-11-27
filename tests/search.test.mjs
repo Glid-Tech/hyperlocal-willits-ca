@@ -5,21 +5,21 @@ import assert from 'node:assert/strict';
 import { buildIndex, search, suggest } from '../assets/js/search.js';
 
 const AREAS = [
-  { id: 'downtown', name: 'Downtown Fort Bragg' },
-  { id: 'cleone', name: 'Cleone' },
-  { id: 'elsewhere', name: 'Around Fort Bragg' },
+  { id: 'downtown', name: 'Downtown Willits' },
+  { id: 'brooktrails', name: 'Brooktrails' },
+  { id: 'elsewhere', name: 'Around Willits' },
 ];
 
 let n = 0;
 const biz = o => ({
-  id: `t${++n}`, sub: '', tags: [], desc: '', address: `${1000 + n} Test Road`, unit: '', zip: '95437', center: '',
-  area: 'downtown', lat: 39.44, lon: -123.80, phone: `(707) 555-${String(100 + n).padStart(4, '0')}`, website: '',
+  id: `t${++n}`, sub: '', tags: [], desc: '', address: `${1000 + n} Test Road`, unit: '', zip: '95490', center: '',
+  area: 'downtown', lat: 39.41, lon: -123.36, phone: `(707) 555-${String(100 + n).padStart(4, '0')}`, website: '',
   hours: '', status: 'open', verified: null, sources: [], ...o,
 });
 
 const DOCS = [
   biz({ name: 'Giant Food', category: 'groceries', sub: 'Supermarket', tags: ['grocery', 'pharmacy', 'bakery'], hours: 'Mo-Su 06:00-23:00' }),
-  biz({ name: 'Safeway', category: 'groceries', sub: 'Supermarket', tags: ['grocery', 'pharmacy'], area: 'cleone' }),
+  biz({ name: 'Safeway', category: 'groceries', sub: 'Supermarket', tags: ['grocery', 'pharmacy'], area: 'brooktrails' }),
   biz({ name: 'Plumb Perfect', category: 'home', sub: 'Plumber', tags: ['plumbing', 'drains', 'water heaters'] }),
   biz({ name: 'Cool Breeze Heating & Air', category: 'home', sub: 'HVAC contractor', tags: ['air conditioning', 'heating', 'furnace'] }),
   biz({ name: 'Sparkle Nails', category: 'beauty', sub: 'Nail salon', tags: ['manicure', 'pedicure'] }),
@@ -32,8 +32,8 @@ const DOCS = [
   biz({ name: 'Sunny Side Diner', category: 'restaurants', sub: 'Breakfast restaurant', tags: ['breakfast', 'brunch', 'pancakes'], hours: 'Mo-Fr 07:00-14:00; Sa,Su 08:00-15:00' }),
   biz({ name: 'Early Bird Cafe', category: 'restaurants', sub: 'Breakfast restaurant', tags: ['breakfast', 'brunch'], hours: 'Mo-Sa 07:00-14:00; Su off' }),
   biz({ name: 'Little Picasso Studio', category: 'kids', sub: 'Art classes', tags: ['art classes', 'summer camp', 'kids'] }),
-  biz({ name: 'Coast Cinema', category: 'arts-fun', sub: 'Movie theater', tags: ['movies'] }),
-  biz({ name: 'Cleone Cleaners', category: 'errands', sub: 'Dry cleaner', tags: ['dry cleaning', 'alterations'], area: 'cleone' }),
+  biz({ name: 'Valley Cinema', category: 'arts-fun', sub: 'Movie theater', tags: ['movies'] }),
+  biz({ name: 'Brooktrails Cleaners', category: 'errands', sub: 'Dry cleaner', tags: ['dry cleaning', 'alterations'], area: 'brooktrails' }),
   biz({ name: 'Quick Lube Auto Care', category: 'auto', sub: 'Auto repair', tags: ['oil change', 'brakes', 'tires'] }),
 ];
 
@@ -132,14 +132,15 @@ test('suggestions while typing: business names by prefix', () => {
 });
 
 test('suggestions while typing: neighborhoods come first when the name matches', () => {
-  const s = suggest(index, 'cleo');
+  const s = suggest(index, 'brook');
   assert.equal(s[0].type, 'area');
-  assert.equal(s[0].id, 'cleone');
-  assert.ok(s.some(x => x.type === 'business' && x.label === 'Cleone Cleaners'));
+  assert.equal(s[0].id, 'brooktrails');
+  assert.ok(s.some(x => x.type === 'business' && x.label === 'Brooktrails Cleaners'));
+  assert.ok(!s.some(x => x.type === 'intent'), '"brook" starts no kind of place, so it never hides the neighborhood');
 });
 
 test('every suggestion leads somewhere', () => {
-  for (const q of ['den', 'piz', 'ha', 'oil', 'cleo', 'flo']) {
+  for (const q of ['den', 'piz', 'ha', 'oil', 'brook', 'flo']) {
     for (const s of suggest(index, q)) {
       if (s.type === 'business') assert.ok(s.id);
       else assert.ok(s.count > 0, `${s.label} for "${q}" has no places`);
