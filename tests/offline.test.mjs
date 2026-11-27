@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { offlineFiles, offlineVersion } from '../tools/build-offline.mjs';
+import { CONFIG } from '../assets/js/config.js';
 
 const read = f => fs.readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
 
@@ -33,5 +34,9 @@ test('the page links the manifest and the iPhone home-screen details', () => {
   const html = read('index.html');
   assert.match(html, /<link rel="manifest" href="site\.webmanifest">/);
   assert.match(html, /<link rel="apple-touch-icon" href="assets\/img\/apple-touch-icon\.png">/);
-  assert.match(html, /apple-mobile-web-app-title" content="Fort Bragg"/);
+  assert.match(html, /apple-mobile-web-app-title" content="Willits"/);
+  // The home-screen name is the same everywhere: the manifest, the iPhone title and the app's install steps (CONFIG.shortName).
+  const shortName = JSON.parse(read('site.webmanifest')).short_name;
+  assert.equal(shortName, CONFIG.shortName, 'site.webmanifest short_name = CONFIG.shortName');
+  assert.match(html, new RegExp(`apple-mobile-web-app-title" content="${shortName}"`));
 });

@@ -71,7 +71,7 @@ function makePage() {
 }
 
 /** Run app.js (minus its imports and its start() call) against a fresh page. */
-function loadApp({ url = 'https://neighbor.github.io/fortbragg-local/', fetch, config = {} } = {}) {
+function loadApp({ url = 'https://neighbor.github.io/willits-local/', fetch, config = {} } = {}) {
   const page = makePage();
   const timers = [];
   const winListeners = {};
@@ -124,18 +124,18 @@ function withListings(env, set = REAL) {
 }
 
 // A small, fixed set of listings, so these expectations don't move when the real data changes.
-const AREAS = [{ id: 'downtown', name: 'Downtown Fort Bragg' }, { id: 'elsewhere', name: 'Around Fort Bragg' }];
+const AREAS = [{ id: 'downtown', name: 'Downtown Willits' }, { id: 'elsewhere', name: 'Around Willits' }];
 const today = localNow().day;
 let n = 0;
 const biz = o => ({
-  id: `t-${++n}`, sub: '', tags: [], desc: '', address: `${1000 + n} Test Road`, unit: '', zip: '95437', center: '', area: 'downtown',
-  lat: 39.44, lon: -123.80, phone: `(707) 555-${String(1000 + n)}`, website: '', hours: '', status: 'open',
+  id: `t-${++n}`, sub: '', tags: [], desc: '', address: `${1000 + n} Test Road`, unit: '', zip: '95490', center: '', area: 'downtown',
+  lat: 39.41, lon: -123.355, phone: `(707) 555-${String(1000 + n)}`, website: '', hours: '', status: 'open',
   verified: '2026-11-22', sources: [], ...o,
 });
 const FIXTURE = [
   biz({ id: 'night-owl-diner-1', name: 'Night Owl Diner', category: 'restaurants', sub: 'Diner', tags: ['diner', 'breakfast'], hours: '24/7' }),
   biz({ id: 'lakeside-inn-2', name: 'Lakeside Inn', category: 'hotels-events', sub: 'Hotel', tags: ['hotel'] }),
-  biz({ id: 'noyo-suites-3', name: 'Noyo Suites', category: 'hotels-events', sub: 'Hotel', tags: ['hotel'] }),
+  biz({ id: 'redwood-suites-3', name: 'Redwood Suites', category: 'hotels-events', sub: 'Hotel', tags: ['hotel'] }),
   biz({ id: 'weekday-dental-4', name: 'Weekday Dental', category: 'dental', sub: 'Dentist', hours: `${DAY_CODES[(today + 3) % 7]} 09:00-17:00` }),
   biz({ id: 'website-only-cafe-5', name: 'Website Only Cafe', category: 'cafes-treats', sub: 'Cafe', address: '', phone: '', website: 'https://websiteonlycafe.com/' }),
   biz({ id: 'address-only-shop-6', name: 'Address Only Shop', category: 'shopping', sub: 'Gift shop', phone: '' }),
@@ -196,7 +196,7 @@ test('the “didn’t load” note sits right under the search box, not below th
 
 test('“Narrow it down” chips are only real kinds of place, and their numbers match the page they open', () => {
   const env = withListings(loadApp());
-  const areas = ['downtown', 'north-main', 'south-main', 'noyo-harbor', 'boatyard', 'cleone'];
+  const areas = DATA.areas.map(a => a.id).filter(id => id !== 'elsewhere'); // every neighborhood in the data, except “Around …”
   const realList = (r, where) => {
     assert.ok(r.query.concepts.some(c => c.kind === 'intent'), `${where} is a kind of place, not a word-for-word fallback`);
     assert.deepEqual(r.query.corrections, [], `${where} isn’t respelled`);
@@ -288,7 +288,7 @@ test('“what’s open now” opens the Open right now list, with Open now ticke
 
 test('an address with “open now” in its search ticks the Open now button too, and says so', async () => {
   // The 404 page turns /open-now into ?q=open now; bookmarks and search engines can send it too.
-  const env = loadApp({ url: 'https://neighbor.github.io/fortbragg-local/?q=open+now' });
+  const env = loadApp({ url: 'https://neighbor.github.io/willits-local/?q=open+now' });
   await env.ctx.start();
   assert.deepEqual(env.history.log.map(e => [e.push, e.u]), [[false, '?open=1']]);
   assert.equal(env.$('#results-title').textContent, 'Open right now');
@@ -296,7 +296,7 @@ test('an address with “open now” in its search ticks the Open now button too
   assert.equal(env.$('#q').value, '');
 
   const back = url => {
-    env.ctx.location = new URL(`https://neighbor.github.io/fortbragg-local/${url}`);
+    env.ctx.location = new URL(`https://neighbor.github.io/willits-local/${url}`);
     for (const fn of env.winListeners.popstate) fn({});
   };
   back('?q=pharmacy+open+now&sky=night');
@@ -355,7 +355,7 @@ test('switching off the last filter shows every place instead of the home page',
   assert.deepEqual(calls, [{ all: '1' }, { all: '1' }]);
   assert.deepEqual(JSON.parse(JSON.stringify(env.ctx.cleanState({ all: '1', cat: 'restaurants' }))), { cat: 'restaurants' });
   const all = { all: '1' };
-  assert.equal(env.ctx.describe(all, env.ctx.runSearch(all)).title, 'Every place in Fort Bragg');
+  assert.equal(env.ctx.describe(all, env.ctx.runSearch(all)).title, 'Every place in Willits');
 });
 
 test('a business picked from the suggestions opens over its list, so closing it keeps the list', () => {
@@ -391,7 +391,7 @@ test('when the list disappears, focus moves to the search box and the change is 
 test('closing a listing whose card lost focus puts focus back on that card', () => {
   const env = withListings(loadApp(), SMALL);
   env.ctx.initDialogs();
-  env.ctx.location = new URL('https://neighbor.github.io/fortbragg-local/?q=Lakeside+Inn&id=lakeside-inn-2');
+  env.ctx.location = new URL('https://neighbor.github.io/willits-local/?q=Lakeside+Inn&id=lakeside-inn-2');
   env.history.state = { ml: 1, detail: true };
   env.app.res = { results: [], total: 0 };
   const link = new env.page.El('a');
@@ -538,13 +538,40 @@ test('a listing only suggests calling when it has a phone number', () => {
   assert.doesNotMatch(web, /call/i);
   assert.match(web, /Hours not listed<\/span> <span class="status-detail">· Check their website/);
   assert.match(web, /Their website may list them\./);
-  assert.match(web, /Serves the Fort Bragg area\. See their website for details\./);
+  assert.match(web, /Serves the Willits area\. See their website for details\./);
   const bare = env.ctx.detailHTML(docOf(env, 'address-only-shop-6'));
   assert.doesNotMatch(bare, /call/i);
   assert.match(bare, /We don’t have hours or a phone number for this place yet\./);
   const phone = env.ctx.detailHTML(docOf(env, 'lakeside-inn-2'));
   assert.match(phone, /· Call ahead/);
   assert.match(phone, /Please call ahead at <a href="tel:/);
+});
+
+test('a listing’s address and directions name this town (CONFIG.town and state), not the town the code came from', () => {
+  const env = withListings(loadApp(), SMALL);
+  const doc = docOf(env, 'lakeside-inn-2');
+  const html = env.ctx.detailHTML(doc);
+  assert.ok(html.includes(`<br>${CONFIG.town}, ${CONFIG.state} ${doc.b.zip}`), 'the address line names the town');
+  const dir = decodeURIComponent(env.ctx.directionsUrl(doc.b));
+  assert.ok(dir.includes(`${doc.b.address}, ${CONFIG.town}, ${CONFIG.state} ${doc.b.zip}`), dir);
+  assert.doesNotMatch(html + dir, /Fort Bragg/);
+});
+
+test('the page’s own words match what the app writes over them (title, “All of …”, form lede, text-size key)', () => {
+  const env = withListings(loadApp(), SMALL);
+  const title = HTML.match(/<title>([^<]*)<\/title>/)[1];
+  env.ctx.render({});
+  assert.equal(env.page.title, title, 'home title');
+  env.ctx.renderHome();
+  const all = HTML.match(/<select id="f-area">(<option value="">[^<]*<\/option>)/)[1];
+  assert.ok(env.$('#f-area').innerHTML.startsWith(all), '“All of …” option');
+  const form = formEnv({});
+  form.ctx.setSuggestKind('add');
+  const lede = HTML.match(/<p class="sheet-lede" id="s-lede">([^.]*\.)/)[1];
+  assert.ok(form.$('#s-lede').innerHTML.startsWith(lede), 'add-form lede');
+  const key = HTML.match(/localStorage\.getItem\('([^']+)'\)/)[1];
+  assert.ok(APP.includes(`localStorage.setItem('${key}'`), `text-size key ${key}`);
+  assert.doesNotMatch(title + all + lede, /Fort Bragg/);
 });
 
 test('a listing says when it was checked and where its details come from, in plain words', () => {
@@ -584,7 +611,7 @@ test('without an email address, the form says plainly that GitHub needs an accou
   assert.match(env.$('#s-lede').innerHTML, /needs a free GitHub account, and anyone can read what you send/);
   env.ctx.initSuggestForm();
   env.send('add', { name: 'Joe’s Pizza', website: 'joespizza.com' });
-  assert.match(env.opened[0][0], /^https:\/\/github\.com\/neighbor\/fortbragg-local\/issues\/new\?/);
+  assert.match(env.opened[0][0], /^https:\/\/github\.com\/neighbor\/willits-local\/issues\/new\?/);
   assert.match(env.$('#s-status').innerHTML, /sign in or make a free GitHub account, then press <strong>Create<\/strong>/);
   assert.match(env.$('#s-status').innerHTML, /data-copy-message>copy your message<\/button> and paste it in/);
 
@@ -615,14 +642,14 @@ test('a problem with the website can be reported without a business name, but no
 });
 
 test('messages go to this site’s own GitHub repository, wherever the site is hosted', () => {
-  const env = formEnv({}, 'https://fortbragglocal.example/');
+  const env = formEnv({}, 'https://willitslocal.example/');
   env.ctx.initSuggestForm();
   env.send('add', { name: 'Joe’s Pizza' });
-  assert.match(env.opened[0][0], /^https:\/\/github\.com\/Glid-Tech\/hyperlocal-fortbragg-ca\/issues\/new\?/);
+  assert.match(env.opened[0][0], /^https:\/\/github\.com\/Glid-Tech\/hyperlocal-willits-ca\/issues\/new\?/);
 });
 
 test('with nowhere to send a message, the button says it copies it, and the form says what to do next', async () => {
-  const env = formEnv({ contactEmail: '', github: null }, 'https://fortbragglocal.example/'); // not on github.io, no email or repository set
+  const env = formEnv({ contactEmail: '', github: null }, 'https://willitslocal.example/'); // not on github.io, no email or repository set
   env.ctx.setSuggestKind('add');
   assert.match(env.$('#s-send').innerHTML, /<use href="#i-copy"\/><\/svg>Copy my message$/);
   const lede = env.$('#s-lede').innerHTML;

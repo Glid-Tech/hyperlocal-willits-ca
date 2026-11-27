@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Build the Fort Bragg Local dataset.
+// Build the directory dataset (CONFIG.siteName in assets/js/config.js, e.g. "Willits Local").
 //
 //   node tools/build-data.mjs candidates   # merge sources -> data/sources/candidates.json
 //   node tools/build-data.mjs final        # candidates + verification + overrides -> data/businesses.json
@@ -36,8 +36,9 @@ const listJson = dir => (fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.
 const TODAY = process.env.BUILD_DATE || new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE }).format(new Date()); // the town's date
 // Only listings in the town's ZIP codes are published (CONFIG.zips in assets/js/config.js).
 const inScopeZip = zip => CONFIG.zips.includes(String(zip || '').slice(0, 5));
-// "Fort Bragg", "Ft. Bragg" and "FORT BRAGG" all name the town.
-const townKey = s => String(s || '').toLowerCase().replace(/^ft\.?\s*/, 'fort ').replace(/[^a-z]/g, '');
+// "Willits", "WILLITS" and "Brooktrails" all name the town (CONFIG.placeNames; Brooktrails shares ZIP 95490).
+const townKey = s => String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+const TOWN_KEYS = new Set((CONFIG.placeNames || [CONFIG.town]).map(townKey));
 
 const AREAS = readJson(path.join(ROOT, 'data/areas.json'), []);
 
@@ -50,7 +51,7 @@ function loadOsm() {
     const r = fromOsm(el);
     if (!r) continue;
     // Outside the city limits we only keep places whose address names the town or one of its ZIP codes.
-    const townAddr = townKey(r.city) === townKey(CONFIG.town) || inScopeZip(r.zip);
+    const townAddr = TOWN_KEYS.has(townKey(r.city)) || inScopeZip(r.zip);
     if (!r.inCity && !townAddr) continue;
     out.push(r);
   }
@@ -231,8 +232,8 @@ const cacheIndex = cache => {
   return cacheIndexes.get(cache);
 };
 // Stores inside an enclosed mall sometimes give the mall's own store numbering ("12 Example Mall"), which no geocoder
-// knows. List such malls here so their stores share the mall's map point. Fort Bragg has none today.
-// Example: { name: 'Example Mall', street: /\bExample Mall$/i, address: '100 Main Street', zip: '95437' }
+// knows. List such malls here so their stores share the mall's map point. None are listed for Willits yet.
+// Example: { name: 'Example Mall', street: /\bExample Mall$/i, address: '100 Main Street', zip: '95490' }
 const MALLS = [];
 function mallPoint(r, cache) {
   const mall = MALLS.find(m => m.street.test(prettyStreet(r.address)));
@@ -571,7 +572,7 @@ function publish(out, comingSoon, dropped) {
   out.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
   const data = {
     meta: {
-      title: 'Fort Bragg Local',
+      title: CONFIG.siteName,
       built: TODAY,
       count: out.length,
       verifiedCount: out.filter(r => r.verified).length,
@@ -624,8 +625,8 @@ function writeDirectoryHtml(data) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fort Bragg Local: printable list of all our listings</title>
-<meta name="description" content="A plain, printable list of ${data.businesses.length} local businesses in Fort Bragg, California, grouped by kind of business, with phone numbers and addresses.">
+<title>${esc(CONFIG.siteName)}: printable list of all our listings</title>
+<meta name="description" content="A plain, printable list of ${data.businesses.length} local businesses in ${esc(CONFIG.town)}, California, grouped by kind of business, with phone numbers and addresses.">
 <link rel="canonical" href="${esc((CONFIG.siteUrl || '') + 'directory.html')}">
 <style>
   :root { color-scheme: light dark; --ink:#1b1f1d; --muted:#4d5651; --line:#d9d6cc; --bg:#fbf9f4; --link:#1d5a43; }
@@ -644,8 +645,8 @@ function writeDirectoryHtml(data) {
 <body>
 <main>
 <p class="noprint"><a href="./">&larr; Back to the searchable directory</a></p>
-<h1>Fort Bragg Local: all our listings</h1>
-<p class="muted">Phone numbers and addresses for ${data.businesses.length} local businesses in Fort Bragg, California, grouped by kind of business and listed A to Z. Last updated ${esc(updated)}. Please call before you go.</p>
+<h1>${esc(CONFIG.siteName)}: all our listings</h1>
+<p class="muted">Phone numbers and addresses for ${data.businesses.length} local businesses in ${esc(CONFIG.town)}, California, grouped by kind of business and listed A to Z. Last updated ${esc(updated)}. Please call before you go.</p>
 <nav aria-label="Kinds of business"><ul>
 ${byCat.map(g => `<li><a href="#${g.c.id}">${esc(g.c.name)}</a> (${g.items.length})</li>`).join('\n')}
 </ul></nav>

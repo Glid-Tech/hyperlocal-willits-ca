@@ -117,7 +117,7 @@ test('normalizeHours converts loose formats to canonical OSM syntax', () => {
 });
 
 test('localNow uses Pacific time regardless of machine time zone', () => {
-  // 2026-07-06T19:30Z is Monday 12:30 PM PDT in Fort Bragg.
+  // 2026-07-06T19:30Z is Monday 12:30 PM PDT in Willits.
   assert.deepEqual(localNow(new Date('2026-07-06T19:30:00Z')), { day: MON, minutes: 12 * 60 + 30 });
   // 2026-01-05T07:10Z is Sunday 11:10 PM PST.
   assert.deepEqual(localNow(new Date('2026-01-05T07:10:00Z')), { day: SUN, minutes: 23 * 60 + 10 });

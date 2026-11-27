@@ -1,6 +1,6 @@
 # Third-party notices
 
-Fort Bragg Local bundles these open-source components. Each keeps its own license.
+Willits Local bundles these open-source components. Each keeps its own license.
 
 | Component | Used for | License | Where |
 | --- | --- | --- | --- |

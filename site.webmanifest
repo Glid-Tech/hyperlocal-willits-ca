@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Fort Bragg Local",
-  "short_name": "Fort Bragg",
-  "description": "Find local restaurants, shops, doctors and services in Fort Bragg, California. Works without internet once saved.",
+  "name": "Willits Local",
+  "short_name": "Willits",
+  "description": "Find local restaurants, shops, doctors and services in Willits, California. Works without internet once saved.",
   "lang": "en-US",
   "dir": "ltr",
   "start_url": "./",

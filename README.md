@@ -1,8 +1,8 @@
-# Fort Bragg Local
+# Willits Local
 
-A free, easy-to-search directory of local businesses in Fort Bragg, California, on the Mendocino Coast, built for
-people who don't like computers. Type what you need in plain English ("pizza", "my sink is leaking", "dentsit") and it finds the right
-places, even with typos.
+A free, easy-to-search directory of local businesses in Willits, California, in the Little Lake Valley of inland
+Mendocino County, built for people who don't like computers. Type what you need in plain English ("pizza", "my sink is
+leaking", "dentsit") and it finds the right places, even with typos.
 
 - **No server, no database, no sign-ups, no accounts.** It's a set of plain files that GitHub Pages hosts for free.
 - **Fast and private.** Searching happens inside the visitor's browser: nothing they type is sent anywhere, and there
@@ -54,7 +54,7 @@ Edit `data/overrides.json` (you can do it on github.com with the pencil icon), t
   "patch": { "starbucks-1234": { "phone": "(707) 555-0123", "hours": "Mo-Fr 06:00-19:00; Sa,Su 07:00-18:00",
                                  "sources": ["https://www.starbucks.com/store-locator/store/1234"] } },
   "add": [{ "name": "New Bakery", "category": "cafes-treats", "sub": "Bakery", "address": "123 North Main Street",
-            "zip": "95437", "phone": "(707) 555-0100", "website": "https://newbakery.example", "tags": ["bread", "cakes"],
+            "zip": "95490", "phone": "(707) 555-0100", "website": "https://newbakery.example", "tags": ["bread", "cakes"],
             "sources": ["https://newbakery.example/contact"] }]
 }
 ```
@@ -80,8 +80,8 @@ rules are in [`data/SOURCES.md`](data/SOURCES.md)):
 
 | Step | Command | Output |
 | --- | --- | --- |
-| 1. Download Fort Bragg businesses from OpenStreetMap | `node tools/fetch-osm.mjs` | `data/sources/osm.json` |
-| 2. Add leads: businesses heard about from news or harbor and shopping-center directories, with the facts confirmed at allowed sources | (research) | `data/sources/research/*.json` |
+| 1. Download Willits-area businesses from OpenStreetMap | `node tools/fetch-osm.mjs` | `data/sources/osm.json` |
+| 2. Add leads: businesses heard about from news, the chamber of commerce or shopping-center directories, with the facts confirmed at allowed sources | (research) | `data/sources/research/*.json` |
 | 3. Merge and de-duplicate everything | `node tools/build-data.mjs candidates` | `data/sources/candidates.json` |
 | 4. Find map coordinates for new addresses | `node tools/geocode.mjs`, then repeat step 3 | `data/sources/geocode-cache.json` |
 | 5. Confirm each phone number and address on the business's own website | `node tools/check-firstparty.mjs` | `data/sources/firstparty.json` |
@@ -102,8 +102,8 @@ OpenStreetMap's **Nominatim** service. Please follow the
 one request per second, an identifying User-Agent, no bulk or repeated lookups (results are cached in
 `data/sources/geocode-cache.json` for that reason), and credit to OpenStreetMap.
 
-Only businesses in Fort Bragg's ZIP code, 95437 (the city plus Cleone, Noyo and the Highway 20 corridor), are
-included (`zips` in `assets/js/config.js`). A listing with no address, phone or website is
+Only businesses in the Willits ZIP code, 95490 (the city plus Brooktrails, Ridgewood, Sherwood Valley, Longvale and
+Hearst), are included (`zips` in `assets/js/config.js`). A listing with no address, phone or website is
 left out. The site shows when each listing was last checked and links to its sources.
 
 ## How it works
@@ -114,8 +114,8 @@ assets/css/app.css    all styles: light and dark themes, three text sizes, print
 assets/js/app.js      the app: search box, results, filters, details, map, forms
 assets/js/search.js   the search engine: spelling correction, synonyms, plain-English intents
 assets/js/intents.js  what people mean: "fix my sink" means plumbers, "teeth" means dentists...
-assets/js/hours.js    opening hours: "open now", "closes at 7 PM", in Fort Bragg's time zone
-assets/js/sky.js      colors the coast and the Skunk Train scene for the real time of day in Fort Bragg
+assets/js/hours.js    opening hours: "open now", "closes at 7 PM", in the town's time zone (Pacific)
+assets/js/sky.js      colors the valley scene for the real time of day in Willits
 assets/js/map.js      the map, loaded only when someone taps "Map"
 assets/js/offline.js  "Save to my phone" and the offline notice
 sw.js                 the service worker: keeps a copy of the whole site on the device for use without internet
@@ -134,22 +134,46 @@ directory.html        a plain, printable list (also the fallback if JavaScript i
 - **Offline**: `sw.js` saves every file the site needs the first time someone visits. It always tries the network
   first, so visitors get fresh listings whenever they're online, and falls back to the saved copy when there's no
   connection or it's too slow. The map and businesses' websites still need the internet, and the site says so.
-- **Hero illustration** is drawn in code (`tools/gen-hero.mjs`): an original picture of the coast looking south, with
-  the Skunk Train crossing a trestle over Pudding Creek toward the redwoods. It copies none of the railroad's logos or
-  artwork. Try `?sky=dawn`, `?sky=golden`, `?sky=dusk` or `?sky=night` on the address to preview other times of day,
-  `?season=winter|spring|summer|fall` for the coast's seasons (green hills in the rains, gold ones and fog in summer,
-  whales offshore in winter) and `?holiday=1` for the December lights.
+- **Hero illustration** is drawn in code (`tools/gen-hero.mjs`): an original picture of Little Lake Valley looking
+  south, with the east hills on the left, the redwood and fir ridge on the right, a small Main Street under an arch, and
+  the Skunk Train leaving its depot for the redwoods. It copies none of the railroad's, the city's or the chamber's logos
+  or artwork. Try `?sky=dawn`, `?sky=golden`, `?sky=dusk` or `?sky=night` on the address to preview other times of
+  day, `?season=winter|spring|summer|fall` for the valley's seasons (green pasture and valley fog in winter, poppies
+  and lupine in spring, gold grass in summer, yellow creek-side trees in fall) and `?holiday=1` for the December
+  lights.
+
+## What is town-specific
+
+Willits Local was adapted from Fort Bragg Local, which was adapted from McLean Local. Most files work for any town;
+the rest hold this town's geography, words and art. A future template would start from this list.
+
+- **Town settings, in one place:** `assets/js/config.js` (site name, short name, town, state, ZIP codes, place names,
+  the OpenStreetMap and geocoder boxes, the city's OpenStreetMap relation, the map's start view and the sky's
+  latitude and longitude). `app.js`, `tools/build-data.mjs` and `tools/lib/describe.mjs` read the town's name from it.
+- **Town-specific, edited by hand:** `index.html` (title, share text, structured data, headings, footer history),
+  `site.webmanifest`, `404.html` (title and brand mark), the `PREFIX` in `sw.js`, `data/areas.json` (neighborhoods),
+  `data/overrides.json`, `assets/js/intents.js` (local words and brands), `assets/js/sky.js` (scene colors and
+  seasons), `tools/gen-hero.mjs` (the hero drawing), the scene rules in `assets/css/app.css`, the brand mark
+  (`assets/img/favicon.svg` and its copies), the PNG icons and `og-image.png`, `tools/lib/source-policy.mjs` (local
+  government and lead-only sites), the route spellings and noise words in `tools/lib/common.mjs` and
+  `tools/lib/pagecheck.mjs`, the User-Agent names in the fetching tools, `.github/ISSUE_TEMPLATE/add-business.yml`,
+  `data/SOURCES.md`, `CNAME` and the test fixtures.
+- **Town-neutral:** `assets/js/search.js`, `hours.js`, `taxonomy.js`, `map.js`, `offline.js`, the rest of `app.css`,
+  `tools/build-offline.mjs`, `tools/build-icons.mjs`, `tools/gen-colors.mjs`, `tools/set-site-url.mjs`,
+  `tools/lib/holidays.mjs`, `tools/lib/osm-map.mjs` and `assets/vendor/`.
+- **Generated, never edited by hand:** the `HERO`, `ICONS` and `SITE-URL` regions of `index.html`, `directory.html`,
+  `sitemap.xml`, `data/businesses.json` and the generated block of `sw.js`.
 
 ## Develop locally
 
 Any static file server works. With Python, from this folder:
 
 ```sh
-python3 -m http.server 8000
-# then open http://localhost:8000
+python3 -m http.server 8090
+# then open http://localhost:8090
 ```
 
-Run the tests (Node 20 or newer):
+Run the tests (Node 22.15 or newer; on older Node the map tests are skipped):
 
 ```sh
 node --test tests/

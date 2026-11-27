@@ -5,9 +5,9 @@ be published are in `../SOURCES.md`.
 
 | File | What it is | In the repository? |
 | --- | --- | --- |
-| `osm.json` | Fort Bragg businesses downloaded from OpenStreetMap (`node tools/fetch-osm.mjs`). Open Database License. | Yes |
+| `osm.json` | Willits-area businesses downloaded from OpenStreetMap (`node tools/fetch-osm.mjs`). Open Database License. | Yes |
 | `geocode-cache.json` | Map coordinates for addresses, from the U.S. Census Bureau geocoder and OpenStreetMap's Nominatim (`node tools/geocode.mjs`). | Yes |
-| `research/*.json` | Leads: businesses we heard about from news stories, harbor and shopping-center directories or the chamber of commerce, each with the facts a researcher confirmed at an allowed source (format below). Never published as they are. | No |
+| `research/*.json` | Leads: businesses we heard about from news stories, shopping-center directories or the chamber of commerce, each with the facts a researcher confirmed at an allowed source (format below). Never published as they are. | No |
 | `candidates.json` | Every possible listing, merged and de-duplicated (`node tools/build-data.mjs candidates`). | No |
 | `firstparty.json` | What `node tools/check-firstparty.mjs` found on each business's own website: whether the phone number and address appear there, and any opening hours the site publishes. | No |
 | `confirmed/*.json` | Listings checked by hand against allowed sources only (format below). | No |
@@ -72,7 +72,7 @@ cited page again (politely, and only where `robots.txt` allows) and moves any fa
 
 - a **website** loads, stays on its own domain or shows the business's name, phone or address, and doesn't look parked,
   for sale or taken over (gambling spam is the usual sign of a lapsed domain bought by someone else);
-- a fact from a **government list** (such as DPOR's licence lists, one licence per line) is on the same line as the
+- a fact from a **government list** (such as a license list with one license per line) is on the same line as the
   business's name and street address, not just somewhere in the file;
 - a **shopping center** name appears on the page as a whole phrase.
 

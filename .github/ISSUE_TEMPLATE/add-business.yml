@@ -1,5 +1,5 @@
 name: Add a business
-description: Suggest a Fort Bragg business that's missing from the directory. Listing is free.
+description: Suggest a Willits business that's missing from the directory. Listing is free.
 title: "Add a business: "
 labels: ["add business"]
 body:
@@ -19,7 +19,7 @@ body:
     id: address
     attributes:
       label: Street address
-      description: The street address in Fort Bragg (ZIP 95437).
+      description: The street address in Willits (ZIP 95490).
       placeholder: e.g. 401 North Main Street
   - type: input
     id: phone

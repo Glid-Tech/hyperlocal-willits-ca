@@ -1,4 +1,4 @@
-// Fort Bragg Local: the app. Plain ES modules, no framework, no build step, no server.
+// Willits Local: the app. Town names come from CONFIG (config.js). Plain ES modules, no framework, no build step, no server.
 // Everything happens in the visitor's browser: data/businesses.json is searched locally.
 
 import { buildIndex, search, suggest, normalize, tokenize, splitFilters } from './search.js';
@@ -12,6 +12,9 @@ import { CONFIG } from './config.js';
 clearTimeout(window.__mlBootTimer);
 
 const PAGE = CONFIG.pageSize || 24;
+const SITE = CONFIG.siteName; // "Willits Local"
+const TOWN = CONFIG.town; // "Willits"
+const SHORT = CONFIG.shortName || CONFIG.town; // the home-screen icon name, = short_name in site.webmanifest
 const KEYS = ['q', 'cat', 'area', 'open', 'all', 'sort', 'view', 'id'];
 const LIST_KEYS = ['q', 'cat', 'area', 'open', 'all', 'sort']; // a change to any of these means a new list
 const KEEP_PARAMS = ['sky', 'skyHour', 'season', 'holiday']; // sky and season previews survive navigation
@@ -124,7 +127,7 @@ function render(st, { focus = false, scroll = false } = {}) {
     $('#browse').hidden = false;
     app.res = null;
     app.mapRes = null;
-    document.title = 'Fort Bragg Local: find local businesses in Fort Bragg, California';
+    document.title = `${SITE}: find local businesses in ${TOWN}, California`;
     if (scroll) window.scrollTo(0, 0);
     // The control the visitor was using has just disappeared with the list: start them at the search box.
     if (focusLost && !st.id) {
@@ -172,7 +175,7 @@ function renderResults(st, { focus, scroll }) {
   showMore(false);
   renderEmpty(st, res);
 
-  document.title = `${head.title.replace(/[“”]/g, '"')} · Fort Bragg Local`;
+  document.title = `${head.title.replace(/[“”]/g, '"')} · ${SITE}`;
   announce(res.total ? `${plural(res.total, 'place')} found.` : 'No places found.');
   if (scroll) window.scrollTo(0, 0);
   if (focus) $('#results-title').focus({ preventScroll: true });
@@ -214,7 +217,7 @@ function describe(st, res) {
   else if (cat) title = cat.name;
   else if (area) title = area.name;
   else if (st.open) title = 'Open right now';
-  else title = 'Every place in Fort Bragg';
+  else title = `Every place in ${TOWN}`;
 
   const bits = [];
   if (app.notice && app.notice.q === st.q) bits.push(esc(app.notice.text));
@@ -456,7 +459,7 @@ function safeUrl(u) {
 const domainOf = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
 function directionsUrl(b) {
-  const place = b.address ? `${b.address}, Fort Bragg, CA ${b.zip || ''}`.trim() : (b.lat && b.lon ? `${b.lat},${b.lon}` : '');
+  const place = b.address ? `${b.address}, ${TOWN}, ${CONFIG.state} ${b.zip || ''}`.trim() : (b.lat && b.lon ? `${b.lat},${b.lon}` : '');
   if (!place) return '';
   if (IS_APPLE_MOBILE) return `https://maps.apple.com/?daddr=${encodeURIComponent(place)}&q=${encodeURIComponent(b.name)}`;
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(b.address ? `${b.name}, ${place}` : place)}`;
@@ -598,7 +601,7 @@ function renderEmpty(st, res) {
   if (hiddenByOpen) widen.push({ key: 'open', text: `Show all ${plural(hiddenByOpen.total, 'place')}${noHours ? '' : ', open or closed'}` });
   if (st.area) {
     const r = runSearch(st, { area: undefined });
-    if (r.total) widen.push({ key: 'area', text: `Search all of Fort Bragg (${plural(r.total, 'place')})` });
+    if (r.total) widen.push({ key: 'area', text: `Search all of ${TOWN} (${plural(r.total, 'place')})` });
   }
   if (st.cat && st.q) {
     const r = runSearch(st, { cat: undefined });
@@ -718,7 +721,7 @@ function openDetail(id) {
   $('#detail-body').innerHTML = detailHTML(doc);
   if (!dlg.open) dlg.showModal();
   dlg.scrollTop = 0;
-  document.title = `${doc.b.name} · Fort Bragg Local`;
+  document.title = `${doc.b.name} · ${SITE}`;
 }
 
 /** 'akb-a-hotel-bar-7599' -> 'akb a hotel bar' */
@@ -752,10 +755,10 @@ function detailHTML(doc) {
 
   const facts = [];
   if (b.address) {
-    facts.push(fact('map-pin', 'Address', `${esc(b.address)}${b.unit ? `, ${esc(b.unit)}` : ''}<br>Fort Bragg, CA ${esc(b.zip || '')}${b.center ? `<br><span class="fact-note">In ${esc(b.center)}</span>` : ''}`));
+    facts.push(fact('map-pin', 'Address', `${esc(b.address)}${b.unit ? `, ${esc(b.unit)}` : ''}<br>${esc(TOWN)}, ${esc(CONFIG.state)} ${esc(b.zip || '')}${b.center ? `<br><span class="fact-note">In ${esc(b.center)}</span>` : ''}`));
   } else {
     const details = how === 'call' ? ' Call for details.' : how === 'web' ? ' See their website for details.' : '';
-    facts.push(fact('map-pin', 'Where', `Serves the Fort Bragg area.${details}`));
+    facts.push(fact('map-pin', 'Where', `Serves the ${esc(TOWN)} area.${details}`));
   }
   if (tel) facts.push(fact('phone', 'Phone', `<a href="${tel}">${esc(b.phone)}</a>`));
   if (web) facts.push(fact('globe', 'Website', `<a href="${esc(web)}" rel="noopener">${esc(domainOf(web))}</a>`));
@@ -824,7 +827,7 @@ function sourceList(b) {
   for (const u of (b.sources || []).map(safeUrl).filter(Boolean)) {
     const host = domainOf(u);
     // The data rules allow only these three kinds of source (see data/SOURCES.md).
-    const kind = /(^|\.)(openstreetmap|osm)\.org$/.test(host) ? 'osm' : /\.(gov|mil)$|\.ca\.us$|(^|\.)(usps\.com|noyoharbordistrict\.org)$/.test(host) ? 'gov' : 'own';
+    const kind = /(^|\.)(openstreetmap|osm)\.org$/.test(host) ? 'osm' : /\.(gov|mil)$|\.ca\.us$|(^|\.)(usps\.com|cityofwillits\.org|btcsd\.org|littlelakefire\.org|willitsunified\.com)$/.test(host) ? 'gov' : 'own';
     const label = kind === 'osm' ? 'OpenStreetMap' : kind === 'gov' ? `a government website (${host})` : `their own website (${host})`;
     if (seen.has(label)) continue;
     seen.add(label);
@@ -839,7 +842,7 @@ async function shareListing(id) {
   const url = new URL(`?id=${encodeURIComponent(id)}`, location.href).href;
   if (navigator.share) {
     try {
-      await navigator.share({ title: doc.b.name, text: `${doc.b.name}${doc.b.sub ? ` (${doc.b.sub})` : ''} in Fort Bragg`, url });
+      await navigator.share({ title: doc.b.name, text: `${doc.b.name}${doc.b.sub ? ` (${doc.b.sub})` : ''} in ${TOWN}`, url });
       return;
     } catch (e) {
       if (e && e.name === 'AbortError') return;
@@ -883,7 +886,7 @@ ${areaViz(a, byArea[a.id])}
 <span class="area-count">${plural(byArea[a.id].length, 'place')} ${icon('arrow-right')}</span></span></a></li>`).join('');
 
   // Neighborhood filter in the results toolbar.
-  $('#f-area').innerHTML = '<option value="">All of Fort Bragg</option>' + app.areas
+  $('#f-area').innerHTML = `<option value="">All of ${esc(TOWN)}</option>` + app.areas
     .filter(a => (byArea[a.id] || []).length)
     .map(a => `<option value="${esc(a.id)}">${esc(a.name)}</option>`).join('');
 
@@ -993,7 +996,7 @@ function showLoadProblem() {
   const fb = $('#boot-fallback');
   fb.innerHTML = navigator.onLine
     ? 'Sorry, the directory didn’t load. <button type="button" class="linklike" data-reload>Try again</button>, or <a href="directory.html">open the simple list of all our listings</a>.'
-    : 'You’re offline, and this device doesn’t have a saved copy of the directory yet. Open Fort Bragg Local once while you’re connected, and it will save itself for next time.';
+    : `You’re offline, and this device doesn’t have a saved copy of the directory yet. Open ${esc(SITE)} once while you’re connected, and it will save itself for next time.`;
   fb.hidden = false;
   announce(fb.textContent);
 }
@@ -1250,7 +1253,7 @@ function initTextSize() {
     if (!b) return;
     const size = b.dataset.size;
     document.documentElement.dataset.textsize = size;
-    try { localStorage.setItem('fbl-textsize', size); } catch { /* private mode: fine */ }
+    try { localStorage.setItem('wl-textsize', size); } catch { /* private mode: fine */ }
     mark(size);
     close();
     btn.focus();
@@ -1269,7 +1272,7 @@ function initDialogs() {
     if (history.state && history.state.detail) history.back();
     else navigate({ ...app.state, id: undefined }, { replace: true, focus: false, scroll: false });
     if (!app.res) return;
-    document.title = `${$('#results-title').textContent.replace(/[“”]/g, '"')} · Fort Bragg Local`;
+    document.title = `${$('#results-title').textContent.replace(/[“”]/g, '"')} · ${SITE}`;
     // Nothing to go back to (opened from a suggestion, or its card was redrawn): continue from the place's card.
     const now = document.activeElement;
     if (now && now !== document.body) return;
@@ -1324,7 +1327,7 @@ function setSuggestKind(kind) {
   el.namedItem('name').required = !fix;
   el.namedItem('notes').required = fix;
   const ch = contactChannel();
-  const lead = !fix ? 'Listing a Fort Bragg business is free.' : ch.type === 'copy' ? 'Found something wrong?' : 'Tell us what’s wrong and we’ll fix it.';
+  const lead = !fix ? `Listing a ${TOWN} business is free.` : ch.type === 'copy' ? 'Found something wrong?' : 'Tell us what’s wrong and we’ll fix it.';
   $('#s-lede').innerHTML = `${lead} ${sendHow(ch)}`;
   // With nowhere to send it, the button says what it really does.
   $('#s-send').innerHTML = ch.type === 'copy' ? `${icon('copy')}Copy my message` : `${icon('mail')}Send`;
@@ -1361,7 +1364,7 @@ function initSuggestForm() {
     }
     const subject = kind === 'add' ? `Add a business: ${d.name}` : d.name ? `Fix a listing: ${d.name}` : 'A problem with the website';
     const body = [
-      kind === 'add' ? 'Please add this business to Fort Bragg Local.' : d.name ? 'Something on this listing needs fixing.' : 'Something on the website needs fixing.',
+      kind === 'add' ? `Please add this business to ${SITE}.` : d.name ? 'Something on this listing needs fixing.' : 'Something on the website needs fixing.',
       '',
       d.name && `Business name: ${d.name}`,
       d.address && `Address: ${d.address}`,
@@ -1369,7 +1372,7 @@ function initSuggestForm() {
       d.website && `Website: ${d.website}`,
       d.notes && `\n${kind === 'fix' ? 'What needs fixing' : 'Notes'}:\n${d.notes}`,
       '',
-      '(Sent from the Fort Bragg Local website)',
+      `(Sent from the ${SITE} website)`,
     ].filter(x => x !== '' && x !== undefined && x !== null && x !== false).join('\n');
     app.lastMessage = `${subject}\n\n${body}`;
     const ch = contactChannel();
@@ -1532,7 +1535,7 @@ const word = label => `<span class="key">${esc(label)}</span>`;
 // Steps checked against Apple, Google and Microsoft help pages and tester reports (November 2026). Safari's
 // Share button moved twice: behind "•••" in iOS 26, behind the three-line page menu in iOS 27. A page can't tell
 // which Safari layout someone uses, so each step says what to do if the button isn't there.
-const OPEN_ONCE = where => `Go to your home screen and tap the new “Fort Bragg” icon once while you still have internet. Wait until it says “Saved on this ${where}”. After that it works with no signal.`;
+const OPEN_ONCE = where => `Go to your home screen and tap the new “${SHORT}” icon once while you still have internet. Wait until it says “Saved on this ${where}”. After that it works with no signal.`;
 const WEB_APP = `If you see a switch called ${word('Open as Web App')}, make sure it’s green. Then tap the blue ${word('Add')} button at the top right.<small>A keyboard may pop up. You can ignore it. Don’t tap the X, because that cancels.</small>`;
 const SHARE_SHEET = `Tap ${word('View More')} if you see it, or slide the panel up with your finger. Then tap ${key('square-plus', 'Add to Home Screen')}.`;
 const NEEDS_IOS_16 = '<small>This needs iOS 16.4 or later. If you can’t find Add to Home Screen, use Safari instead.</small>';
@@ -1596,7 +1599,7 @@ const INSTALL_STEPS = {
       `Tap the three dots ${key('ellipsis-vertical')} at the top right of the screen. If they aren’t there, look at the bottom right.`,
       `Tap ${word('Install app')}. On some phones it says ${word('Install and create shortcut')} or ${word('Add to Home screen')}.`,
       `If you’re given a choice, choose ${word('Install')}, not “Create shortcut”. Then tap ${word('Install')} to confirm.`,
-      `The “Fort Bragg” icon appears on your home screen or in your list of apps. Tap it to open the directory, even with no signal.`,
+      `The “${SHORT}” icon appears on your home screen or in your list of apps. Tap it to open the directory, even with no signal.`,
     ],
   },
   'android-samsung': {
@@ -1604,7 +1607,7 @@ const INSTALL_STEPS = {
     steps: [
       `If you see a small install button in the web address bar at the top, tap it, then tap ${word('Install')}. That’s all.`,
       `If not, tap the menu button ${key('menu')} at the bottom right, then ${word('Add page to')}, then ${word('Home screen')}.`,
-      `Tap ${word('Add')}. The “Fort Bragg” icon appears on your home screen.`,
+      `Tap ${word('Add')}. The “${SHORT}” icon appears on your home screen.`,
     ],
   },
   'android-firefox': {
@@ -1612,7 +1615,7 @@ const INSTALL_STEPS = {
     steps: [
       `Tap the three dots ${key('ellipsis-vertical')} next to the web address.`,
       `Tap ${word('Add app to Home screen')}. If you don’t see it, tap ${word('More')} first.`,
-      `Tap ${word('Add automatically')} or ${word('Add')}. The “Fort Bragg” icon appears on your home screen.`,
+      `Tap ${word('Add automatically')} or ${word('Add')}. The “${SHORT}” icon appears on your home screen.`,
     ],
   },
   'android-edge': {
@@ -1620,7 +1623,7 @@ const INSTALL_STEPS = {
     steps: [
       `Tap the menu button (${key('ellipsis')} or ${key('menu')}) in the bar at the bottom of the screen.`,
       `Tap ${word('Add to phone')}. Some versions say ${word('Install app')} or ${word('Add to home screen')}.`,
-      `Tap ${word('Install')} or ${word('Add')}. The “Fort Bragg” icon appears on your home screen.`,
+      `Tap ${word('Install')} or ${word('Add')}. The “${SHORT}” icon appears on your home screen.`,
     ],
   },
   'desktop-chrome': {
@@ -1628,7 +1631,7 @@ const INSTALL_STEPS = {
     steps: [
       `Click the install button ${key('download')} at the right end of the address bar, then click ${word('Install')}.`,
       `No install button? Click the three dots ${key('ellipsis-vertical')} at the top right, point to ${word('Cast, save, and share')}, then click ${word('Install page as app…')}.`,
-      `Fort Bragg Local opens in its own window. Later, open it like any other program.`,
+      `${SITE} opens in its own window. Later, open it like any other program.`,
     ],
   },
   'desktop-edge': {
@@ -1636,21 +1639,21 @@ const INSTALL_STEPS = {
     steps: [
       `Click the ${word('App available')} button at the right of the address bar, then click ${word('Install')}.`,
       `No button? Click ${key('ellipsis')} at the top right, then ${word('More tools')}, then ${word('Apps')}, then ${word('Install this site as an app')}.`,
-      `Fort Bragg Local opens in its own window. Later, open it like any other program.`,
+      `${SITE} opens in its own window. Later, open it like any other program.`,
     ],
   },
   'mac-safari': {
     title: 'Mac, in Safari',
     steps: [
       `Open the ${word('File')} menu at the top of the screen and choose ${word('Add to Dock')}.`,
-      `Click ${word('Add')}. Fort Bragg Local appears in your Dock and opens in its own window.`,
+      `Click ${word('Add')}. ${SITE} appears in your Dock and opens in its own window.`,
     ],
   },
   'desktop-firefox': {
     title: 'Computer, in Firefox',
     steps: [
       `Firefox on a computer can’t save websites as apps, so bookmark this page instead: press ${word('Ctrl')} and ${word('D')} together (on a Mac, ${word('⌘')} and ${word('D')}).`,
-      `After your first visit, Fort Bragg Local keeps working in Firefox even without internet.`,
+      `After your first visit, ${SITE} keeps working in Firefox even without internet.`,
     ],
   },
 };
@@ -1674,7 +1677,7 @@ function openInstall() {
   // Chrome, Edge and Samsung Internet can install straight away with their own prompt.
   if (st.canPrompt && !st.installed && !device.inApp) {
     promptInstall().then(outcome => {
-      if (outcome === 'accepted') toast('Done! Look for the “Fort Bragg” icon on your home screen.');
+      if (outcome === 'accepted') toast(`Done! Look for the “${SHORT}” icon on your home screen.`);
       else if (outcome === 'unavailable') openInstall();
     });
     return;
@@ -1689,7 +1692,7 @@ function openInstall() {
   const others = Object.keys(INSTALL_STEPS).filter(k => k !== mine)
     .map(k => `<details class="install-device"><summary>${esc(INSTALL_STEPS[k].title)}</summary>${stepsHtml(k)}</details>`).join('');
   const steps = st.installed ? '' : `<section aria-labelledby="install-mine"><h3 id="install-mine" class="visually-hidden">${esc(INSTALL_STEPS[mine].title)}</h3>${stepsHtml(mine)}</section>
-<p class="install-note">Always open Fort Bragg Local from its icon. Searching, opening hours and phone numbers work even with no signal. Open it with internet now and then to get the latest listings.</p>`;
+<p class="install-note">Always open ${esc(SITE)} from its icon. Searching, opening hours and phone numbers work even with no signal. Open it with internet now and then to get the latest listings.</p>`;
   $('#install-body').innerHTML = `${intro}${steps}
 <details class="install-other"><summary>Using a different phone or computer?</summary>${others}</details>`;
   const dlg = $('#install');
@@ -1714,8 +1717,8 @@ function initOfflineUI() {
     // separate from Safari's, so this is the moment it starts working offline.
     if (st.installed && st.ready && wasReady === false) {
       let shown = false;
-      try { shown = localStorage.getItem('fortbragg-saved-note') === '1'; localStorage.setItem('fortbragg-saved-note', '1'); } catch { /* private mode */ }
-      if (!shown) toast(`Saved on this ${where}. Fort Bragg Local now works without internet.`);
+      try { shown = localStorage.getItem('willits-saved-note') === '1'; localStorage.setItem('willits-saved-note', '1'); } catch { /* private mode */ }
+      if (!shown) toast(`Saved on this ${where}. ${SITE} now works without internet.`);
     }
     // Back online on the map view: load the map now.
     if (st.online && wasOffline && app.state?.view === 'map' && $('#map .map-offline')) render(readState());
@@ -1730,7 +1733,7 @@ async function start() {
   initSky($('#hero'), {
     onTick: ({ now }) => {
       $('#hello-text').textContent = greeting(now);
-      $('#hello-time').textContent = `${fmtClock(now)} in Fort Bragg`;
+      $('#hello-time').textContent = `${fmtClock(now)} in ${TOWN}`;
       $('#hello-sun').textContent = sunNote(now);
     },
   });

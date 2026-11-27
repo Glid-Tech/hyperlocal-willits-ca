@@ -8,7 +8,7 @@ https://www.openstreetmap.org/copyright
 
 You may copy, share and adapt this data, as long as you:
 
-- **Attribute** it: credit "Fort Bragg Local" and "© OpenStreetMap contributors".
+- **Attribute** it: credit "Willits Local" and "© OpenStreetMap contributors".
 - **Share alike**: if you publicly use an adapted version of the database, offer that version under the ODbL too.
 - **Keep it open**: don't use technical measures that stop others from reusing it.
 

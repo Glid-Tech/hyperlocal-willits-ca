@@ -7,6 +7,7 @@ import { CATEGORY_BY_ID } from '../assets/js/taxonomy.js';
 import { parseHours } from '../assets/js/hours.js';
 import { classifySource, isOwnWebsite, SOURCE_KINDS } from '../tools/lib/source-policy.mjs';
 import { describe } from '../tools/lib/describe.mjs';
+import { CONFIG } from '../assets/js/config.js';
 
 const data = JSON.parse(fs.readFileSync(new URL('../data/businesses.json', import.meta.url), 'utf8'));
 const all = [...data.businesses, ...(data.comingSoon || [])];
@@ -34,8 +35,9 @@ test('every listing has a name, a known category and a known area', () => {
   assert.deepEqual(problems(b => !areaIds.has(b.area)), []);
 });
 
-test('every listing is in Fort Bragg’s ZIP code and can be reached somehow', () => {
-  assert.deepEqual(problems(b => b.zip && b.zip !== '95437'), []);
+test(`every listing is in ${CONFIG.town}’s ZIP code and can be reached somehow`, () => {
+  // Every listing carries a ZIP, and it is one of ours: the build's ZIP filter only runs when a ZIP is known.
+  assert.deepEqual(problems(b => !CONFIG.zips.includes(String(b.zip || ''))), []);
   assert.deepEqual(problems(b => !b.address && !b.phone && !b.website), []);
 });
 
@@ -48,9 +50,10 @@ test('opening hours, when present, can be read', () => {
   assert.deepEqual(problems(b => b.hours && !parseHours(b.hours)), []);
 });
 
-test('map pins are inside ZIP 95437, from Cleone and Inglenook to the Botanical Gardens and the Highway 20 corridor', () => {
-  // The geocoder's box (tools/geocode.mjs).
-  const outside = b => typeof b.lat === 'number' && !(b.lat > 39.33 && b.lat < 39.56 && b.lon > -123.85 && b.lon < -123.55);
+test('map pins are inside the geocoder’s box: ZIP 95490, stopping short of Laytonville', () => {
+  // The geocoder's box (CONFIG.geocodeBox, used by tools/geocode.mjs), [south, west, north, east].
+  const [south, west, north, east] = CONFIG.geocodeBox;
+  const outside = b => typeof b.lat === 'number' && !(b.lat > south && b.lat < north && b.lon > west && b.lon < east);
   assert.deepEqual(problems(outside), []);
 });
 
