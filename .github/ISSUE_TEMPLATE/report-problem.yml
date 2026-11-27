@@ -1,0 +1,35 @@
+name: Report a problem with a listing
+description: Something is wrong or out of date (closed, moved, new phone number, wrong hours).
+title: "Fix a listing: "
+labels: ["fix listing"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for telling us! We check every report, usually within a week.
+  - type: input
+    id: business_name
+    attributes:
+      label: Which business?
+      placeholder: The name as it appears on the site
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What needs fixing?
+      description: For example, "It closed in March", "The phone number is now (707) 555-0123", or "They're open Sundays now".
+    validations:
+      required: true
+  - type: input
+    id: address
+    attributes:
+      label: Correct address (if it changed)
+  - type: input
+    id: phone
+    attributes:
+      label: Correct phone number (if it changed)
+  - type: input
+    id: website
+    attributes:
+      label: Correct website (if it changed)

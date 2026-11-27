@@ -1,0 +1,6 @@
+{
+  "_help": "Hand fixes that survive every data rebuild. Only use facts from the business itself (its website, sign or a message from the owner), OpenStreetMap or a government record, never from review sites, map apps or other directories (see data/SOURCES.md). 'remove': ids to hide. 'patch': id -> fields to change, e.g. {\"phone\": \"(707) 555-0123\", \"hours\": \"Mo-Fr 09:00-17:00\"}. 'add': whole new listings: name, category, sub, address, zip, phone, website, hours, tags, and 'sources' (where each fact came from). Descriptions are written automatically. Then run: node tools/build-data.mjs final",
+  "remove": [],
+  "patch": {},
+  "add": []
+}

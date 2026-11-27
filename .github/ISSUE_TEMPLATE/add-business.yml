@@ -1,0 +1,38 @@
+name: Add a business
+description: Suggest a Fort Bragg business that's missing from the directory. Listing is free.
+title: "Add a business: "
+labels: ["add business"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping! We check every suggestion before it goes on the site, usually within a week.
+        Only the business name is required. Fill in whatever else you know.
+  - type: input
+    id: business_name
+    attributes:
+      label: Business name
+      placeholder: e.g. Corner Bakery
+    validations:
+      required: true
+  - type: input
+    id: address
+    attributes:
+      label: Street address
+      description: The street address in Fort Bragg (ZIP 95437).
+      placeholder: e.g. 401 North Main Street
+  - type: input
+    id: phone
+    attributes:
+      label: Phone number
+      placeholder: e.g. (707) 555-0123
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: e.g. https://www.example.com
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else we should know?
+      description: What kind of business it is, opening hours, or whether it has just opened.

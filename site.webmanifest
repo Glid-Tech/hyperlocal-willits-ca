@@ -1,0 +1,24 @@
+{
+  "id": "./",
+  "name": "Fort Bragg Local",
+  "short_name": "Fort Bragg",
+  "description": "Find local restaurants, shops, doctors and services in Fort Bragg, California. Works without internet once saved.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#13201a",
+  "theme_color": "#1d3b2f",
+  "categories": ["lifestyle", "shopping", "food"],
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Open now", "short_name": "Open now", "description": "Places open right now", "url": "./?open=1", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Restaurants", "short_name": "Restaurants", "url": "./?cat=restaurants", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Doctors & health", "short_name": "Doctors", "url": "./?cat=health", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

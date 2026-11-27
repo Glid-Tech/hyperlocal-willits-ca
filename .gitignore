@@ -1,0 +1,10 @@
+# Local-only files (not published)
+notes/
+.DS_Store
+node_modules/
+# Working files from research and checking. They hold notes about other websites, so they stay private.
+# Only the OpenStreetMap snapshot and the geocoding cache (both openly licensed) are published.
+data/sources/*
+!data/sources/osm.json
+!data/sources/geocode-cache.json
+!data/sources/README.md
