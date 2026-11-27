@@ -29,6 +29,7 @@ import { fileURLToPath } from 'node:url';
 import { classifySource, hostOf, isOwnWebsite, siteKey } from './lib/source-policy.mjs';
 import { sleep, robotsFor, robotsAllows, getText, pageFacts, pageText, jsonLdObjects, hoursFromLd, addressNeedle, addressOnPage, phoneDigits } from './lib/pagecheck.mjs';
 import { normalizeHours } from '../assets/js/hours.js';
+import { cslbLicNum, cslbLines } from './lib/gov-snapshots.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'data/sources');
@@ -203,6 +204,15 @@ async function slot(fn) {
 }
 function fetchPage(url) {
   if (pages.has(url)) return pages.get(url);
+  // CSLB detail pages are behind reCAPTCHA for tools: read the licence's line from the board's own saved portal list.
+  const lic = cslbLicNum(url);
+  if (lic) {
+    const lines = cslbLines(lic);
+    const page = lines === null ? { error: 'CSLB detail pages need the saved licence list: run node tools/fetch-cslb.mjs' }
+      : lines ? makePage(lines, 'text/plain', url) : { error: 'that licence is not on the saved CSLB list' };
+    pages.set(url, Promise.resolve(page));
+    return pages.get(url);
+  }
   const host = hostOf(url);
   const run = (hostQueue.get(host) || Promise.resolve()).then(() => slot(async () => {
     let u;

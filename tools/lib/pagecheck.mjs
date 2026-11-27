@@ -13,8 +13,9 @@ const refererFor = url => { const h = hostOf(url); const k = Object.keys(REFERER
 
 // In the usual form for an automated checker ("Mozilla/5.0 (compatible; name/version; purpose)"): some sites' firewalls
 // turn away any client that doesn't start this way, even from robots.txt. It still names the tool and what it does.
-// No apostrophes or quotes: some firewalls read them as an attack and refuse the request.
-export const UA = `Mozilla/5.0 (compatible; ${UA_NAME}-fact-checker/1.0; checks business addresses and phone numbers for a static community directory)`;
+// No apostrophes or quotes, and no word "and": some firewalls read them as an attack and refuse the request
+// (the City of Willits site answers 404 to a User-Agent containing " and ").
+export const UA = `Mozilla/5.0 (compatible; ${UA_NAME}-fact-checker/1.0; checks business addresses, phone numbers; static community directory)`;
 // The robots.txt name for this checker ("willitslocal"): the UA's product name in lower case, so the two always agree.
 const UA_TOKEN = UA_NAME.toLowerCase();
 export const sleep = ms => new Promise(r => setTimeout(r, ms));

@@ -59,6 +59,10 @@ Street in Downtown." We never publish anyone else's descriptions, reviews, ratin
 
 ## How it's enforced
 
+- California's contractor board (CSLB) shows its licence pages to people but sends automated tools to a CAPTCHA,
+  and we never get around a CAPTCHA. The board publishes the same records, without one, as county downloads on its
+  Public Data Portal. `tools/fetch-cslb.mjs` saves that download, and the checks read a contractor's facts from the
+  board's own list. Each listing still links to the licence page, which anyone can open in a browser.
 - `tools/lib/source-policy.mjs` holds the lists above.
 - `tools/check-firstparty.mjs` visits each business's own website, slowly and identifying itself, and respects
   `robots.txt`. It confirms that the phone number and address appear there. Opening hours are taken only from the

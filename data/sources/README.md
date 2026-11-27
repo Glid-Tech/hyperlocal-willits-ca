@@ -10,6 +10,7 @@ be published are in `../SOURCES.md`.
 | `research/*.json` | Leads: businesses we heard about from news stories, shopping-center directories or the chamber of commerce, each with the facts a researcher confirmed at an allowed source (format below). Never published as they are. | No |
 | `candidates.json` | Every possible listing, merged and de-duplicated (`node tools/build-data.mjs candidates`). | No |
 | `firstparty.json` | What `node tools/check-firstparty.mjs` found on each business's own website: whether the phone number and address appear there, and any opening hours the site publishes. | No |
+| `gov/cslb-licences.txt` | California contractor licences for the county, one per line, from the CSLB Public Data Portal (`node tools/fetch-cslb.mjs`). The audit checks facts cited to CSLB licence pages against it, because those pages put automated tools behind a CAPTCHA. | No |
 | `confirmed/*.json` | Listings checked by hand against allowed sources only (format below). | No |
 
 The files marked "No" are listed in `.gitignore`, because they hold notes about leads that we don't redistribute.

@@ -6,6 +6,7 @@ import { sharesIdentifyingWord, prettyStreet, nameSimilarity, addressKey } from 
 import { addressNeedle, addressOnPage, pageFacts, normAddr, UA } from '../tools/lib/pagecheck.mjs';
 import { isOwnWebsite, classifySource, isNeverVisit } from '../tools/lib/source-policy.mjs';
 import { classify } from '../tools/lib/osm-map.mjs';
+import { cslbLicNum, cslbLine } from '../tools/lib/gov-snapshots.mjs';
 
 test('names that share only a kind of business or a location are not the same business', () => {
   const different = [
@@ -166,4 +167,16 @@ test('hours read in a holiday week that show the holiday as a weekly closure are
   assert.equal(holidayClosure('Tu-Sa 11:00-21:00', '2026-05-24'), true, 'closed Mondays, read in Memorial Day week');
   assert.equal(holidayClosure('Mo-Fr 09:00-17:00', '2026-12-28'), false, 'Christmas was a Friday, and Friday is open');
   assert.equal(holidayClosure('24/7', '2026-11-22'), false);
+});
+
+test('CSLB detail pages are checked against the board\'s saved licence list, one licence per line', () => {
+  assert.equal(cslbLicNum('https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum=1049624'), '1049624');
+  assert.equal(cslbLicNum('https://www2.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum=820874'), '820874');
+  assert.equal(cslbLicNum('https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx'), null);
+  assert.equal(cslbLicNum('https://example.com/LicenseDetail.aspx?LicNum=1'), null, 'only the board\'s own pages');
+  const line = cslbLine({ LicenseNumber: '1049624', BusinessName: '707 CONSTRUCTION', Address: '3851 RIDGEWOOD RD', City: 'WILLITS',
+    State: 'CA', 'ZIP Code': '95490', PhoneNumber: '(707) 513 5340', Status: 'CLEAR', ExpirationDate: '01/31/2027', 'Classification(s)': 'B' });
+  assert.ok(line.startsWith('1049624 | 707 CONSTRUCTION |'), 'the licence number leads, so lookups are exact');
+  assert.ok(pageFacts(line).phones.has('7075135340'), 'the audit can read the phone off the line');
+  assert.doesNotMatch(UA, / and /, 'the City of Willits firewall answers 404 to a User-Agent containing " and "');
 });

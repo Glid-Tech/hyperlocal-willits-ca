@@ -81,6 +81,7 @@ rules are in [`data/SOURCES.md`](data/SOURCES.md)):
 | Step | Command | Output |
 | --- | --- | --- |
 | 1. Download Willits-area businesses from OpenStreetMap | `node tools/fetch-osm.mjs` | `data/sources/osm.json` |
+| 1b. Save the county's contractor licences from the state board's data portal (California) | `node tools/fetch-cslb.mjs` | `data/sources/gov/cslb-licences.txt` |
 | 2. Add leads: businesses heard about from news, the chamber of commerce or shopping-center directories, with the facts confirmed at allowed sources | (research) | `data/sources/research/*.json` |
 | 3. Merge and de-duplicate everything | `node tools/build-data.mjs candidates` | `data/sources/candidates.json` |
 | 4. Find map coordinates for new addresses | `node tools/geocode.mjs`, then repeat step 3 | `data/sources/geocode-cache.json` |
