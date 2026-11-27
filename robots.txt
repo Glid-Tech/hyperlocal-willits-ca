@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://glid-tech.github.io/hyperlocal-willits-ca/sitemap.xml
