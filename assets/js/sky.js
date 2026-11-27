@@ -1,13 +1,15 @@
-// The living hero: paints the Fort Bragg landscape for the real time of day.
-// Sun position comes from a standard solar-position approximation for Fort Bragg's
-// coordinates; the palette blends between dawn, morning, day, golden hour, dusk and night.
-// The land follows the coast's seasons too: green hills in the rainy months, gold ones in the dry, summer fog.
+// The living hero: paints the Willits landscape (Little Lake Valley, looking south) for the real time of day.
+// Sun position comes from a standard solar-position approximation for the town's coordinates (CONFIG.lat/lon);
+// the palette blends between dawn, morning, day, golden hour, dusk and night.
+// The valley follows its seasons too: green grass, morning fog and snow on the ridge in winter, wildflowers in
+// spring, gold grass in summer, straw and yellow creekside trees in fall.
 // Preview any time with ?sky=dawn|morning|day|golden|dusk|night or ?skyHour=19.5,
 // any season with ?season=spring|summer|fall|winter, and the December lights with ?holiday=1
 
 import { TIME_ZONE } from './hours.js';
+import { CONFIG } from './config.js';
 
-const LAT = 39.4457, LON = -123.8053; // downtown Fort Bragg (Main and Laurel Streets)
+const LAT = CONFIG.lat, LON = CONFIG.lon; // downtown Willits (assets/js/config.js)
 const RAD = Math.PI / 180;
 // Date formatters are slow to build, so each one is made once and reused.
 const DAY_FMT = new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -22,6 +24,8 @@ const P = {
   golden:  { skyTop: '#4f86c0', skyMid: '#f2c58f', skyBot: '#f8d9a8', sun: '#ffe2a6', sunGlow: '#ffbf6b', cloud: '#fff0d4', far: '#ae978a', hillFar: '#82866a', seaTop: '#f3c890', seaBot: '#556983', bridge: '#a08e7c', rock: '#6a5646', hillMid: '#56683f', house: '#d9b98c', hillNear: '#3f5530', canopy: '#273c20', grass: '#b4a25a', stars: 0, windows: 0.15, cloudOp: 0.8 },
   dusk:    { skyTop: '#1f2a59', skyMid: '#8a5a8c', skyBot: '#f0915f', sun: '#ffb98a', sunGlow: '#ff8f5a', cloud: '#ee9c86', far: '#463f63', hillFar: '#343b50', seaTop: '#e0906f', seaBot: '#3a3656', bridge: '#4a4258', rock: '#2a2532', hillMid: '#22352d', house: '#1f2f28', hillNear: '#18271f', canopy: '#0d1812', grass: '#383a2a', stars: 0.35, windows: 0.95, cloudOp: 0.6 },
 };
+// seaTop/seaBot colour water: the creek in front of the train (the #sea-g gradient in tools/gen-hero.mjs).
+// bridge is the concrete of the US 101 bypass viaduct and the street; rock is the town's roofs.
 // Keyframes by solar elevation (degrees), separately for morning and evening.
 const MORNING = [[-14, 'night'], [-4, 'dawn'], [5, 'morning'], [20, 'day']];
 const EVENING = [[-14, 'night'], [-7, ['dusk', 'night', 0.5]], [0.5, 'dusk'], [9, 'golden'], [20, 'day']];
@@ -33,15 +37,18 @@ export const CSS_VARS = {
   stars: '--stars', windows: '--windows', cloudOp: '--cloud-op',
 };
 
-// Things painted their own colours (the train, the depot, the lighthouse, people's coats) as they look in daylight.
-// sky.js relights them by the same light that falls on the town, so the maroon train glows at golden hour and
-// is a dark shape with lit windows at night. Each becomes a CSS variable: --p-maroon and so on (app.css).
+// Things painted their own colours (the train, the depot, the arch, brick fronts, snow, fall leaves, people's coats)
+// as they look in daylight; the train, depot and arch from CC-licensed Commons photos (notes/research/hero-colours.md).
+// sky.js relights them by the same light that falls on the town, so the maroon train glows at golden hour and is a
+// dark shape with lit windows at night.
+// Each becomes a CSS variable: --p-maroon and so on (app.css).
 export const PAINT = {
-  maroon: '#7e2a2e', coach: '#7a2a33', shade: '#5a1e24', roof: '#2e2f33', iron: '#1e1e22', hub: '#5b5b60',
+  maroon: '#7a2b36', coach: '#74293a', shade: '#561e28', roof: '#2e2f33', iron: '#1e1e22', hub: '#5b5b60',
   trim: '#e8b630', gold: '#d9b45a', cream: '#efe2b8', glass: '#2b3440', white: '#f1efe6',
-  depot: '#e3d49a', depotTrim: '#2f4a3a', sash: '#8a3a2e', tower: '#a8403a', timber: '#7a6a55', bark: '#7a3e2a',
+  depot: '#6b4636', depotTrim: '#3f2b25', shingle: '#8b857b', sash: '#e4ddcb', brick: '#8c4a3c', timber: '#7a6a55', bark: '#7a3e2a',
+  arch: '#2e5a4b', archPanel: '#24495a', archBanner: '#8e3c35', archLetter: '#efe8d6',
+  snow: '#f3f6f9', leafFall: '#d8a93a', oakFall: '#a98447',
   skin1: '#d7a47c', skin2: '#8d5a3b', hair: '#3a2a20', coat1: '#2f6f8f', coat2: '#c9573a', coat3: '#e2c35a', coat4: '#4f7a4a',
-  sand: '#cdbb98', glass1: '#e6ece9', glass2: '#8a5a2b', glass3: '#4f8a4a', glass4: '#3557a8',
 };
 export const PAINT_VARS = Object.fromEntries(Object.keys(PAINT).map(k => [k, '--p-' + k.replace(/[A-Z]/g, c => '-' + c.toLowerCase())]));
 
@@ -65,7 +72,7 @@ export function sunPosition(date, lat = LAT, lon = LON) {
 
 let sunCache = { day: '', times: null };
 
-/** Sunrise and sunset (Date objects) for the Fort Bragg calendar day containing `date`. */
+/** Sunrise and sunset (Date objects) for the town's calendar day containing `date` (a flat horizon, as published). */
 export function sunTimes(date) {
   const today = DAY_FMT.format(date);
   if (sunCache.day === today) return sunCache.times;
@@ -123,20 +130,21 @@ const PRESETS = { night: [-20, false], dawn: [-3, true], morning: [8, true], day
 // ----------------------------------------------------------------------------- seasons
 
 // How the land looks in full daylight in each season. The time-of-day palette then "relights" it, so gold grass
-// glows at golden hour and goes near-black at night. On the Mendocino coast the hills follow the rain, not the
-// cold: the redwoods stay dark green all year, the grass greens after the first rains of November, is greenest in
-// spring (with wildflowers on the bluffs) and dries to gold from June. Summer is the fog season; grey whales pass
-// offshore from December to April.
+// glows at golden hour and goes near-black at night. Little Lake Valley is inland (NOAA 1991-2020 normals for
+// Willits 1 NE: July 83.5/48.0 °F, January 53.7/33.3 °F, 49 in of rain a year, a few inches of snow): the redwoods
+// and firs stay dark green all year, the grass greens after the first winter rains, flowers in spring (poppies and
+// lupine) and cures to gold from June, then fades to straw. Winter mornings bring valley fog and, now and then, a
+// dusting of snow on the ridge (`accent`); in fall the creekside trees turn yellow (`fall`).
 const VEG = ['hillFar', 'hillMid', 'hillNear', 'canopy', 'grass'];
 const SEASONS = {
-  winter: { hillFar: P.day.hillFar, hillMid: P.day.hillMid, hillNear: '#3b6a45', canopy: P.day.canopy, grass: '#6e9a4e', fog: 0.15, whale: 1, flowers: 0 },
-  spring: { hillFar: '#80a28c', hillMid: '#4f7f5b', hillNear: '#477b48', canopy: '#25502f', grass: '#7daf52', fog: 0.3, whale: 0.85, flowers: 1 },
-  summer: { hillFar: P.day.hillFar, hillMid: P.day.hillMid, hillNear: '#4d6a3f', canopy: P.day.canopy, grass: '#c9a45c', fog: 0.8, whale: 0, flowers: 0 },
-  fall:   { hillFar: P.day.hillFar, hillMid: P.day.hillMid, hillNear: '#536a3e', canopy: P.day.canopy, grass: '#b8955a', fog: 0.3, whale: 0, flowers: 0 },
+  winter: { hillFar: P.day.hillFar, hillMid: P.day.hillMid, hillNear: '#3b6a45', canopy: P.day.canopy, grass: '#6e9a4e', fog: 0.85, accent: 1, flowers: 0, fall: 0 },
+  spring: { hillFar: '#80a28c', hillMid: '#4f7f5b', hillNear: '#477b48', canopy: '#25502f', grass: '#7daf52', fog: 0.35, accent: 0, flowers: 1, fall: 0 },
+  summer: { hillFar: '#7a9584', hillMid: '#56704f', hillNear: '#5e6b3c', canopy: P.day.canopy, grass: '#c8a55a', fog: 0, accent: 0, flowers: 0, fall: 0 },
+  fall:   { hillFar: P.day.hillFar, hillMid: '#5a6e48', hillNear: '#5d6a3e', canopy: P.day.canopy, grass: '#c2aa76', fog: 0.45, accent: 0, flowers: 0, fall: 1 },
 };
-// Day of the year -> season, easing between them: winter from the first rains of late November to February,
-// spring March to May, the dry summer June to August, the golden fall September to mid November.
-const SEASON_FRAMES = [[0, 'winter'], [52, 'winter'], [80, 'spring'], [138, 'spring'], [166, 'summer'], [236, 'summer'], [262, 'fall'], [314, 'fall'], [338, 'winter'], [366, 'winter']];
+// Day of the year -> season, easing between them: winter December to February, spring March to May, the dry
+// summer June to September, fall October to November.
+const SEASON_FRAMES = [[0, 'winter'], [52, 'winter'], [75, 'spring'], [135, 'spring'], [160, 'summer'], [250, 'summer'], [275, 'fall'], [318, 'fall'], [340, 'winter'], [366, 'winter']];
 
 function dayOfYear(date) {
   const [y, m, d] = DAY_FMT.format(date).split('-').map(Number);
@@ -177,8 +185,9 @@ export function paints(pal) {
 
 // ----------------------------------------------------------------------------- legibility
 
-// The hero SVG's viewBox, and the height where the far hills start (tools/gen-hero.mjs).
-const VIEW_W = 1600, VIEW_H = 720, HILLS_Y = 505;
+// The hero SVG's viewBox, and the height where the hills start behind the text band, x 440-1155 (tools/gen-hero.mjs):
+// the east hills reach about y 486 at its left edge, the far hills and the western ridge about 500-515 further right.
+const VIEW_W = 1600, VIEW_H = 720, HILLS_Y = 498;
 
 // What app.css lays over the scene right behind the text, in each tone, as [colour, opacity]. The intro and
 // the search label sit on frosted backings. The headline's halo (its text-shadow) moves the sky next to the
@@ -322,13 +331,15 @@ export function initSky(hero, { onTick } = {}) {
     pal = relight(paletteFor(elev, morning), season);
     for (const [k, v] of Object.entries(CSS_VARS)) hero.style.setProperty(v, String(pal[k]));
     for (const [k, v] of Object.entries(paints(pal))) hero.style.setProperty(PAINT_VARS[k], v);
-    // Sea fog on the horizon (thickest on summer mornings, burning off by afternoon), whales, wildflowers.
+    // Valley fog (thickest on winter mornings, thinning by afternoon), snow on the ridge, wildflowers, fall colour.
     const foggy = season.fog * (morning ? 1 : elev > 20 ? 0.45 : 0.7);
     hero.style.setProperty('--fog-op', foggy.toFixed(2));
-    hero.style.setProperty('--whale', season.whale.toFixed(2));
+    hero.style.setProperty('--season-accent', season.accent.toFixed(2));
     hero.style.setProperty('--flowers', season.flowers.toFixed(2));
+    hero.style.setProperty('--fall', season.fall.toFixed(2));
 
-    // Sun: azimuth 60..300 maps across the scene, elevation -10..65 maps bottom..top.
+    // Sun: azimuth 60..300 maps across the scene (it faces south: east on the left, west on the right),
+    // elevation -12..65 maps bottom..top, with 0° at y 526, just below the western ridge (y 490-515).
     const sx = 120 + ((Math.max(60, Math.min(300, az)) - 60) / 240) * 1360;
     const sy = 610 - ((Math.max(-12, Math.min(65, elev)) + 12) / 77) * 540;
     sun?.setAttribute('transform', `translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);
@@ -366,7 +377,12 @@ export function initSky(hero, { onTick } = {}) {
     if (ticking || reduce.matches) return;
     ticking = true;
     requestAnimationFrame(() => {
-      const y = Math.min(window.scrollY, hero.offsetHeight);
+      // On a phone the hero is taller than the screen, and its foot (the arch, the depot and the train) only comes
+      // into view once the page has scrolled down to it. The layers start to lift only from there, as the hero
+      // leaves the screen, so they never slide up behind the chips first. On a desktop the whole hero fits, so
+      // they lift from the top of the page.
+      const start = Math.max(0, hero.getBoundingClientRect().bottom + window.scrollY - window.innerHeight);
+      const y = Math.min(Math.max(0, window.scrollY - start), hero.offsetHeight);
       for (const { el, depth } of layers) el.style.transform = `translate3d(0, ${(y * depth * -0.6).toFixed(1)}px, 0)`;
       ticking = false;
     });
@@ -382,7 +398,7 @@ export function sunNote(date = new Date()) {
   return '';
 }
 
-/** "Good evening" etc. for Fort Bragg's local clock. */
+/** "Good evening" etc. for the town's local clock. */
 export function greeting(date = new Date()) {
   const h = +HOUR_FMT.format(date);
   if (h >= 5 && h < 12) return 'Good morning';

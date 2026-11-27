@@ -148,10 +148,10 @@ test('the header and the results toolbar wrap instead of clipping at large text 
 });
 
 test('the hero’s text stays readable whatever the sky (a11y 6)', () => {
-  // The italic “Fort Bragg” on daytime skies, across the band where the headline sits on phones and desktops.
+  // The italic “Willits” on daytime skies, across the band where the headline sits on phones and desktops.
   const em = val('.hero-title em', 'color');
   for (const { elev, p } of SKIES.filter(s => s.elev >= 20)) {
-    for (const bg of behind(p, 0.17, 0.42)) assert.ok(ratio(em, bg) >= 3, `“Fort Bragg” ${em} at ${elev}°: ${ratio(em, bg).toFixed(2)}`);
+    for (const bg of behind(p, 0.17, 0.42)) assert.ok(ratio(em, bg) >= 3, `“Willits” ${em} at ${elev}°: ${ratio(em, bg).toFixed(2)}`);
   }
   // The intro and the search instruction sit on a frosted backing in both sky tones.
   const back = { light: rgba(val('.hero-lede', 'background')), dark: rgba(val('.hero[data-sky-tone="dark"] :is(.hero-lede, .search-label)', 'background')) };
@@ -165,9 +165,9 @@ test('the hero’s text stays readable whatever the sky (a11y 6)', () => {
     light: [val('.hero', '--hero-ink'), val('.hero', '--hero-ink-2')],
     dark: [val('.hero[data-sky-tone="dark"]', '--hero-ink'), val('.hero[data-sky-tone="dark"]', '--hero-ink-2')],
   };
-  const layouts = [ // SVG units, and the stretch of the headline with a cloud behind it
-    { '.hero-title': [100, 272, [147, 177]], '.hero-title em': [186, 272], '.hero-lede': [287, 350], '.search-label': [385, 411] },
-    { '.hero-title': [70, 165, [70, 110]], '.hero-title em': [133, 165], '.hero-lede': [175, 278], '.search-label': [302, 348] },
+  const layouts = [ // SVG units (measured in Chrome, notes/measure.html), and a stretch of the headline with a cloud behind it
+    { '.hero-title': [89, 239, [130, 160]], '.hero-title em': [156, 247], '.hero-lede': [253, 325], '.search-label': [355, 388] }, // 1440×800
+    { '.hero-title': [79, 163, [79, 115]], '.hero-title em': [132, 166], '.hero-lede': [173, 244], '.search-label': [265, 306] }, // 320×640
   ].map(l => HERO_TEXT.map(t => ({ ...t, top: l[t.sel][0], bottom: l[t.sel][1], clouds: l[t.sel][2] ? [l[t.sel][2]] : [] })));
   for (const bands of layouts) {
     for (const { elev, p } of SKIES) {
@@ -280,7 +280,7 @@ test('decorative animations stop by themselves, and reduced motion stops the res
     .filter(r => [...r.decls].some(([k, v]) => k.startsWith('animation') && /\binfinite\b/.test(v)))
     .flatMap(r => r.selectors);
   assert.deepEqual(infinite, ['.search-mic[data-listening]'], 'only the microphone, while it is listening');
-  for (const sel of ['.status-open .st-dot', '.beacon']) {
+  for (const sel of ['.status-open .st-dot']) {
     const [, secs, times] = /\s([\d.]+)s\b.*\s(\d+)$/.exec(val(sel, 'animation'));
     assert.ok(secs * times <= 5, `${sel} moves for ${secs * times}s`);
   }

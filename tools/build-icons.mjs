@@ -4,8 +4,9 @@
 //
 //   node tools/build-icons.mjs
 //
-// Icons come from Lucide (ISC licence, tools/vendor-icons/LUCIDE-LICENSE.txt) plus a
-// few drawn for this site (tooth, logo mark) in the same 24px, round-stroke style.
+// Icons come from Lucide (ISC licence, tools/vendor-icons/LUCIDE-LICENSE.txt) plus one
+// drawn for this site (a tooth) in the same 24px, round-stroke style. The brand mark is not
+// in the sprite: it is drawn inline in index.html and 404.html and in assets/img/favicon.svg.
 
 import fs from 'node:fs';
 import path from 'node:path';

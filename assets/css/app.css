@@ -1,4 +1,4 @@
-/* Fort Bragg Local — styles
+/* Willits Local — styles
    Design: warm paper, deep forest green, brass accents; Fraunces for display, Atkinson
    Hyperlegible Next (designed for low-vision readers) for everything you read.
    Built for older and non-technical visitors first: big type, big targets, plain words. */
@@ -43,7 +43,7 @@
   --primary-soft: #e2efe6;
   --brass: #8f5d12;
   --brass-bright: #e0ac4c;
-  --hero-gold: #e6b558; /* "Fort Bragg" on a dark sky: a little brighter than the brass, for 3:1 at first light */
+  --hero-gold: #e6b558; /* the town name ("Willits") on a dark sky: a little brighter than the brass, for 3:1 at first light */
 
   --open: #146c3b;
   --open-soft: #dff2e6;
@@ -66,9 +66,9 @@
   --sky-top: #3f8fd6; --sky-mid: #8cc4ec; --sky-bot: #dff0f9; --sun: #fffbe8; --sun-glow: #fff0bf;
   --cloud: #ffffff; --cloud-op: .9; --far: #98adc0; --hill-far: #7a9a8a; --sea-top: #86bde0; --sea-bot: #2c6892;
   --bridge: #9ea3a3; --rock: #67625a; --hill-mid: #46755a; --house: #d3c3a6; --hill-near: #335f42; --canopy: #1f432d;
-  --grass: #9aae62; --fog-op: .3; --whale: 0; --flowers: 0;
-  /* The painted things in daylight: the train, depot, lighthouse and riders (PAINT in sky.js, relit by it). */
-  --p-maroon: #7e2a2e; --p-coach: #7a2a33; --p-shade: #5a1e24; --p-roof: #2e2f33; --p-iron: #1e1e22; --p-hub: #5b5b60; --p-trim: #e8b630; --p-gold: #d9b45a; --p-cream: #efe2b8; --p-glass: #2b3440; --p-white: #f1efe6; --p-depot: #e3d49a; --p-depot-trim: #2f4a3a; --p-sash: #8a3a2e; --p-tower: #a8403a; --p-timber: #7a6a55; --p-bark: #7a3e2a; --p-skin1: #d7a47c; --p-skin2: #8d5a3b; --p-hair: #3a2a20; --p-coat1: #2f6f8f; --p-coat2: #c9573a; --p-coat3: #e2c35a; --p-coat4: #4f7a4a; --p-sand: #cdbb98; --p-glass1: #e6ece9; --p-glass2: #8a5a2b; --p-glass3: #4f8a4a; --p-glass4: #3557a8;
+  --grass: #9aae62; --fog-op: .3; --season-accent: 0; --flowers: 0; --fall: 0;
+  /* The painted things in daylight: the train, depot, arch, brick fronts and riders (PAINT in sky.js, relit by it). */
+  --p-maroon: #7a2b36; --p-coach: #74293a; --p-shade: #561e28; --p-roof: #2e2f33; --p-iron: #1e1e22; --p-hub: #5b5b60; --p-trim: #e8b630; --p-gold: #d9b45a; --p-cream: #efe2b8; --p-glass: #2b3440; --p-white: #f1efe6; --p-depot: #6b4636; --p-depot-trim: #3f2b25; --p-shingle: #8b857b; --p-sash: #e4ddcb; --p-brick: #8c4a3c; --p-timber: #7a6a55; --p-bark: #7a3e2a; --p-arch: #2e5a4b; --p-arch-panel: #24495a; --p-arch-banner: #8e3c35; --p-arch-letter: #efe8d6; --p-snow: #f3f6f9; --p-leaf-fall: #d8a93a; --p-oak-fall: #a98447; --p-skin1: #d7a47c; --p-skin2: #8d5a3b; --p-hair: #3a2a20; --p-coat1: #2f6f8f; --p-coat2: #c9573a; --p-coat3: #e2c35a; --p-coat4: #4f7a4a;
   --stars: 0; --windows: 0; --sun-op: 1; --moon-op: 0; --holiday: 0;
 
   color-scheme: light;
@@ -155,7 +155,7 @@ ul, ol { margin: 0; }
 @media (prefers-color-scheme: dark) { .bm-bg { fill: #1f4a37; } }
 .bm-sun { fill: var(--brass-bright); }
 .bm-tree { fill: #f7f1e3; }
-.bm-ground { fill: none; stroke: #f7f1e3; stroke-width: 2; stroke-linecap: round; opacity: .7; }
+.bm-ground { fill: none; stroke: #f7f1e3; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .7; } /* the valley ridge line */
 .brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
 .brand-name em { color: var(--brass); font-weight: 500; }
 .topnav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: .4rem; margin-left: auto; }
@@ -199,14 +199,14 @@ ul, ol { margin: 0; }
   position: relative; isolation: isolate;
   min-height: clamp(560px, 84vh, 880px);
   display: grid; align-items: center;
-  /* The bottom padding leaves the Skunk Train on its trestle in clear view below the search box and the chips. */
-  padding: 2.5rem 0 12rem;
+  /* The bottom padding leaves the depot, the Main Street arch and the train in clear view below the search box and the chips. */
+  padding: 2.5rem 0 13rem;
   color: var(--hero-ink);
   transition: min-height .5s var(--ease), padding .5s var(--ease);
 }
 .hero[data-sky-tone="dark"] { --hero-ink: #ffffff; --hero-ink-2: #e7ecf5; }
-/* On a phone the hero is tall and narrow, so the scene is drawn larger and the train needs more room. */
-@media (max-width: 640px) { .hero { padding-bottom: 15rem; } }
+/* On a phone the hero is tall and narrow, so the scene is drawn larger and the arch and train need more room. */
+@media (max-width: 640px) { .hero { padding-bottom: 17rem; } }
 .scene { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
 .hero.sug-open { z-index: 10; }
 .scene-svg { width: 100%; height: 100%; }
@@ -222,23 +222,16 @@ ul, ol { margin: 0; }
 .moon-shade { fill: var(--sky-top); }
 .cloud { fill: var(--cloud); opacity: var(--cloud-op); }
 .far { fill: var(--far); }
-.sea-shine, .creek-shine { stroke: #fff; stroke-opacity: .35; stroke-width: 2; stroke-linecap: round; fill: none; }
-.fog { fill: var(--cloud); opacity: var(--fog-op); transition: opacity 3s; }
-.whale { opacity: var(--whale); }
-.whale-back { fill: var(--rock); }
-.whale-spout { fill: #fff; opacity: .7; }
-.lighthouse { fill: var(--p-white); }
-.lighthouse-roof { fill: #b0303a; }
-/* Point Cabrillo's light: on after dark, flashing twice when the page opens (the real one flashes every 10s). */
-.beacon { fill: #fff8e0; opacity: var(--windows); animation: blink 2.5s steps(1) 2; }
+.creek-shine { stroke: #fff; stroke-opacity: .35; stroke-width: 2; stroke-linecap: round; fill: none; }
+/* Valley fog on the floor of Little Lake Valley, and a dusting of snow on the ridges in winter (--season-accent). */
+.fog { fill: var(--cloud); opacity: calc(var(--fog-op) * .75); transition: opacity 3s; }
+.snow { fill: var(--p-snow); opacity: calc(var(--season-accent) * .9); transition: opacity 3s; }
 .hill-far { fill: var(--hill-far); }
-.bridge-deck { fill: var(--bridge); }
+/* The east hills: grass in the season's colour, softened by distance. */
+.haze { fill: var(--far); opacity: .5; }
+.oak-dots { fill: var(--hill-mid); opacity: .8; }
+.bridge-deck, .street { fill: var(--bridge); }
 .bridge-piers { fill: var(--bridge); opacity: .85; }
-.bridge-lamps { fill: #ffe2a0; opacity: var(--windows); transition: opacity 3s; }
-.rock, .bluff { fill: var(--rock); }
-.surf, .boat-wake { stroke: #fff; stroke-opacity: .7; stroke-width: 1.6; stroke-linecap: round; fill: none; }
-.boat-rig { stroke: var(--p-iron); stroke-width: 1; fill: none; }
-.boat-glass { fill: var(--p-glass); }
 .grass { fill: var(--grass); }
 .windows { fill: #ffd58a; opacity: var(--windows); transition: opacity 3s; }
 .houses { fill: var(--house); }
@@ -250,13 +243,17 @@ ul, ol { margin: 0; }
 .hill-near { fill: var(--hill-near); }
 .canopy-front { fill: var(--canopy); }
 .creek { opacity: .92; }
-.beach { fill: var(--p-sand); }
-.sea-glass .g1 { fill: var(--p-glass1); } .sea-glass .g2 { fill: var(--p-glass2); }
-.sea-glass .g3 { fill: var(--p-glass3); } .sea-glass .g4 { fill: var(--p-glass4); }
+/* Fall: the creekside trees turn yellow and the oaks go a little brown. */
+.fall-leaves { fill: var(--p-leaf-fall); opacity: var(--fall); transition: opacity 3s; }
+.fall-oaks { fill: var(--p-oak-fall); opacity: calc(var(--fall) * .5); transition: opacity 3s; }
 .flowers { opacity: var(--flowers); }
 .flowers .f0 { fill: #f28c28; } .flowers .f1 { fill: #f2c94c; } .flowers .f2 { fill: #7b5ea7; } .flowers .f3 { fill: #e79bb5; }
-.tower-brace, .trestle-brace { stroke: var(--p-timber); stroke-width: 1.4; fill: none; }
-.tower-brace { stroke: var(--p-tower); }
+.trestle-brace { stroke: var(--p-timber); stroke-width: 1.4; fill: none; }
+/* The arch over Main Street: green steel, its lattice drawn as lines; the bulbs on its board light up after dark
+   and stay steady (no blinking). */
+.arch-truss { stroke: var(--p-arch); stroke-width: .9; fill: none; }
+.arch-lattice { stroke: var(--p-arch); stroke-width: .6; fill: none; }
+.arch-bulbs { fill: #ffe2a0; opacity: var(--windows); transition: opacity 3s; }
 .rail { stroke: var(--p-iron); stroke-width: 2.4; fill: none; }
 .truss-rod { stroke: var(--p-iron); stroke-width: .9; fill: none; }
 /* The headlight's beam shows only after dark. */
@@ -274,8 +271,13 @@ ul, ol { margin: 0; }
 .p-white { fill: var(--p-white); }
 .p-depot { fill: var(--p-depot); }
 .p-depot-trim { fill: var(--p-depot-trim); }
+.p-shingle { fill: var(--p-shingle); }
 .p-sash { fill: var(--p-sash); }
-.p-tower { fill: var(--p-tower); }
+.p-brick { fill: var(--p-brick); }
+.p-arch { fill: var(--p-arch); }
+.p-arch-panel { fill: var(--p-arch-panel); }
+.p-arch-banner { fill: var(--p-arch-banner); }
+.p-arch-letter { fill: var(--p-arch-letter); }
 .p-timber { fill: var(--p-timber); }
 .p-bark { fill: var(--p-bark); }
 .p-skin1 { fill: var(--p-skin1); }
@@ -285,11 +287,6 @@ ul, ol { margin: 0; }
 .p-coat2 { fill: var(--p-coat2); }
 .p-coat3 { fill: var(--p-coat3); }
 .p-coat4 { fill: var(--p-coat4); }
-.p-sand { fill: var(--p-sand); }
-.p-glass1 { fill: var(--p-glass1); }
-.p-glass2 { fill: var(--p-glass2); }
-.p-glass3 { fill: var(--p-glass3); }
-.p-glass4 { fill: var(--p-glass4); }
 
 .hero-inner { text-align: center; position: relative; min-width: 0; }
 .hello {
@@ -403,8 +400,8 @@ ul, ol { margin: 0; }
 .hero[data-mode="results"] .hero-lede,
 .hero[data-mode="results"] .quick { display: none; }
 .hero[data-mode="results"] .search { margin-top: 0; }
-/* Behind the search box on results pages: the same coast, without the sun, moon, clouds and passing details. */
-.hero[data-mode="results"] :is(.sun, .moon, .clouds, .whale, .fog, .beacon, .holiday-lights, .headlight) { display: none; }
+/* Behind the search box on results pages: the same valley, without the sun, moon, clouds, fog and passing details. */
+.hero[data-mode="results"] :is(.sun, .moon, .clouds, .fog, .holiday-lights, .headlight) { display: none; }
 .hero[data-mode="results"] .layer { transform: none !important; }
 
 /* "Having trouble?" and the load-failure message sit under the search box, on the sky. The page's green link
@@ -863,7 +860,6 @@ dialog.sheet::backdrop { background: rgba(8, 18, 13, .58); -webkit-backdrop-filt
 @keyframes slideup { from { transform: translateY(40%); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 22%, transparent); } 50% { box-shadow: 0 0 0 7px color-mix(in srgb, currentColor 6%, transparent); } }
 @keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
-@keyframes blink { 0%, 60% { opacity: var(--windows); } 61%, 100% { opacity: 0; } }
 @keyframes listen { 0%, 100% { box-shadow: 0 0 0 0 rgba(161, 38, 27, .35); } 50% { box-shadow: 0 0 0 10px rgba(161, 38, 27, 0); } }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
@@ -908,5 +904,5 @@ dialog.sheet::backdrop { background: rgba(8, 18, 13, .58); -webkit-backdrop-filt
   .card-actions { margin-top: .3rem; }
   .card-actions .btn-call { background: none; color: #000; border: 0; padding: 0; min-height: 0; font-weight: 700; }
   .card-name a::after { display: none; }
-  .results::before { content: 'Fort Bragg Local · printed list'; display: block; font-size: 9pt; color: #555; margin-bottom: .5rem; }
+  .results::before { content: 'Willits Local · printed list'; display: block; font-size: 9pt; color: #555; margin-bottom: .5rem; }
 }

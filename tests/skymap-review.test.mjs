@@ -5,18 +5,20 @@ import fs from 'node:fs';
 import * as nodeModule from 'node:module'; // registerHooks needs Node 22.15+; on older Node the map tests skip
 import {
   luminance, contrast, backdropAt, sceneY, placeText, heroTone, HERO_TEXT, BACKING, HALO,
-  paletteFor, sunTimes, sunNote, greeting, fmtClock, initSky,
+  paletteFor, sunTimes, sunNote, greeting, fmtClock, initSky, CSS_VARS, PAINT, PAINT_VARS,
 } from '../assets/js/sky.js';
 
 // ----------------------------------------------------------------------------- hero text tone
 
 const flat = c => ({ skyTop: c, skyMid: c, skyBot: c, hillFar: c });
 const text = sel => HERO_TEXT.find(t => t.sel === sel);
-// Where the hero's text sits, in SVG units, measured in Chrome on the home page: a 1440×800 view, a
-// 1920×1040 one and a 375×667 phone. No cloud is drawn behind any of it (see the cloud test below).
-const DESKTOP = { '.hero-title': [91, 244], '.hero-title em': [159, 252], '.hero-lede': [258, 332], '.search-label': [362, 397] };
-const WIDE = { '.hero-title': [92, 255], '.hero-title em': [165, 264], '.hero-lede': [269, 340], '.search-label': [370, 403] };
-const PHONE = { '.hero-title': [81, 168], '.hero-title em': [136, 171], '.hero-lede': [178, 251], '.search-label': [273, 315] };
+// Where the hero's text sits, in SVG units, measured in Chrome on the home page (notes/measure.html, iframes of each
+// size): a 1440×800 view, a 1920×1040 one, a 375×667 phone and a 320×640 one. No cloud is drawn behind any of it
+// (see the cloud test below).
+const DESKTOP = { '.hero-title': [89, 239], '.hero-title em': [156, 247], '.hero-lede': [253, 325], '.search-label': [355, 388] };
+const WIDE = { '.hero-title': [87, 249], '.hero-title em': [159, 257], '.hero-lede': [262, 333], '.search-label': [362, 395] };
+const PHONE = { '.hero-title': [67, 127], '.hero-title em': [94, 130], '.hero-lede': [137, 213], '.search-label': [236, 279] };
+const SMALL_PHONE = { '.hero-title': [79, 163], '.hero-title em': [132, 166], '.hero-lede': [173, 244], '.search-label': [265, 306] };
 const bandsFor = (layout, cloud) => HERO_TEXT.map(t => ({
   ...t, top: layout[t.sel][0], bottom: layout[t.sel][1], clouds: cloud && t.sel === '.hero-title' ? [cloud] : [],
 }));
@@ -49,7 +51,7 @@ test('the tone follows the part of the scene right behind the text', () => {
   const golden = paletteFor(7, false); // deep blue overhead, peach in the middle of the sky
   assert.equal(heroTone(golden, bare(20, 80)), 'dark');
   assert.equal(heroTone(golden, bare(385, 411)), 'light');
-  // On wide results pages the search label sits over the far hills, not the sky.
+  // On wide results pages the search label sits over the hills (from about y 498), not the sky.
   const hillsDark = { skyTop: '#f6e7c8', skyMid: '#f6e7c8', skyBot: '#f6e7c8', hillFar: '#1f3328' };
   assert.equal(backdropAt(hillsDark, 520), '#1f3328');
   assert.equal(heroTone(hillsDark, bare(511, 541)), 'dark');
@@ -109,8 +111,8 @@ test('the clouds behind each line are found from where they are on screen', () =
 
 test('every line of the hero is readable at every height of the sun, on phones and desktops (a11y 6)', () => {
   // Each line, in the tone heroTone picks (whichever tone it starts from), against what is behind it:
-  // the sky, any cloud, and the halo or backing app.css adds. Headline and “Fort Bragg” 3:1, intro and label 4.5:1.
-  const layouts = [['desktop', bandsFor(DESKTOP)], ['wide desktop', bandsFor(WIDE)], ['phone', bandsFor(PHONE)]];
+  // the sky, any cloud, and the halo or backing app.css adds. Headline and “Willits” 3:1, intro and label 4.5:1.
+  const layouts = [['desktop', bandsFor(DESKTOP)], ['wide desktop', bandsFor(WIDE)], ['phone', bandsFor(PHONE)], ['small phone', bandsFor(SMALL_PHONE)]];
   const mix = (a, b, t) => '#' + [1, 3, 5].map(i => {
     const x = parseInt(a.slice(i, i + 2), 16), y = parseInt(b.slice(i, i + 2), 16);
     return Math.round(x + (y - x) * t).toString(16).padStart(2, '0');
@@ -140,7 +142,7 @@ test('every line of the hero is readable at every height of the sun, on phones a
 
 test('no cloud is drawn behind the hero’s text, at any screen size', () => {
   // Every line of hero text, at 320 to 1920px wide and all three text sizes, sits inside this part of the
-  // scene (measured in Chrome: x 451-1149, y 67-403). A cloud behind the gold “Fort Bragg” left no tone readable at dusk.
+  // scene (measured in Chrome: x 457-1143, y 66-395). A cloud behind the gold town name left no tone readable at dusk.
   const TEXT = { left: 440, right: 1155, top: 60, bottom: 419 };
   const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const clouds = [...html.matchAll(/<g class="cloud (c\d)">(.*?)<\/g>/g)];
@@ -177,7 +179,7 @@ test('the colours, backings and halo sky.js weighs are the ones app.css uses', (
   const [emVar] = find(/\.hero\[data-sky-tone="dark"\] \.hero-title em\s*\{\s*color:\s*var\((--[\w-]+)\)/);
   const [emDark] = find(new RegExp(`:root\\s*\\{[^}]*?${emVar}:\\s*(#[0-9a-f]{6})`, 'i'));
   assert.deepEqual(HERO_TEXT.map(t => t.ink), [{ light: ink, dark }, { light: em, dark: emDark }, { light: ink2, dark: dark2 }, { light: ink, dark }],
-    'update HERO_TEXT in sky.js to match --hero-ink, --hero-ink-2 and the “Fort Bragg” colours in app.css');
+    'update HERO_TEXT in sky.js to match --hero-ink, --hero-ink-2 and the “Willits” colours in app.css');
 
   // An rgba() colour as ['#rrggbb', alpha].
   const rgba = s => {
@@ -235,7 +237,7 @@ function fakeHero(t, search, layout, clouds = []) {
   initSky(hero);
   return { hero, vars, resize: () => resized() };
 }
-const HOME_PX = { '.hero-title': [105, 286], '.hero-title em': [196, 286], '.hero-lede': [301, 368], '.search-label': [404, 432] };
+const HOME_PX = { '.hero-title': [93, 251], '.hero-title em': [164, 259], '.hero-lede': [266, 341], '.search-label': [373, 407] }; // DESKTOP × 1.05
 
 test('the ?sky=, ?season= and ?holiday= previews still work', t => {
   const night = fakeHero(t, '?sky=night', HOME_PX);
@@ -244,8 +246,13 @@ test('the ?sky=, ?season= and ?holiday= previews still work', t => {
   const day = fakeHero(t, '?sky=day&season=winter&holiday=1', HOME_PX);
   assert.equal(day.hero.dataset.phase, 'day');
   assert.equal(day.hero.dataset.skyTone, 'light');
-  assert.equal(day.vars['--grass'], '#6e9a4e', 'the hills green up in the rainy winter');
-  assert.equal(day.vars['--whale'], '1.00', 'grey whales pass in winter');
+  assert.equal(day.vars['--grass'], '#6e9a4e', 'the valley greens up in the rainy winter');
+  assert.equal(day.vars['--season-accent'], '1.00', 'snow dusts the ridge in winter');
+  assert.equal(day.vars['--fall'], '0.00');
+  const fall = fakeHero(t, '?sky=day&season=fall', HOME_PX);
+  assert.equal(fall.vars['--fall'], '1.00', 'the creekside trees turn yellow in fall');
+  assert.equal(fall.vars['--season-accent'], '0.00');
+  assert.equal(fakeHero(t, '?sky=day&season=summer', HOME_PX).vars['--grass'], '#c8a55a', 'gold grass in the dry summer');
   assert.equal(day.vars['--holiday'], '1');
   assert.equal(fakeHero(t, '?sky=day&holiday=0', HOME_PX).vars['--holiday'], '0');
 });
@@ -260,7 +267,7 @@ test('the ?skyHour= preview still works', t => {
 test('the tone is checked again when the text moves, as after a resize or a change of text size', t => {
   const layout = { ...HOME_PX };
   const dawn = fakeHero(t, '?sky=dawn', layout);
-  assert.equal(dawn.hero.dataset.skyTone, 'light'); // gold “Fort Bragg” would be hard to read on the mauve middle of the sky
+  assert.equal(dawn.hero.dataset.skyTone, 'light'); // gold “Willits” would be hard to read on the mauve middle of the sky
   for (const sel of Object.keys(layout)) layout[sel] = layout[sel].map(y => y - 100); // the text moves up into the deep blue
   dawn.resize();
   assert.equal(dawn.hero.dataset.skyTone, 'dark');
@@ -273,6 +280,39 @@ test('initSky measures the clouds as well as the text, and copes with hidden one
   const night = fakeHero(t, '?sky=night', HOME_PX, [cloud({ top: 150, bottom: 232, left: 932, right: 1166, width: 234, height: 82 }), cloud(hidden)]);
   assert.equal(measured, 2);
   assert.equal(night.hero.dataset.skyTone, 'dark');
+});
+
+test('the scene looks right before sky.js runs: app.css starts with the daytime palette and paints', () => {
+  const css = fs.readFileSync(new URL('../assets/css/app.css', import.meta.url), 'utf8');
+  const root = css.match(/:root\s*\{([\s\S]*?)\n\}/)[1];
+  const value = v => root.match(new RegExp(`${v}:\\s*([^;]+);`))?.[1].trim().toLowerCase();
+  const day = paletteFor(45, true);
+  for (const [k, v] of Object.entries(CSS_VARS)) {
+    const want = typeof day[k] === 'number' ? day[k] : day[k].toLowerCase();
+    assert.equal(typeof want === 'number' ? +value(v) : value(v), want, `${v} in app.css :root should be ${want} (P.day.${k})`);
+  }
+  for (const [k, v] of Object.entries(PAINT_VARS)) assert.equal(value(v), PAINT[k], `${v} in app.css :root should be ${PAINT[k]} (PAINT.${k})`);
+  for (const v of ['--fog-op', '--season-accent', '--flowers', '--fall', '--holiday']) assert.ok(value(v) !== undefined, `${v} has a default`);
+});
+
+test('every colour and class the hero uses is defined, and nothing coastal is left over', () => {
+  const css = fs.readFileSync(new URL('../assets/css/app.css', import.meta.url), 'utf8');
+  const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const hero = html.match(/<!-- HERO:START -->([\s\S]*?)<!-- HERO:END -->/)[1];
+  const classes = new Set([...hero.matchAll(/class="([^"]+)"/g)].flatMap(m => m[1].split(/\s+/)));
+  const generic = new Set(['scene-svg', 'layer', 'cloud', 'c1', 'c2', 'c3', 'c4', 'twinkle', 'train', 'arch', 'house-windows', 'depot-windows', 'train-windows', 'houses-light',
+    'layer-far', 'layer-hills', 'layer-town', 'layer-mid', 'layer-near', 'layer-front']);
+  for (const c of classes) {
+    if (generic.has(c)) continue;
+    assert.match(css, new RegExp(`\\.${c}\\b[^{]*\\{`), `app.css has no rule for .${c}`);
+  }
+  for (const v of new Set([...css.matchAll(/var\((--p-[\w-]+)\)/g)].map(m => m[1]))) {
+    assert.ok(Object.values(PAINT_VARS).includes(v), `${v} is used in app.css but sky.js PAINT doesn't set it`);
+  }
+  for (const gone of ['whale', 'lighthouse', 'beacon', 'sea-glass', 'boat', 'beach', 'bluff', 'surf', 'sea-shine']) {
+    assert.ok(!classes.has(gone) && !new RegExp(`\\.${gone}\\b`).test(css), `.${gone} is left over from the coast`);
+  }
+  assert.doesNotMatch(css, /--whale\b/);
 });
 
 // ----------------------------------------------------------------------------- sunrise and sunset
@@ -307,8 +347,9 @@ test('sunrise and sunset come out the same at any moment of the day', () => {
   assert.equal(seen.size, 1);
   const { rise, set } = sunTimes(new Date(LOCAL_MIDNIGHT + 12 * 3600000));
   const minutes = d => (d - LOCAL_MIDNIGHT) / 60000;
-  assert.ok(minutes(rise) >= 423 && minutes(rise) <= 433, `sunrise ${fmtClock(rise)}`); // about 7:08 AM
-  assert.ok(minutes(set) >= 1011 && minutes(set) <= 1021, `sunset ${fmtClock(set)}`); // about 4:56 PM
+  // Willits, November 22, over a flat horizon (as published; the ridge hides the sun a few minutes earlier).
+  assert.ok(minutes(rise) >= 423 && minutes(rise) <= 433, `sunrise ${fmtClock(rise)}`); // about 7:06 AM
+  assert.ok(minutes(set) >= 1011 && minutes(set) <= 1021, `sunset ${fmtClock(set)}`); // about 4:54 PM
   assert.match(sunNote(new Date(LOCAL_MIDNIGHT + (16 * 60 + 15) * 60000)), /^Sunset 4:5\d\sPM$/);
   assert.equal(sunNote(new Date(LOCAL_MIDNIGHT + 21 * 3600000)), '');
 });
@@ -389,8 +430,8 @@ globalThis.fakeMapLibre = {
 };
 
 const PLACES = [
-  { id: 'a', name: 'A', lat: 39.44, lon: -123.80, category: 'restaurants' },
-  { id: 'b', name: 'B', lat: 39.45, lon: -123.79, category: 'health' },
+  { id: 'a', name: 'A', lat: 39.41, lon: -123.35, category: 'restaurants' },
+  { id: 'b', name: 'B', lat: 39.42, lon: -123.36, category: 'health' },
   { id: 'c', name: 'C' }, // no location
 ];
 const loads = m => queueMicrotask(() => { m.fire('style.load'); m.fire('load'); });
