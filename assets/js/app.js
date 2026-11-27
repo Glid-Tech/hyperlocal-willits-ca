@@ -892,7 +892,9 @@ ${areaViz(a, byArea[a.id])}
 
   renderNew();
 
-  $('#count-places').textContent = num(data.businesses.length);
+  if (data.businesses.length) $('#count-places').textContent = num(data.businesses.length);
+  // Before the first listings are published, say so rather than "Search 0 local shops".
+  else $('.hero-lede').textContent =`Listings for ${TOWN} are on their way: each one is being checked with the business itself.`;
   const built = fmtDate(data.meta && data.meta.built);
   if (built) $('#footer-updated').textContent = `Listings last updated ${built}.`;
 }
