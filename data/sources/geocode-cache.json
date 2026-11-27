@@ -1,0 +1,708 @@
+{
+ "1 Marcela Drive|95490": {
+  "miss": true,
+  "at": "2026-11-27"
+ },
+ "1 Seabiscuit Drive|95490": {
+  "lat": 39.319748,
+  "lon": -123.308345,
+  "source": "census",
+  "matched": "1 SEABISCUIT DR, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "10 Wood Street|95490": {
+  "lat": 39.410699,
+  "lon": -123.354679,
+  "source": "census",
+  "matched": "10 WOOD ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "100 Kawi Place|95490": {
+  "lat": 39.392935,
+  "lon": -123.362793,
+  "source": "nominatim",
+  "matched": "Sherwood Valley Casino, 100, Kawi Place, Willits, Mendocino County, California, 95490, United States",
+  "at": "2026-11-27"
+ },
+ "100 Sanhedrin Circle|95490": {
+  "lat": 39.391382,
+  "lon": -123.336232,
+  "source": "census",
+  "matched": "100 SANHEDRIN CIR, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "100 South Street|95490": {
+  "lat": 39.404191,
+  "lon": -123.350766,
+  "source": "census",
+  "matched": "100 SOUTH ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "101 East Barbara Lane|95490": {
+  "lat": 39.404521,
+  "lon": -123.349852,
+  "source": "census",
+  "matched": "101 E BARBARA LN, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "10755 Mobile Village Way|95490": {
+  "lat": 39.3243,
+  "lon": -123.302941,
+  "source": "nominatim",
+  "matched": "Mobile Village Way, Ridgewood Ranch, Mendocino County, California, 95490, United States",
+  "at": "2026-11-27"
+ },
+ "11 North Marin Street|95490": {
+  "lat": 39.412612,
+  "lon": -123.352157,
+  "source": "census",
+  "matched": "11 N MARIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "110 North Main Street|95490": {
+  "lat": 39.41501,
+  "lon": -123.354703,
+  "source": "census",
+  "matched": "110 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "110 South Main Street|95490": {
+  "lat": 39.411175,
+  "lon": -123.35458,
+  "source": "census",
+  "matched": "110 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "111 East Commercial Street|95490": {
+  "lat": 39.412384,
+  "lon": -123.353483,
+  "source": "census",
+  "matched": "111 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1196 South Main Street|95490": {
+  "lat": 39.399897,
+  "lon": -123.349787,
+  "source": "census",
+  "matched": "1196 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "12 West Valley Street|95490": {
+  "lat": 39.408995,
+  "lon": -123.354366,
+  "source": "census",
+  "matched": "12 W VALLEY ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1200 East Hill Road|95490": {
+  "lat": 39.39242,
+  "lon": -123.326182,
+  "source": "census",
+  "matched": "1200 E HILL RD, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1225 South Main Street|95490": {
+  "lat": 39.399633,
+  "lon": -123.34949,
+  "source": "census",
+  "matched": "1225 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1350 South Main Street|95490": {
+  "lat": 39.398014,
+  "lon": -123.34965,
+  "source": "census",
+  "matched": "1350 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1411 South Main Street|95490": {
+  "lat": 39.397184,
+  "lon": -123.349323,
+  "source": "census",
+  "matched": "1411 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1435 Baechtel Road|95490": {
+  "lat": 39.397221,
+  "lon": -123.346015,
+  "source": "census",
+  "matched": "1435 BAECHTEL RD, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1437 South Main Street|95490": {
+  "lat": 39.396522,
+  "lon": -123.349267,
+  "source": "census",
+  "matched": "1437 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "144 North Main Street|95490": {
+  "lat": 39.415108,
+  "lon": -123.354705,
+  "source": "census",
+  "matched": "144 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1466 South Main Street|95490": {
+  "lat": 39.395435,
+  "lon": -123.349327,
+  "source": "census",
+  "matched": "1466 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1471 South Main Street|95490": {
+  "lat": 39.395672,
+  "lon": -123.349105,
+  "source": "census",
+  "matched": "1471 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "15 South Main Street|95490": {
+  "lat": 39.412281,
+  "lon": -123.354372,
+  "source": "census",
+  "matched": "15 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "150 A South Main Street|95490": {
+  "lat": 39.410957,
+  "lon": -123.354567,
+  "source": "census",
+  "matched": "150 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "150 South Main Street|95490": {
+  "lat": 39.410957,
+  "lon": -123.354567,
+  "source": "census",
+  "matched": "150 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1501 Baechtel Road|95490": {
+  "lat": 39.396436,
+  "lon": -123.345036,
+  "source": "census",
+  "matched": "1501 BAECHTEL RD, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "151 San Hedrin Circle|95490": {
+  "lat": 39.39023,
+  "lon": -123.336077,
+  "source": "census",
+  "matched": "151 SANHEDRIN CIR, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1511 South Main Street|95490": {
+  "lat": 39.394696,
+  "lon": -123.348756,
+  "source": "census",
+  "matched": "1511 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1565 South Main Street|95490": {
+  "lat": 39.393416,
+  "lon": -123.348111,
+  "source": "census",
+  "matched": "1565 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1569 South Main Street|95490": {
+  "lat": 39.393321,
+  "lon": -123.348063,
+  "source": "census",
+  "matched": "1569 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1571 South Main Street|95490": {
+  "lat": 39.393274,
+  "lon": -123.348038,
+  "source": "census",
+  "matched": "1571 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1590 South Main Street|95490": {
+  "lat": 39.393267,
+  "lon": -123.348329,
+  "source": "census",
+  "matched": "1590 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1600 Highway 20|95490": {
+  "lat": 39.392087,
+  "lon": -123.347753,
+  "source": "nominatim",
+  "matched": "1600, Redwood Highway, Willits, Mendocino County, California, 95490, United States",
+  "at": "2026-11-27"
+ },
+ "1600 South Main Street|95490": {
+  "lat": 39.393133,
+  "lon": -123.34826,
+  "source": "census",
+  "matched": "1600 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1619 South Main Street|95490": {
+  "lat": 39.392139,
+  "lon": -123.347445,
+  "source": "census",
+  "matched": "1619 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1637 South Main Street|95490": {
+  "lat": 39.391713,
+  "lon": -123.347225,
+  "source": "census",
+  "matched": "1637 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1661 South Main Street|95490": {
+  "lat": 39.391145,
+  "lon": -123.346928,
+  "source": "census",
+  "matched": "1661 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1661-A South Main Street|95490": {
+  "lat": 39.391145,
+  "lon": -123.346928,
+  "source": "census",
+  "matched": "1661 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1681 South Main Street|95490": {
+  "lat": 39.390669,
+  "lon": -123.346688,
+  "source": "census",
+  "matched": "1681 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1706 South Main Street|95490": {
+  "lat": 39.391711,
+  "lon": -123.347524,
+  "source": "census",
+  "matched": "1706 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1788 South Main Street|95490": {
+  "lat": 39.388157,
+  "lon": -123.345624,
+  "source": "census",
+  "matched": "1788 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1790 South Main Street|95490": {
+  "lat": 39.388093,
+  "lon": -123.345589,
+  "source": "census",
+  "matched": "1790 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "1797 South Main Street|95490": {
+  "lat": 39.387926,
+  "lon": -123.345258,
+  "source": "census",
+  "matched": "1797 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "180 North Main Street|95490": {
+  "lat": 39.415211,
+  "lon": -123.354707,
+  "source": "census",
+  "matched": "180 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "20 Spruce Street|95490": {
+  "lat": 39.411725,
+  "lon": -123.360646,
+  "source": "census",
+  "matched": "20 SPRUCE ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "20000 Hollands Lane|95490": {
+  "lat": 39.377021,
+  "lon": -123.336451,
+  "source": "census",
+  "matched": "20000 HOLLANDS LN, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "208 East San Francisco Avenue|95490": {
+  "lat": 39.40753,
+  "lon": -123.348926,
+  "source": "census",
+  "matched": "208 E SAN FRANCISCO AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "212 South Main Street|95490": {
+  "lat": 39.410232,
+  "lon": -123.354416,
+  "source": "census",
+  "matched": "212 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "218 South Humboldt Street|95490": {
+  "lat": 39.410465,
+  "lon": -123.353352,
+  "source": "census",
+  "matched": "218 S HUMBOLDT ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "220 Franklin Avenue|95490": {
+  "lat": 39.403247,
+  "lon": -123.357809,
+  "source": "census",
+  "matched": "220 FRANKLIN AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "230 Shell Lane|95490": {
+  "lat": 39.398134,
+  "lon": -123.345797,
+  "source": "census",
+  "matched": "230 SHELL LN, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "24 Monroe Street|95490": {
+  "lat": 39.406647,
+  "lon": -123.351584,
+  "source": "census",
+  "matched": "24 MONROE ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "24675 Birch Street|95490": {
+  "lat": 39.434584,
+  "lon": -123.382375,
+  "source": "census",
+  "matched": "24675 BIRCH ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "24860 Birch Street|95490": {
+  "lat": 39.43749,
+  "lon": -123.384576,
+  "source": "census",
+  "matched": "24860 BIRCH ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "24895 Birch Street|95490": {
+  "lat": 39.438053,
+  "lon": -123.384222,
+  "source": "census",
+  "matched": "24895 BIRCH ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "24900 North Highway 101|95490": {
+  "miss": true,
+  "at": "2026-11-27"
+ },
+ "25251 Sherwood Road|95490": {
+  "lat": 39.443141,
+  "lon": -123.382406,
+  "source": "census",
+  "matched": "25251 SHERWOOD RD, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "25287 Sherwood Road|95490": {
+  "lat": 39.443667,
+  "lon": -123.382717,
+  "source": "census",
+  "matched": "25287 SHERWOOD RD, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "255 East Commercial Street|95490": {
+  "lat": 39.412409,
+  "lon": -123.352053,
+  "source": "census",
+  "matched": "255 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "261 Franklin Avenue|95490": {
+  "lat": 39.403129,
+  "lon": -123.358769,
+  "source": "census",
+  "matched": "261 FRANKLIN AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "262 East Comercial Street|95490": {
+  "lat": 39.412536,
+  "lon": -123.351641,
+  "source": "census",
+  "matched": "262 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "262 East Commercial Street|95490": {
+  "lat": 39.412536,
+  "lon": -123.351641,
+  "source": "census",
+  "matched": "262 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "280 East Commercial Street|95490": {
+  "lat": 39.412537,
+  "lon": -123.351584,
+  "source": "census",
+  "matched": "280 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "286 School Street|95490": {
+  "lat": 39.4096,
+  "lon": -123.356153,
+  "source": "census",
+  "matched": "286 SCHOOL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "291 School Street|95490": {
+  "lat": 39.409554,
+  "lon": -123.356004,
+  "source": "census",
+  "matched": "291 SCHOOL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "29801 North Highway 101|95490": {
+  "lat": 39.514151,
+  "lon": -123.388907,
+  "source": "census",
+  "matched": "29801 US HWY 101, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "299 East Commercial Street|95490": {
+  "lat": 39.412425,
+  "lon": -123.351521,
+  "source": "census",
+  "matched": "299 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "3 Marcela Drive|95490": {
+  "miss": true,
+  "at": "2026-11-27"
+ },
+ "30661 North Highway 101|95490": {
+  "miss": true,
+  "at": "2026-11-27"
+ },
+ "310 North Main Street|95490": {
+  "lat": 39.418704,
+  "lon": -123.354849,
+  "source": "census",
+  "matched": "310 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "335 South Main Street|95490": {
+  "lat": 39.408741,
+  "lon": -123.353151,
+  "source": "census",
+  "matched": "335 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "34 East San Francisco Avenue|95490": {
+  "lat": 39.407501,
+  "lon": -123.351554,
+  "source": "census",
+  "matched": "34 E SAN FRANCISCO AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "344 Railroad Avenue|95490": {
+  "lat": 39.408728,
+  "lon": -123.350235,
+  "source": "census",
+  "matched": "344 RAILROAD AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "345 North Main Street|95490": {
+  "lat": 39.419253,
+  "lon": -123.354746,
+  "source": "census",
+  "matched": "345 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "361 South Main Street|95490": {
+  "lat": 39.408158,
+  "lon": -123.352718,
+  "source": "census",
+  "matched": "361 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "37 West Van Lane|95490": {
+  "lat": 39.411833,
+  "lon": -123.355495,
+  "source": "census",
+  "matched": "37 W VAN LN, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "377 South Main Street|95490": {
+  "lat": 39.407731,
+  "lon": -123.352454,
+  "source": "census",
+  "matched": "377 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "383 South Main Street|95490": {
+  "lat": 39.40767,
+  "lon": -123.352419,
+  "source": "census",
+  "matched": "383 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "390 South Main Street|95490": {
+  "lat": 39.407194,
+  "lon": -123.352411,
+  "source": "census",
+  "matched": "390 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "400 East Commercial Street|95490": {
+  "lat": 39.412639,
+  "lon": -123.346866,
+  "source": "census",
+  "matched": "400 E COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "414 Grove Street|95490": {
+  "lat": 39.387427,
+  "lon": -123.337702,
+  "source": "census",
+  "matched": "414 GROVE ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "419 Grove Street|95490": {
+  "lat": 39.387208,
+  "lon": -123.336621,
+  "source": "census",
+  "matched": "419 GROVE ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "45 Hazel Street|95490": {
+  "lat": 39.399739,
+  "lon": -123.351925,
+  "source": "census",
+  "matched": "45 HAZEL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "47 East Mendocino Avenue|95490": {
+  "lat": 39.41124,
+  "lon": -123.353882,
+  "source": "census",
+  "matched": "47 E MENDOCINO ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "55 North Main Street|95490": {
+  "lat": 39.413273,
+  "lon": -123.354403,
+  "source": "census",
+  "matched": "55 N MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "55 West Mendocino Avenue|95490": {
+  "lat": 39.411216,
+  "lon": -123.355206,
+  "source": "census",
+  "matched": "55 W MENDOCINO ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "557 South Main Street|95490": {
+  "lat": 39.406309,
+  "lon": -123.352158,
+  "source": "census",
+  "matched": "557 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "600 South Main Street|95490": {
+  "lat": 39.405956,
+  "lon": -123.352517,
+  "source": "census",
+  "matched": "600 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "61 South Humboldt Street|95490": {
+  "lat": 39.41156,
+  "lon": -123.353224,
+  "source": "census",
+  "matched": "61 S HUMBOLDT ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "635 South Main Street|95490": {
+  "lat": 39.405716,
+  "lon": -123.352287,
+  "source": "census",
+  "matched": "635 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "65 South Main Street|95490": {
+  "lat": 39.41185,
+  "lon": -123.354354,
+  "source": "census",
+  "matched": "65 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "75 South Main Street|95490": {
+  "lat": 39.411702,
+  "lon": -123.354351,
+  "source": "census",
+  "matched": "75 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "750A Central Street|95490": {
+  "lat": 39.404375,
+  "lon": -123.35001,
+  "source": "census",
+  "matched": "750A CENTRAL AVE, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "77 South Main Street|95490": {
+  "lat": 39.411673,
+  "lon": -123.35435,
+  "source": "census",
+  "matched": "77 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "781 South Main Street|95490": {
+  "lat": 39.404537,
+  "lon": -123.351787,
+  "source": "census",
+  "matched": "781 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "82 South Street|95490": {
+  "lat": 39.404188,
+  "lon": -123.350904,
+  "source": "census",
+  "matched": "82 SOUTH ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "865 South Main Street|95490": {
+  "lat": 39.403614,
+  "lon": -123.351133,
+  "source": "census",
+  "matched": "865 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "871 South Main Street|95490": {
+  "lat": 39.40357,
+  "lon": -123.351097,
+  "source": "census",
+  "matched": "871 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "90 South Main Street|95490": {
+  "lat": 39.411417,
+  "lon": -123.354589,
+  "source": "census",
+  "matched": "90 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "934 South Main Street|95490": {
+  "lat": 39.403233,
+  "lon": -123.351111,
+  "source": "census",
+  "matched": "934 S MAIN ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "98 West Commercial Street|95490": {
+  "lat": 39.412449,
+  "lon": -123.35598,
+  "source": "census",
+  "matched": "98 W COMMERCIAL ST, WILLITS, CA, 95490",
+  "at": "2026-11-27"
+ },
+ "Spruce Street & Lincoln Way|95490": {
+  "miss": true,
+  "at": "2026-11-27"
+ }
+}

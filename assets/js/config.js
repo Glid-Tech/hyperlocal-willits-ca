@@ -25,6 +25,8 @@ export const CONFIG = {
   geocodeBox: [39.28, -123.67, 39.66, -123.08],
   // The OpenStreetMap relation for the City of Willits (admin_level 8). Overpass area id = 3600000000 + this.
   osmCityRelation: 111764,
+  // County code on CSLB's Public Data Portal (23 = Mendocino), for tools/fetch-cslb.mjs. California only.
+  cslbCounty: '23',
   // Downtown Willits, for the live sky (sun, moon and stars).
   lat: 39.4124,
   lon: -123.3544,

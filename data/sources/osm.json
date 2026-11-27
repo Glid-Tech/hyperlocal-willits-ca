@@ -1,0 +1,1748 @@
+{
+ "fetched": "2026-11-27T16:15:22.296Z",
+ "source": "OpenStreetMap via Overpass API",
+ "license": "ODbL 1.0, (c) OpenStreetMap contributors",
+ "elements": [
+  {
+   "id": "node/358824729",
+   "lat": 39.4076635,
+   "lon": -123.3505655,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "ele": "418",
+    "gnis:feature_id": "1724179",
+    "name": "First Assembly of God Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/358824732",
+   "lat": 39.4104413,
+   "lon": -123.3569545,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "baptist",
+    "ele": "428",
+    "gnis:feature_id": "1724180",
+    "name": "First Baptist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/358824805",
+   "lat": 39.4073858,
+   "lon": -123.3547323,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "ele": "427",
+    "gnis:feature_id": "1724249",
+    "name": "Saint Anthonys Catholic Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/358824849",
+   "lat": 39.412729,
+   "lon": -123.3517907,
+   "inCity": true,
+   "tags": {
+    "amenity": "college",
+    "ele": "419",
+    "gnis:feature_id": "1724279",
+    "name": "Mendocino College Willits Center"
+   }
+  },
+  {
+   "id": "node/358824855",
+   "lat": 39.4090918,
+   "lon": -123.3533037,
+   "inCity": true,
+   "tags": {
+    "amenity": "post_office",
+    "check_date": "2026-06-05",
+    "ele": "420",
+    "gnis:feature_id": "1724282",
+    "name": "Willits Post Office",
+    "operator": "United States Postal Service",
+    "operator:short": "USPS",
+    "operator:type": "public",
+    "operator:website": "https://www.usps.com",
+    "operator:wikidata": "Q668687",
+    "operator:wikipedia": "en:United States Postal Service",
+    "short_name": "USPS",
+    "website": "https://tools.usps.com/locations/details/1387800"
+   }
+  },
+  {
+   "id": "node/358824859",
+   "lat": 39.4115522,
+   "lon": -123.3438989,
+   "inCity": true,
+   "tags": {
+    "ele": "413",
+    "gnis:feature_id": "1724283",
+    "leisure": "park",
+    "name": "Willits Rodeo Grounds"
+   }
+  },
+  {
+   "id": "node/358824862",
+   "lat": 39.4096151,
+   "lon": -123.3565708,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "methodist",
+    "ele": "425",
+    "gnis:feature_id": "1724285",
+    "name": "Willits United Methodist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/534354024",
+   "lat": 39.3880889,
+   "lon": -123.3451834,
+   "inCity": true,
+   "tags": {
+    "amenity": "fuel",
+    "name": "Brown's Corner Fuel",
+    "self_service": "yes"
+   }
+  },
+  {
+   "id": "node/534354369",
+   "lat": 39.3900769,
+   "lon": -123.3479166,
+   "inCity": true,
+   "tags": {
+    "amenity": "pharmacy",
+    "brand": "Rite Aid",
+    "brand:wikidata": "Q3433273",
+    "check_date": "2024-06-19",
+    "dispensing": "yes",
+    "healthcare": "pharmacy",
+    "name": "Rite Aid",
+    "website": "https://www.riteaid.com/locations/ca/willits/1730-south-main-street.html"
+   }
+  },
+  {
+   "id": "node/752193187",
+   "lat": 39.404429,
+   "lon": -123.351614,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "781",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fuel",
+    "brand": "Chevron",
+    "brand:wikidata": "Q319642",
+    "name": "Chevron",
+    "self_service": "yes"
+   }
+  },
+  {
+   "id": "node/752193889",
+   "lat": 39.4038309,
+   "lon": -123.351811,
+   "inCity": true,
+   "tags": {
+    "amenity": "fuel",
+    "brand": "Arco",
+    "brand:wikidata": "Q304769",
+    "fixme": "This is no longer an Arco station, but I can't remember its new name that it had when I was there.",
+    "name": "ARCO",
+    "self_service": "yes"
+   }
+  },
+  {
+   "id": "node/989880370",
+   "lat": 39.4105309,
+   "lon": -123.3541839,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "name": "Al's Redroom"
+   }
+  },
+  {
+   "id": "node/2493081902",
+   "lat": 39.391184,
+   "lon": -123.3481744,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1710",
+    "addr:postcode": "95490-4405",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "brand": "Dollar Tree",
+    "brand:wikidata": "Q5289230",
+    "check_date": "2024-07-11",
+    "name": "Dollar Tree",
+    "opening_hours": "Mo-Sa 09:00-22:00; Su 10:00-21:00",
+    "phone": "+1 707-354-6435",
+    "shop": "variety_store",
+    "website": "https://www.dollartree.com/locations/ca/willits/2939/"
+   }
+  },
+  {
+   "id": "node/2493081906",
+   "lat": 39.3913852,
+   "lon": -123.347748,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1704",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "addr:unit": "2",
+    "amenity": "fast_food",
+    "brand": "Subway",
+    "brand:wikidata": "Q244457",
+    "cuisine": "sandwich",
+    "drive_through": "no",
+    "name": "Subway",
+    "opening_hours": "Mo-Th 07:00-21:00; Fr 07:00-21:30; Sa 07:30-21:30; Su 07:30-21:00",
+    "phone": "+1 707-456-0668",
+    "source": "survey",
+    "takeaway": "yes",
+    "website": "https://restaurants.subway.com/united-states/ca/willits/1704-s-main-st"
+   }
+  },
+  {
+   "id": "node/2493316843",
+   "lat": 39.3930118,
+   "lon": -123.347562,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1579",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fuel",
+    "brand": "Sinclair",
+    "brand:wikidata": "Q1290900",
+    "name": "Sinclair",
+    "opening_hours": "04:00-23:00",
+    "phone": "+1 707-456-0696",
+    "self_service": "yes",
+    "website": "https://stations.sinclairoil.com/ca/willits/1579-s-main-st"
+   }
+  },
+  {
+   "id": "node/2638753822",
+   "lat": 39.3899873,
+   "lon": -123.3469491,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "name": "Lumberjacks"
+   }
+  },
+  {
+   "id": "node/2640952057",
+   "lat": 39.4044605,
+   "lon": -123.352354,
+   "inCity": true,
+   "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "cuisine": "coffee_shop",
+    "drive_through": "yes",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "takeaway": "yes",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "node/2640952058",
+   "lat": 39.4037669,
+   "lon": -123.352155,
+   "inCity": true,
+   "tags": {
+    "amenity": "fast_food",
+    "cuisine": "mexican",
+    "name": "Taqueria Jalos",
+    "website": "https://foodeist.com/place/taqueriajalos",
+    "website:menu": "https://foodeist.com/place/taqueriajalos/menu"
+   }
+  },
+  {
+   "id": "node/2640952059",
+   "lat": 39.4036541,
+   "lon": -123.352092,
+   "inCity": true,
+   "tags": {
+    "brand": "ampm",
+    "brand:wikidata": "Q306960",
+    "name": "ampm",
+    "shop": "convenience",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "node/2640954268",
+   "lat": 39.4048543,
+   "lon": -123.3523874,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "name": "Country Skillet"
+   }
+  },
+  {
+   "id": "node/2640955174",
+   "lat": 39.4047262,
+   "lon": -123.35177,
+   "inCity": true,
+   "tags": {
+    "brand": "State Farm",
+    "brand:wikidata": "Q2007336",
+    "name": "State Farm",
+    "office": "insurance"
+   }
+  },
+  {
+   "id": "node/2641897720",
+   "lat": 39.4063563,
+   "lon": -123.3518516,
+   "inCity": true,
+   "tags": {
+    "name": "707",
+    "shop": "hardware"
+   }
+  },
+  {
+   "id": "node/2641902605",
+   "lat": 39.4065587,
+   "lon": -123.3528159,
+   "inCity": true,
+   "tags": {
+    "name": "Mariposa Market",
+    "shop": "supermarket",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "node/2641902606",
+   "lat": 39.4060047,
+   "lon": -123.3521634,
+   "inCity": true,
+   "tags": {
+    "name": "Printing X Press",
+    "shop": "copyshop"
+   }
+  },
+  {
+   "id": "node/2641902607",
+   "lat": 39.4061817,
+   "lon": -123.3527094,
+   "inCity": true,
+   "tags": {
+    "name": "Purple Moose Thrift",
+    "shop": "variety_store"
+   }
+  },
+  {
+   "id": "node/3670569424",
+   "lat": 39.4102646,
+   "lon": -123.3540944,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "cuisine": "mexican",
+    "name": "Taqueria Bravo"
+   }
+  },
+  {
+   "id": "node/3670569777",
+   "lat": 39.413072,
+   "lon": -123.3569944,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "St. John's Lutheran Church"
+   }
+  },
+  {
+   "id": "node/5912844224",
+   "lat": 39.3925569,
+   "lon": -123.3473853,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1611",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "restaurant",
+    "cuisine": "italian;pizza",
+    "name": "La Siciliana",
+    "opening_hours": "Mo-Su 11:30-20:30",
+    "phone": "+1-707-459-5626",
+    "website": "https://www.lasicilianawillits.com/"
+   }
+  },
+  {
+   "id": "node/5922605273",
+   "lat": 39.398819,
+   "lon": -123.3499731,
+   "inCity": true,
+   "tags": {
+    "amenity": "fuel",
+    "brand": "Chevron",
+    "brand:wikidata": "Q319642",
+    "name": "Chevron",
+    "self_service": "yes"
+   }
+  },
+  {
+   "id": "node/6309183219",
+   "lat": 39.4122694,
+   "lon": -123.3547338,
+   "inCity": true,
+   "tags": {
+    "beauty": "nails",
+    "name": "First Nails Spa",
+    "shop": "beauty"
+   }
+  },
+  {
+   "id": "node/6309183220",
+   "lat": 39.4122528,
+   "lon": -123.3552678,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "cuisine": "pizza",
+    "name": "Pizza To Go"
+   }
+  },
+  {
+   "id": "node/6309183221",
+   "lat": 39.412234,
+   "lon": -123.3554445,
+   "inCity": true,
+   "tags": {
+    "name": "TNT Market",
+    "shop": "alcohol"
+   }
+  },
+  {
+   "id": "node/6723563442",
+   "lat": 39.3951306,
+   "lon": -123.348488,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1551",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "restaurant",
+    "cuisine": "mexican",
+    "name": "El Chicano Restaurant",
+    "opening_hours": "Su-Sa 07:00-22:00",
+    "phone": "+1 707-841-3144",
+    "start_date": "2019",
+    "website": "https://www.chicano-mex.com/"
+   }
+  },
+  {
+   "id": "node/7953249893",
+   "lat": 39.4136424,
+   "lon": -123.3543481,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "101",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "North Main Street",
+    "amenity": "pub",
+    "brewery": "yes",
+    "cuisine": "american",
+    "microbrewery": "yes",
+    "name": "Northspur Brewing Co",
+    "wikidata": "Q73656427"
+   }
+  },
+  {
+   "id": "node/8757796927",
+   "lat": 39.4038601,
+   "lon": -123.350069,
+   "inCity": true,
+   "tags": {
+    "amenity": "charging_station",
+    "brand": "Electrify America",
+    "brand:wikidata": "Q59773555",
+    "capacity": "4",
+    "fee": "yes",
+    "frequency": "0",
+    "name": "Electrify America",
+    "opening_hours": "24/7",
+    "operator": "Electrify America",
+    "operator:wikidata": "Q59773555",
+    "operator:wikipedia": "en:Electrify America",
+    "socket:chademo": "1",
+    "socket:type1_combo": "7"
+   }
+  },
+  {
+   "id": "node/8973394611",
+   "lat": 39.4111623,
+   "lon": -123.355795,
+   "inCity": true,
+   "tags": {
+    "amenity": "charging_station",
+    "brand": "ChargePoint",
+    "brand:wikidata": "Q5176149",
+    "capacity": "4",
+    "fee": "yes",
+    "frequency": "60",
+    "name": "ChargePoint",
+    "opening_hours": "24/7",
+    "operator": "ChargePoint",
+    "operator:wikidata": "Q5176149",
+    "operator:wikipedia": "en:ChargePoint",
+    "socket:type1": "4"
+   }
+  },
+  {
+   "id": "node/10014635493",
+   "lat": 39.4108164,
+   "lon": -123.3546594,
+   "inCity": true,
+   "tags": {
+    "addr:housenumber": "166",
+    "addr:street": "South Main Street",
+    "amenity": "restaurant",
+    "name": "El Mexicano"
+   }
+  },
+  {
+   "id": "node/10874976864",
+   "lat": 39.3914537,
+   "lon": -123.347746,
+   "inCity": true,
+   "tags": {
+    "brand": "U.S. Cellular",
+    "brand:wikidata": "Q2466256",
+    "name": "U.S. Cellular",
+    "shop": "mobile_phone"
+   }
+  },
+  {
+   "id": "node/10874976865",
+   "lat": 39.3913036,
+   "lon": -123.3477466,
+   "inCity": true,
+   "tags": {
+    "name": "Gateway Games",
+    "shop": "video_games"
+   }
+  },
+  {
+   "id": "node/10874976866",
+   "lat": 39.3912202,
+   "lon": -123.3477446,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "cuisine": "pizza",
+    "name": "Slam Dunk Pizza"
+   }
+  },
+  {
+   "id": "node/10874976867",
+   "lat": 39.3911691,
+   "lon": -123.3488488,
+   "inCity": true,
+   "tags": {
+    "name": "Evergreen Launderland",
+    "self_service": "yes",
+    "shop": "laundry"
+   }
+  },
+  {
+   "id": "node/10874976868",
+   "lat": 39.3911739,
+   "lon": -123.348578,
+   "inCity": true,
+   "tags": {
+    "brand": "Cricket Wireless",
+    "brand:wikidata": "Q5184987",
+    "name": "Cricket Wireless",
+    "shop": "mobile_phone",
+    "short_name": "Cricket"
+   }
+  },
+  {
+   "id": "node/10874976869",
+   "lat": 39.3901735,
+   "lon": -123.3488688,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "cuisine": "mexican",
+    "name": "Super Taco"
+   }
+  },
+  {
+   "id": "node/10874976870",
+   "lat": 39.3901723,
+   "lon": -123.3486685,
+   "inCity": true,
+   "tags": {
+    "leisure": "fitness_centre",
+    "name": "Thrive Yoga",
+    "sport": "yoga"
+   }
+  },
+  {
+   "id": "node/10874976871",
+   "lat": 39.390164,
+   "lon": -123.3483142,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1728",
+    "addr:postcode": "95450",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "brand": "Goodwill",
+    "brand:wikidata": "Q5583655",
+    "name": "Goodwill",
+    "operator": "Goodwill Redwood Empire",
+    "operator:wikidata": "Q114929008",
+    "phone": "+1 707-456-9461",
+    "shop": "charity",
+    "website": "https://www.goodwill.org/locator/location/?store=ODA2ZWFkYTUtNDU4YS1lMTExLThkZGUtMDA1MDU2OTM0MDUw&lat=MzkuMzkwMDQ=&lng=LTEyMy4zNDY1Mw=="
+   }
+  },
+  {
+   "id": "node/11853031553",
+   "lat": 39.4127808,
+   "lon": -123.3536097,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "125",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "amenity": "police",
+    "name": "Willits Police Department"
+   }
+  },
+  {
+   "id": "node/12554835484",
+   "lat": 39.4099043,
+   "lon": -123.3543853,
+   "inCity": true,
+   "tags": {
+    "name": "Willits Flowers",
+    "phone": "+1 707-841-3119",
+    "shop": "florist"
+   }
+  },
+  {
+   "id": "node/12554835485",
+   "lat": 39.409689,
+   "lon": -123.35359,
+   "inCity": true,
+   "tags": {
+    "name": "Village Liquor & Market",
+    "shop": "convenience"
+   }
+  },
+  {
+   "id": "node/12554835486",
+   "lat": 39.4091788,
+   "lon": -123.3540257,
+   "inCity": true,
+   "tags": {
+    "brand": "Farmers Insurance",
+    "brand:wikidata": "Q1396863",
+    "name": "Farmers Insurance",
+    "office": "insurance"
+   }
+  },
+  {
+   "id": "node/12554835487",
+   "lat": 39.4096683,
+   "lon": -123.3542472,
+   "inCity": true,
+   "tags": {
+    "name": "Valeries Village Beauty Salon",
+    "shop": "beauty"
+   }
+  },
+  {
+   "id": "node/12554835488",
+   "lat": 39.409783,
+   "lon": -123.3543115,
+   "inCity": true,
+   "tags": {
+    "amenity": "bar",
+    "name": "Digger's"
+   }
+  },
+  {
+   "id": "node/12554835489",
+   "lat": 39.4100774,
+   "lon": -123.3539969,
+   "inCity": true,
+   "tags": {
+    "amenity": "bank",
+    "name": "Tri-counties Bank"
+   }
+  },
+  {
+   "id": "node/12554835494",
+   "lat": 39.4109194,
+   "lon": -123.3546725,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "bar": "yes",
+    "cuisine": "burger",
+    "name": "Busters Burgers & Brew"
+   }
+  },
+  {
+   "id": "node/12554835495",
+   "lat": 39.4109314,
+   "lon": -123.3541896,
+   "inCity": true,
+   "tags": {
+    "amenity": "bank",
+    "atm": "yes",
+    "name": "SBMC"
+   }
+  },
+  {
+   "id": "node/12554936753",
+   "lat": 39.4028309,
+   "lon": -123.3502789,
+   "inCity": true,
+   "tags": {
+    "name": "Ace Copy & Shipping",
+    "shop": "copyshop"
+   }
+  },
+  {
+   "id": "node/12554936754",
+   "lat": 39.4029014,
+   "lon": -123.3502548,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "875",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fast_food",
+    "brand": "Papa Murphy's",
+    "brand:wikidata": "Q7132349",
+    "cuisine": "pizza",
+    "drive_through": "no",
+    "name": "Papa Murphy's",
+    "official_name": "Papa Murphy's Take 'N' Bake Pizza",
+    "opening_hours": "11:00-20:00",
+    "phone": "+1 707-459-0888",
+    "takeaway": "only",
+    "website": "https://locations.papamurphys.com/ca/willits/875-south-main-street"
+   }
+  },
+  {
+   "id": "node/12685483676",
+   "lat": 39.4097691,
+   "lon": -123.3558629,
+   "inCity": true,
+   "tags": {
+    "amenity": "social_facility",
+    "name": "Little Lake Grange",
+    "social_facility": "food_bank"
+   }
+  },
+  {
+   "id": "node/13800174643",
+   "lat": 39.399722,
+   "lon": -123.3493349,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1221",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "name": "The Old West Inn",
+    "tourism": "hotel",
+    "website": "https://www.theoldwestinn.com/"
+   }
+  },
+  {
+   "id": "node/13879971145",
+   "lat": 39.392811,
+   "lon": -123.3379433,
+   "inCity": true,
+   "tags": {
+    "government": "con",
+    "name": "California Conservation Corps - Mendocino Center",
+    "office": "government"
+   }
+  },
+  {
+   "id": "node/13890280425",
+   "lat": 39.4088553,
+   "lon": -123.3529384,
+   "inCity": true,
+   "tags": {
+    "name": "SHN Consulting Engineers & Geologists",
+    "office": "engineer"
+   }
+  },
+  {
+   "id": "node/13890280430",
+   "lat": 39.4098349,
+   "lon": -123.353896,
+   "inCity": true,
+   "tags": {
+    "name": "Divination Ink",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "id": "node/13890300981",
+   "lat": 39.4128447,
+   "lon": -123.3484618,
+   "inCity": true,
+   "tags": {
+    "amenity": "college",
+    "education": "college",
+    "name": "Mendocino College - North County Center"
+   }
+  },
+  {
+   "id": "node/14003458023",
+   "lat": 39.4081514,
+   "lon": -123.3532612,
+   "inCity": true,
+   "tags": {
+    "leisure": "fitness_centre",
+    "name": "Good Guys Gym"
+   }
+  },
+  {
+   "id": "node/14235546916",
+   "lat": 39.4112031,
+   "lon": -123.3547061,
+   "inCity": true,
+   "tags": {
+    "name": "Moon Lady / Moon Man",
+    "shop": "clothes"
+   }
+  },
+  {
+   "id": "node/14235546917",
+   "lat": 39.4112086,
+   "lon": -123.3549565,
+   "inCity": true,
+   "tags": {
+    "name": "Re-Evolution",
+    "shop": "clothes"
+   }
+  },
+  {
+   "id": "node/14235546918",
+   "lat": 39.4112089,
+   "lon": -123.3550326,
+   "inCity": true,
+   "tags": {
+    "craft": "photographer",
+    "name": "Impressions Studio"
+   }
+  },
+  {
+   "id": "way/25359220",
+   "lat": 39.3906422,
+   "lon": -123.3491604,
+   "inCity": true,
+   "tags": {
+    "brand": "Grocery Outlet",
+    "brand:wikidata": "Q5609934",
+    "building": "yes",
+    "name": "Grocery Outlet",
+    "official_name": "Grocery Outlet Bargain Market",
+    "shop": "supermarket",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "way/44043686",
+   "lat": 39.4129576,
+   "lon": -123.3528347,
+   "inCity": true,
+   "tags": {
+    "Tiger:MTFCC": "K2188",
+    "access": "yes",
+    "ele": "420",
+    "gnis:feature_id": "1724280",
+    "leisure": "park",
+    "name": "Willits City Park",
+    "park:type": "local",
+    "source": "Tiger2009"
+   }
+  },
+  {
+   "id": "way/44043743",
+   "lat": 39.400311,
+   "lon": -123.3501868,
+   "inCity": true,
+   "tags": {
+    "gnis:feature_id": "1724150",
+    "leisure": "park",
+    "name": "Babcock Park",
+    "source": "Tiger2009"
+   }
+  },
+  {
+   "id": "way/44043744",
+   "lat": 39.4037391,
+   "lon": -123.3540867,
+   "inCity": true,
+   "tags": {
+    "Tiger:MTFCC": "K2180",
+    "ele": "423",
+    "gnis:feature_id": "1724194",
+    "leisure": "park",
+    "name": "Highway Twenty Park",
+    "source": "Tiger2009"
+   }
+  },
+  {
+   "id": "way/60429399",
+   "lat": 39.4009245,
+   "lon": -123.3536594,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "ele": "428",
+    "gnis:feature_id": "1724151",
+    "name": "Baechtel Grove Elementary School"
+   }
+  },
+  {
+   "id": "way/60429424",
+   "lat": 39.4172133,
+   "lon": -123.3530889,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "ele": "443",
+    "gnis:feature_id": "236823",
+    "name": "Willits High School"
+   }
+  },
+  {
+   "id": "way/107151616",
+   "lat": 39.3901393,
+   "lon": -123.3462355,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1777",
+    "addr:postcode": "95490-4404",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "branch": "Willits Inn",
+    "brand": "Best Western",
+    "brand:wikidata": "Q830334",
+    "building": "yes",
+    "name": "Best Western Willits Inn",
+    "phone": "+1 707-459-5800",
+    "ref": "05578",
+    "source": "survey",
+    "tourism": "hotel",
+    "website": "https://www.bestwestern.com/en_US/book/hotels-in-willits/best-western-willits-inn/propertyCode.05578.html"
+   }
+  },
+  {
+   "id": "way/154617571",
+   "lat": 39.4152462,
+   "lon": -123.3542187,
+   "inCity": true,
+   "tags": {
+    "addr:state": "CA",
+    "amenity": "community_centre",
+    "building": "yes",
+    "ele": "420",
+    "name": "Veterans Memorial Building"
+   }
+  },
+  {
+   "id": "way/238536222",
+   "lat": 39.4038125,
+   "lon": -123.3509839,
+   "inCity": true,
+   "tags": {
+    "addr:housenumber": "845",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fuel",
+    "brand": "Safeway",
+    "brand:wikidata": "Q1508234",
+    "building": "yes",
+    "designation": "Safeway Fuel Station 0965",
+    "name": "Safeway Fuel Station",
+    "operator": "Safeway",
+    "self_service": "yes",
+    "website": "https://local.fuel.safeway.com/safeway/ca/willits/811-s-main-st.html"
+   }
+  },
+  {
+   "id": "way/238536223",
+   "lat": 39.4034899,
+   "lon": -123.3497463,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "845",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "branch": "0965",
+    "brand": "Safeway",
+    "brand:wikidata": "Q1508234",
+    "building": "yes",
+    "designation": "Safeway 0965",
+    "name": "Safeway",
+    "opening_hours": "Mo-Su 05:00-24:00",
+    "phone": "+1 707-459-5862",
+    "shop": "supermarket",
+    "website": "https://local.safeway.com/safeway/ca/willits/845-s-main-st.html",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "way/241735006",
+   "lat": 39.393826,
+   "lon": -123.3491083,
+   "inCity": true,
+   "tags": {
+    "building": "yes",
+    "name": "Holiday Lodge",
+    "source": "bing",
+    "tourism": "hotel"
+   }
+  },
+  {
+   "id": "way/241735154",
+   "lat": 39.3941641,
+   "lon": -123.3491531,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1500",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fast_food",
+    "brand": "Taco Bell",
+    "brand:wikidata": "Q752941",
+    "building": "yes",
+    "cuisine": "tex-mex",
+    "drive_through": "yes",
+    "name": "Taco Bell",
+    "opening_hours": "Mo-Su 07:00-00:00",
+    "phone": "+1-707-459-3292",
+    "source": "bing",
+    "takeaway": "yes",
+    "website": "https://locations.tacobell.com/ca/willits/1500-s-main-st.html"
+   }
+  },
+  {
+   "id": "way/241735201",
+   "lat": 39.3946188,
+   "lon": -123.3495541,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1488",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "air_conditioning": "yes",
+    "amenity": "fast_food",
+    "brand": "McDonald's",
+    "brand:wikidata": "Q38076",
+    "building": "yes",
+    "cuisine": "burger",
+    "drive_through": "yes",
+    "name": "McDonald's",
+    "opening_hours": "Mo-Su 05:00-23:00",
+    "phone": "+1-707-459-2120",
+    "source": "bing",
+    "takeaway": "yes",
+    "website": "https://www.mcdonalds.com/us/en-us/location/ca/willits/1488-s-main-st/6949.html",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "way/241774953",
+   "lat": 39.3962561,
+   "lon": -123.3498565,
+   "inCity": true,
+   "tags": {
+    "building": "yes",
+    "name": "Western Village Inn",
+    "source": "bing",
+    "tourism": "motel"
+   }
+  },
+  {
+   "id": "way/258878210",
+   "lat": 39.4069152,
+   "lon": -123.3527057,
+   "inCity": true,
+   "tags": {
+    "building": "yes",
+    "name": "Pepperwood Motel",
+    "reservation": "yes",
+    "source": "bing",
+    "tourism": "motel"
+   }
+  },
+  {
+   "id": "way/341696814",
+   "lat": 39.4117728,
+   "lon": -123.3460069,
+   "inCity": true,
+   "tags": {
+    "leisure": "park",
+    "name": "Recreation Grove Park"
+   }
+  },
+  {
+   "id": "way/341696815",
+   "lat": 39.4116346,
+   "lon": -123.3443764,
+   "inCity": true,
+   "tags": {
+    "leisure": "park",
+    "name": "Fairgrounds"
+   }
+  },
+  {
+   "id": "way/341696817",
+   "lat": 39.4132104,
+   "lon": -123.3413965,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1027",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "fee": "no",
+    "leisure": "pitch",
+    "lit": "no",
+    "name": "Willits Skatepark",
+    "sport": "skateboard",
+    "start_date": "2005-06",
+    "surface": "concrete"
+   }
+  },
+  {
+   "id": "way/344609592",
+   "lat": 39.4171348,
+   "lon": -123.3535774,
+   "inCity": true,
+   "tags": {
+    "amenity": "library",
+    "building": "yes",
+    "name": "Willits High Library"
+   }
+  },
+  {
+   "id": "way/344609637",
+   "lat": 39.4114752,
+   "lon": -123.3542792,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "name": "Adrella's"
+   }
+  },
+  {
+   "id": "way/577743579",
+   "lat": 39.3900074,
+   "lon": -123.3388238,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1",
+    "addr:postcode": "95437",
+    "addr:state": "CA",
+    "addr:street": "Marcela Drive",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Adventist Health Howard Memorial",
+    "opening_hours": "24/7",
+    "operator": "Adventist Health",
+    "operator:type": "private",
+    "operator:wikidata": "Q4686452",
+    "operator:wikipedia": "en:Adventist Health",
+    "phone": "+1 707 459 6801",
+    "website": "https://www.adventisthealth.org/howard-memorial/",
+    "wikidata": "Q5489125",
+    "wikipedia": "en:Frank R. Howard Memorial Hospital"
+   }
+  },
+  {
+   "id": "way/673712844",
+   "lat": 39.412188,
+   "lon": -123.348966,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "305",
+    "addr:postcode": "95490-3201",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "brand": "Ace Hardware",
+    "brand:wikidata": "Q4672981",
+    "building": "yes",
+    "name": "Mendo Mill",
+    "opening_hours": "Mo-Fr 07:00-18:00; Sa 08:00-18:00; Su 08:00-17:00",
+    "phone": "+1 707-459-4631",
+    "ref": "03507",
+    "shop": "doityourself",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "id": "way/673712846",
+   "lat": 39.4122888,
+   "lon": -123.3542828,
+   "inCity": true,
+   "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Brickhouse Coffee"
+   }
+  },
+  {
+   "id": "way/711498727",
+   "lat": 39.385216,
+   "lon": -123.3426318,
+   "inCity": true,
+   "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "mormon",
+    "name": "The Church of Jesus Christ of Latter-day Saints",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "way/737341739",
+   "lat": 39.4121607,
+   "lon": -123.3539019,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "57",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "amenity": "cinema",
+    "building": "yes",
+    "name": "Noyo Theater",
+    "wikidata": "Q44887216"
+   }
+  },
+  {
+   "id": "way/760893459",
+   "lat": 39.40017,
+   "lon": -123.3573828,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "ele": "431",
+    "gnis:feature_id": "1724154",
+    "name": "Blosser Lane Elementary School",
+    "operator": "Willits Unified School District",
+    "website": "https://bles.willitsunified.com/"
+   }
+  },
+  {
+   "id": "way/770897822",
+   "lat": 39.3966352,
+   "lon": -123.3484679,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "name": "Willits Charter School"
+   }
+  },
+  {
+   "id": "way/770897823",
+   "lat": 39.4128906,
+   "lon": -123.3613553,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "ele": "425",
+    "gnis:feature_id": "1724157",
+    "name": "Brookside Elementary School"
+   }
+  },
+  {
+   "id": "way/770897824",
+   "lat": 39.4137642,
+   "lon": -123.3557202,
+   "inCity": true,
+   "tags": {
+    "amenity": "school",
+    "ele": "421",
+    "gnis:feature_id": "1724250",
+    "name": "San Hedrin Continuation High School"
+   }
+  },
+  {
+   "id": "way/866133647",
+   "lat": 39.4134062,
+   "lon": -123.3547999,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "100",
+    "addr:state": "CA",
+    "addr:street": "North Main Street",
+    "amenity": "fast_food",
+    "building": "yes",
+    "building:levels": "1",
+    "cuisine": "burger",
+    "name": "101 Burger"
+   }
+  },
+  {
+   "id": "way/866133920",
+   "lat": 39.4137036,
+   "lon": -123.3548099,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "110",
+    "addr:state": "CA",
+    "addr:street": "North Main Street",
+    "amenity": "cafe",
+    "building": "yes",
+    "building:levels": "1",
+    "description": "Drive through coffee place.",
+    "name": "April May's Drive Thru Coffee"
+   }
+  },
+  {
+   "id": "way/866134698",
+   "lat": 39.4118155,
+   "lon": -123.3547214,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "50",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "pub",
+    "building": "yes",
+    "building:levels": "1",
+    "name": "Shanachie Pub"
+   }
+  },
+  {
+   "id": "way/868503345",
+   "lat": 39.412936,
+   "lon": -123.3466744,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "390",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "amenity": "library",
+    "building": "yes",
+    "ele": "414",
+    "gnis:feature_id": "1724278",
+    "internet_access": "yes",
+    "internet_access:fee": "no",
+    "name": "Willits Branch Library;Willits Branch Mendocino County Library",
+    "source": "USGS Geonames"
+   }
+  },
+  {
+   "id": "way/868503348",
+   "lat": 39.4131485,
+   "lon": -123.3460013,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "400",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "East Commercial Street",
+    "building": "yes",
+    "check_date:opening_hours": "2023-06-30",
+    "ele": "414",
+    "fee": "yes",
+    "fee:conditional": "no @ (age < 6)",
+    "gnis:feature_id": "1724227",
+    "name": "Mendocino County Museum",
+    "opening_hours": "Mo-Fr 10:00-17:00; Sa,Su 12:00-16:00",
+    "source": "USGS Geonames",
+    "tourism": "museum",
+    "website": "https://www.mendocinocounty.org/government/cultural-services-agency/museum"
+   }
+  },
+  {
+   "id": "way/868508611",
+   "lat": 39.4131546,
+   "lon": -123.3418582,
+   "inCity": true,
+   "tags": {
+    "leisure": "dog_park",
+    "name": "Willits Community Dog Park"
+   }
+  },
+  {
+   "id": "way/933231634",
+   "lat": 39.4008741,
+   "lon": -123.3493536,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1119",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "brand": "Super 8",
+    "brand:wikidata": "Q5364003",
+    "building": "yes",
+    "name": "Super 8 by Wyndham Willits",
+    "reservation": "yes",
+    "tourism": "motel"
+   }
+  },
+  {
+   "id": "way/935742466",
+   "lat": 39.394498,
+   "lon": -123.3481495,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1521",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "name": "Edgewood Motel",
+    "tourism": "hotel"
+   }
+  },
+  {
+   "id": "way/1135419928",
+   "lat": 39.3943399,
+   "lon": -123.3502162,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "101",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "Gregory Lane",
+    "brand": "Ascend Hotel Collection",
+    "brand:wikidata": "Q1075788",
+    "building": "yes",
+    "fixme": "Issue with brand name.",
+    "name": "Baechtel Creek Inn",
+    "phone": "+1-707-459-9063",
+    "reservation": "yes",
+    "tourism": "hotel"
+   }
+  },
+  {
+   "id": "way/1169525898",
+   "lat": 39.3989201,
+   "lon": -123.3490283,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "1355",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "fast_food",
+    "brand": "Burger King",
+    "brand:wikidata": "Q177054",
+    "building": "yes",
+    "cuisine": "burger",
+    "delivery": "yes",
+    "drive_through": "yes",
+    "internet_access": "wlan",
+    "name": "Burger King",
+    "opening_hours": "Mo-Sa 06:00-22:00; Su 07:00-22:00",
+    "phone": "+1 707-456-9175",
+    "ref": "7431",
+    "takeaway": "yes",
+    "website": "https://www.bk.com/store-locator/store/restaurant_4274"
+   }
+  },
+  {
+   "id": "way/1177163363",
+   "lat": 39.4122917,
+   "lon": -123.3541161,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "cuisine": "ramen",
+    "name": "Ramen Cubed"
+   }
+  },
+  {
+   "id": "way/1351485356",
+   "lat": 39.4116449,
+   "lon": -123.3548905,
+   "inCity": true,
+   "tags": {
+    "building": "yes",
+    "leisure": "indoor_play",
+    "name": "Willits Kids Corner"
+   }
+  },
+  {
+   "id": "way/1356518226",
+   "lat": 39.4100393,
+   "lon": -123.3546776,
+   "inCity": true,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "234",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "South Main Street",
+    "amenity": "bank",
+    "atm": "yes",
+    "brand": "Chase",
+    "brand:wikidata": "Q524629",
+    "building": "retail",
+    "name": "Chase",
+    "opening_hours": "Mo-Fr 09:00-17:00; Sa 09:00-14:00; Su closed",
+    "phone": "+1 707-459-7940",
+    "website": "https://locator.chase.com/ca/willits/234-s-main-st"
+   }
+  },
+  {
+   "id": "way/1563874894",
+   "lat": 39.4156543,
+   "lon": -123.3611533,
+   "inCity": true,
+   "tags": {
+    "healthcare": "rehabilitation",
+    "name": "Northbrook Healthcare Center"
+   }
+  },
+  {
+   "id": "way/1563874896",
+   "lat": 39.4118248,
+   "lon": -123.3550362,
+   "inCity": true,
+   "tags": {
+    "amenity": "fast_food",
+    "building": "yes",
+    "cuisine": "sushi",
+    "name": "Hatake Farm Kitchen"
+   }
+  },
+  {
+   "id": "way/1563874901",
+   "lat": 39.4118792,
+   "lon": -123.3546994,
+   "inCity": true,
+   "tags": {
+    "amenity": "restaurant",
+    "building": "yes",
+    "cuisine": "barbecue",
+    "name": "Smokey's BBQ"
+   }
+  },
+  {
+   "id": "node/534353181",
+   "lat": 39.3460256,
+   "lon": -123.3188849,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "17501",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "North Highway 101",
+    "amenity": "fire_station",
+    "name": "Cal Fire Howard Forest"
+   }
+  },
+  {
+   "id": "node/10571999716",
+   "lat": 39.5215068,
+   "lon": -123.4534213,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "32600",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "Sherwood Road",
+    "amenity": "school",
+    "grades": "1-8",
+    "name": "Sherwood Elementary School",
+    "operator": "Willits Unified School District",
+    "operator:type": "public",
+    "website": "https://www.willitsunified.com/o/sherwood"
+   }
+  },
+  {
+   "id": "way/107151626",
+   "lat": 39.3903087,
+   "lon": -123.3431007,
+   "inCity": false,
+   "tags": {
+    "addr:county": "Mendocino",
+    "addr:postcode": "95490",
+    "addr:street": "21340 Baechtel Road",
+    "attribution": "Caltrans",
+    "caltrans:district": "1",
+    "caltrans:dynsegpm": "MEN 101 45.9",
+    "caltrans:type": "HMS",
+    "description": "District 1 - Eureka Region",
+    "landuse": "industrial",
+    "name": "Caltrans Willits Maintenance Station",
+    "phone": "+1-707-459-2218",
+    "route": "101",
+    "source": "http://www.dot.ca.gov/hq/tsip/gis/datalibrary/gisdatalibrary.html, bing"
+   }
+  },
+  {
+   "id": "way/154251596",
+   "lat": 39.4148634,
+   "lon": -123.3481475,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "200",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "North Lenore Avenue",
+    "building": "yes",
+    "manufacturer": "sheet_metal",
+    "name": "METALfx",
+    "source": "bing"
+   }
+  },
+  {
+   "id": "way/196029733",
+   "lat": 39.3458902,
+   "lon": -123.3190924,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "17501",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "North Highway 101",
+    "building": "public",
+    "name": "CalFire Headquarters Mendocino Unit"
+   }
+  },
+  {
+   "id": "way/868496534",
+   "lat": 39.4109553,
+   "lon": -123.3602827,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "399",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "West Mendocino Avenue",
+    "building": "church",
+    "name": "Willits SDA Church"
+   }
+  },
+  {
+   "id": "way/1295087162",
+   "lat": 39.3949528,
+   "lon": -123.3617206,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "190",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "Sherwood Hill Drive",
+    "amenity": "social_centre",
+    "building": "yes",
+    "name": "Sherwood Valley Band of Pomo Indians"
+   }
+  },
+  {
+   "id": "way/1295087174",
+   "lat": 39.392899,
+   "lon": -123.3628215,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "100",
+    "addr:state": "CA",
+    "addr:street": "Kawi Place",
+    "amenity": "casino",
+    "building": "yes",
+    "name": "Sherwood Valley Casino",
+    "phone": "+1-707-459-7330",
+    "website": "https://www.svrcasino.com/"
+   }
+  },
+  {
+   "id": "way/1498685018",
+   "lat": 39.4370338,
+   "lon": -123.3849079,
+   "inCity": false,
+   "tags": {
+    "addr:city": "Willits",
+    "addr:housenumber": "24860",
+    "addr:postcode": "95490",
+    "addr:state": "CA",
+    "addr:street": "Birch Street",
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Brooktrails Fire Department"
+   }
+  }
+ ]
+}

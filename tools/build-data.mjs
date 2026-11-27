@@ -467,7 +467,7 @@ function stageFinal() {
     const f = k => res.facts[k]?.value || '';
     const r = {
       id: c.id, category: CATEGORY_BY_ID[conf?.category] ? conf.category : c.category, sub: c.sub, tags: c.tags, chain: c.chain,
-      name: f('name') || c.name, address: f('address'), unit: f('unit'), zip: f('zip'), center: f('center'),
+      name: displayName(f('name'), c.name), address: f('address'), unit: f('unit'), zip: f('zip'), center: f('center'),
       phone: f('phone'), website: f('website'), hours: f('hours'),
       opened: /^\d{4}-\d{2}$/.test(f('opened')) && f('opened') <= TODAY.slice(0, 7) ? f('opened') : '',
       status: res.status, verified: res.verified,
@@ -527,6 +527,16 @@ function republish(overrides, cache) {
   const comingSoon = redo(prev.comingSoon || []);
   addListings(out, comingSoon, overrides, cache);
   publish(out, comingSoon, dropped);
+}
+
+// Government lists often give names in capitals ("KEMMYS PIES"). When the researched name says the same words in
+// ordinary case ("Kemmy's Pies"), show that one; the record still confirms it.
+function displayName(confirmed, researched) {
+  if (!confirmed) return researched;
+  if (/[a-z]/.test(confirmed) || !researched || !/[a-z]/.test(researched)) return confirmed;
+  const words = s => String(s).toLowerCase().replace(/['’]/g, '').split(/[^a-z0-9]+/).filter(Boolean);
+  const have = new Set(words(confirmed));
+  return words(researched).every(w => have.has(w)) ? researched : confirmed;
 }
 
 // A hand fix from data/overrides.json. Any new sources are added to the old ones, and only allowed kinds count.

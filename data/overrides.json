@@ -1,6 +1,687 @@
 {
   "_help": "Hand fixes that survive every data rebuild. Only use facts from the business itself (its website, sign or a message from the owner), OpenStreetMap or a government record, never from review sites, map apps or other directories (see data/SOURCES.md). 'remove': ids to hide. 'patch': id -> fields to change, e.g. {\"phone\": \"(707) 555-0123\", \"hours\": \"Mo-Fr 09:00-17:00\"}. 'add': whole new listings: name, category, sub, address, zip, phone, website, hours, tags, and 'sources' (where each fact came from). Descriptions are written automatically. Then run: node tools/build-data.mjs final",
   "remove": [],
-  "patch": {},
-  "add": []
+  "patch": {
+    "best-western-willits-inn-1777": {
+      "website": "https://www.bestwestern.com/en-us/book/hotel/willits/best-western-willits-inn/05578",
+      "sources": [
+        "https://www.bestwestern.com/en-us/book/hotel/willits/best-western-willits-inn/05578"
+      ]
+    },
+    "the-woodrose-1540": {
+      "address": "1540 S Main St",
+      "zip": "95490",
+      "phone": "(707) 459-5361",
+      "sources": [
+        "https://thewoodrosewillits.com/"
+      ]
+    },
+    "mcdonalds-1488": {
+      "sources": [
+        "https://www.mcdonalds.com/us/en-us/location/ca/willits/1488-s-main-st/6949.html"
+      ]
+    },
+    "burger-king-1355": {
+      "website": "https://www.bk.com/store-locator/store/7431",
+      "sources": [
+        "https://www.bk.com/store-locator/store/7431"
+      ]
+    },
+    "savings-bank-of-mendocino-county-145": {
+      "phone": "(707) 462-6613",
+      "website": "https://www.savingsbank.com/branch-location/willits/",
+      "sources": [
+        "https://www.savingsbank.com/branch-location/willits/"
+      ]
+    },
+    "ponderosa-and-sun-realty-635": {
+      "phone": "(707) 489-3763",
+      "website": "https://pondsun.com",
+      "sources": [
+        "https://pondsun.com/"
+      ]
+    },
+    "selzer-realty-390": {
+      "name": "RE/MAX Gold Selzer Realty & Associates",
+      "phone": "(707) 459-6175",
+      "website": "https://selzerrealty.com",
+      "sources": [
+        "https://selzerrealty.com/"
+      ]
+    },
+    "imagination-station-preschool-and-childcare-center-11": {
+      "website": "https://imaginationstationwillits.com",
+      "sources": [
+        "https://imaginationstationwillits.com/"
+      ]
+    },
+    "mendocino-county-museum-400": {
+      "sources": [
+        "https://www.mendocinocounty.gov/All-Departments/Museum"
+      ]
+    },
+    "sparetime-garden-center-208": {
+      "name": "Sparetime Garden Center",
+      "phone": "(707) 459-6791",
+      "website": "https://www.sparetimegardencenter.com",
+      "chain": false,
+      "sources": [
+        "https://www.sparetimegardencenter.com/contacts"
+      ]
+    },
+    "willits-post-office-315": {
+      "address": "315 South Main Street",
+      "zip": "95490",
+      "phone": "(707) 459-5255",
+      "sources": [
+        "https://tools.usps.com/locations/details/1387800"
+      ]
+    },
+    "brooktrails-community-center": {
+      "zip": "95490",
+      "sources": [
+        "https://www.btcsd.org/"
+      ]
+    }
+  },
+  "add": [
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "first-nails-spa",
+      "name": "1st Nails & Spa",
+      "category": "beauty",
+      "sub": "Nail salon",
+      "tags": [
+        "nail salon",
+        "manicure",
+        "pedicure",
+        "nails",
+        "spa"
+      ],
+      "address": "2 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/312184/45ceb1b46c6b2d704a64cd07be512254"
+      ],
+      "lat": 39.412363,
+      "lon": -123.354613
+    },
+    {
+      "unit": "Suite A",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "adris-salon",
+      "name": "Adri's Salon",
+      "category": "beauty",
+      "sub": "Beauty salon",
+      "tags": [
+        "beauty salon",
+        "hair salon",
+        "haircut",
+        "hair color",
+        "styling"
+      ],
+      "address": "1615 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/252992/7c7960d0b921fcbb9ed2066f380e6254"
+      ],
+      "lat": 39.392234,
+      "lon": -123.347498
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "carls-classics-barbershop",
+      "name": "Carl's Classics Barber Shop",
+      "category": "beauty",
+      "sub": "Barbershop",
+      "tags": [
+        "barber",
+        "barbershop",
+        "haircut",
+        "shave",
+        "mens haircut"
+      ],
+      "address": "1468 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/295469/9daf08c6bf2fadba00ea27e930c91fe4"
+      ],
+      "lat": 39.395381,
+      "lon": -123.34931
+    },
+    {
+      "unit": "Suite E",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "city-nails",
+      "name": "City Nails",
+      "category": "beauty",
+      "sub": "Nail salon",
+      "tags": [
+        "nail salon",
+        "manicure",
+        "pedicure",
+        "nails",
+        "gel nails"
+      ],
+      "address": "1726 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/303201/ce52830c48812c736bc1c4e061824a15"
+      ],
+      "lat": 39.389895,
+      "lon": -123.346591
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "esthetics-by-eden",
+      "name": "Esthetics by Eden",
+      "category": "beauty",
+      "sub": "Esthetics studio",
+      "tags": [
+        "esthetician",
+        "skin care",
+        "facials",
+        "beauty",
+        "esthetics"
+      ],
+      "address": "23 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/369862/257c3f704ad4968e66882747c537764b"
+      ],
+      "lat": 39.412229,
+      "lon": -123.354369
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "luscious-beauty-boutique-and-day-spa",
+      "name": "Luscious Beauty Boutique & Day Spa",
+      "category": "beauty",
+      "sub": "Day spa & beauty salon",
+      "tags": [
+        "day spa",
+        "beauty salon",
+        "spa",
+        "beauty",
+        "boutique"
+      ],
+      "address": "91 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/366863/83d4b18c3d573c718d736b5bad6d2220"
+      ],
+      "lat": 39.411466,
+      "lon": -123.354344
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "main-street-barbershop",
+      "name": "Main Street Barbershop",
+      "category": "beauty",
+      "sub": "Barbershop",
+      "tags": [
+        "barber",
+        "barbershop",
+        "haircut",
+        "shave",
+        "mens haircut"
+      ],
+      "address": "525 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/324445/05cce501f38e2d284eb1495725cc7893"
+      ],
+      "lat": 39.406421,
+      "lon": -123.352104
+    },
+    {
+      "unit": "Suite B",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "mendo-made-salon-and-barbershop",
+      "name": "Mendo Made Salon & Barbershop",
+      "category": "beauty",
+      "sub": "Salon & barbershop",
+      "tags": [
+        "hair salon",
+        "barbershop",
+        "barber",
+        "haircut",
+        "hair color"
+      ],
+      "address": "1569 S Main St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/352180/f31a933fde16abf8dc6fe9ec49186dfb"
+      ],
+      "lat": 39.393321,
+      "lon": -123.348063
+    },
+    {
+      "unit": "Suite A",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "the-stylist-hair-salon",
+      "name": "The Stylist",
+      "category": "beauty",
+      "sub": "Hair salon",
+      "tags": [
+        "hair salon",
+        "haircut",
+        "hair color",
+        "styling",
+        "beauty salon"
+      ],
+      "address": "245 S Humboldt St",
+      "sources": [
+        "https://search.dca.ca.gov/details/1007/A/275037/4fe2ac7b7de2201678652d3091801906"
+      ],
+      "lat": 39.410059,
+      "lon": -123.353197
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "anker-lucier-mortuary",
+      "name": "Anker-Lucier Mortuary",
+      "category": "professional",
+      "sub": "Funeral home",
+      "tags": [
+        "funeral home",
+        "mortuary",
+        "funeral",
+        "memorial services",
+        "funeral director"
+      ],
+      "address": "95 W Commercial St",
+      "sources": [
+        "https://search.dca.ca.gov/details/4800/FD/310/35e22622455fb434aee729d34b6da2aa"
+      ],
+      "lat": 39.412335,
+      "lon": -123.355946
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 348-4364",
+      "website": "https://www.starbucks.com/stores/69922-304864/ca/willits/788-s-main-st-willits",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "starbucks-788",
+      "name": "Starbucks",
+      "category": "cafes-treats",
+      "sub": "Chain coffee shop with drive-through",
+      "tags": [
+        "coffee",
+        "espresso",
+        "latte",
+        "drive-through",
+        "starbucks",
+        "cafe"
+      ],
+      "address": "788 S Main St",
+      "sources": [
+        "https://www.starbucks.com/stores/69922-304864/ca/willits/788-s-main-st-willits",
+        "https://www.openstreetmap.org/node/2640952057"
+      ],
+      "lat": 39.4044605,
+      "lon": -123.352354,
+      "chain": true
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-2421",
+      "website": "https://larkmotelwillits.com",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "lark-motel-1411",
+      "name": "Lark Motel",
+      "category": "hotels-events",
+      "sub": "Motel",
+      "tags": [
+        "motel",
+        "lodging",
+        "budget",
+        "south main",
+        "rooms"
+      ],
+      "address": "1411 S Main St",
+      "sources": [
+        "https://larkmotelwillits.com/location/",
+        "https://www.cityofwillits.org/DocumentCenter/View/546/Willits-Area-Business-Status-During-Power-Shutoff-Eventpdf"
+      ],
+      "lat": 39.397184,
+      "lon": -123.349323
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "",
+      "website": "",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "little-lake-grange-291",
+      "name": "Little Lake Grange",
+      "category": "community",
+      "sub": "Grange hall & community venue",
+      "tags": [
+        "grange",
+        "community hall",
+        "farmers market",
+        "events",
+        "hall rental"
+      ],
+      "address": "291 School St",
+      "sources": [
+        "https://www.openstreetmap.org/node/12685483676",
+        "https://www.mendocinocounty.gov/files/53f363e4-8b3a-4083-9fab-e892a2344ace/2023-Crop-Report-FINAL.pdf"
+      ],
+      "lat": 39.409554,
+      "lon": -123.356004
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 354-1137",
+      "website": "https://rootsofmotivepower.com",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "roots-of-motive-power-400",
+      "name": "Roots of Motive Power",
+      "category": "arts-fun",
+      "sub": "Railroad & logging machinery museum",
+      "tags": [
+        "museum",
+        "railroad",
+        "logging",
+        "locomotives",
+        "history",
+        "steam",
+        "tours"
+      ],
+      "address": "",
+      "sources": [
+        "https://rootsofmotivepower.com/",
+        "https://rootsofmotivepower.com/tour/",
+        "https://www.openstreetmap.org/way/341696816"
+      ],
+      "lat": 39.412639,
+      "lon": -123.346866
+    },
+    {
+      "unit": "Suite A",
+      "zip": "95490",
+      "phone": "(707) 459-2677",
+      "website": "https://www.hrblock.com/tax-office-near-me/california/willits/4259/",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "h-and-r-block",
+      "name": "H&R Block",
+      "category": "money",
+      "sub": "Tax preparation office",
+      "tags": [
+        "tax preparation",
+        "taxes",
+        "tax return",
+        "income tax",
+        "h&r block"
+      ],
+      "address": "1661 S Main St",
+      "sources": [
+        "https://www.hrblock.com/tax-office-near-me/california/willits/4259/"
+      ],
+      "lat": 39.391145,
+      "lon": -123.346928,
+      "chain": true
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-4628",
+      "website": "https://glenmarkstorage.com",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "glenmark-storage",
+      "name": "GlenMark Storage South",
+      "category": "errands",
+      "sub": "Self storage",
+      "tags": [
+        "self storage",
+        "storage units",
+        "mini storage",
+        "storage",
+        "south main"
+      ],
+      "address": "1788 S Main St",
+      "sources": [
+        "https://glenmarkstorage.com/"
+      ],
+      "lat": 39.388157,
+      "lon": -123.345624
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-4628",
+      "website": "https://glenmarkstorage.com",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "glenmark-storage-north-395",
+      "name": "GlenMark Storage North",
+      "category": "errands",
+      "sub": "Self storage",
+      "tags": [
+        "self storage",
+        "storage units",
+        "mini storage",
+        "storage",
+        "north main"
+      ],
+      "address": "395 N Main St",
+      "sources": [
+        "https://glenmarkstorage.com/"
+      ],
+      "lat": 39.420049,
+      "lon": -123.354813
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 456-9461",
+      "website": "https://gire.org/donate/retail-locations/",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "goodwill-1728",
+      "name": "Goodwill",
+      "category": "shopping",
+      "sub": "Charity thrift store",
+      "tags": [
+        "thrift",
+        "secondhand",
+        "donations",
+        "used clothing",
+        "furniture",
+        "goodwill"
+      ],
+      "address": "1728 S Main St",
+      "sources": [
+        "https://gire.org/donate/retail-locations/",
+        "https://www.openstreetmap.org/node/10874976871"
+      ],
+      "lat": 39.390164,
+      "lon": -123.3483142,
+      "chain": true
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-1726",
+      "website": "https://willitscenterforthearts.org",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "willits-center-for-the-arts",
+      "name": "Willits Center for the Arts",
+      "category": "arts-fun",
+      "sub": "Community arts center & gallery",
+      "tags": [
+        "art gallery",
+        "arts center",
+        "exhibits",
+        "art classes",
+        "local artists",
+        "events"
+      ],
+      "address": "71 E Commercial St",
+      "sources": [
+        "https://willitscenterforthearts.org/",
+        "https://willitscenterforthearts.org/visit-the-art-center/"
+      ],
+      "lat": 39.41238,
+      "lon": -123.353808
+    },
+    {
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-4075",
+      "website": "https://thebookjuggler.com",
+      "hours": "",
+      "verified": "2026-11-27",
+      "id": "the-book-juggler",
+      "name": "The Book Juggler",
+      "category": "shopping",
+      "sub": "Used bookstore",
+      "tags": [
+        "books",
+        "used books",
+        "bookstore",
+        "paperbacks",
+        "book trade"
+      ],
+      "address": "182 S Main St",
+      "sources": [
+        "https://thebookjuggler.com/",
+        "https://thebookjuggler.com/contact-hours"
+      ],
+      "lat": 39.410783,
+      "lon": -123.354557
+    },
+    {
+      "id": "mendo-mill-305",
+      "name": "Mendo Mill",
+      "category": "home",
+      "sub": "Home center & lumber yard",
+      "tags": [
+        "hardware",
+        "lumber",
+        "building supplies",
+        "ace hardware",
+        "paint",
+        "tools",
+        "garden"
+      ],
+      "address": "305 E Commercial St",
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-4631",
+      "website": "http://www.mendomill.com",
+      "hours": "",
+      "sources": [
+        "https://www.openstreetmap.org/way/673712844",
+        "http://www.mendomill.com/locations/willits/"
+      ],
+      "verified": "2026-11-27",
+      "lat": 39.412188,
+      "lon": -123.348966
+    },
+    {
+      "id": "the-whistle-stop-280",
+      "name": "The Whistle Stop",
+      "category": "cafes-treats",
+      "sub": "Café",
+      "tags": [
+        "cafe",
+        "coffee",
+        "paninis",
+        "salads",
+        "smoothies",
+        "ice cream",
+        "lunch"
+      ],
+      "address": "280 E Commercial St",
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 841-3033",
+      "website": "https://www.whistlestopwillits.com",
+      "hours": "",
+      "sources": [
+        "https://www.whistlestopwillits.com/contact"
+      ],
+      "verified": "2026-11-27",
+      "lat": 39.412537,
+      "lon": -123.351584
+    },
+    {
+      "id": "mendocino-college-north-county-center-372",
+      "name": "Mendocino College North County Center",
+      "category": "community",
+      "sub": "Community college campus",
+      "tags": [
+        "college",
+        "community college",
+        "classes",
+        "education",
+        "adult education",
+        "mendocino college"
+      ],
+      "address": "372 E Commercial St",
+      "unit": "",
+      "zip": "95490",
+      "phone": "(707) 459-6224",
+      "website": "",
+      "hours": "",
+      "sources": [
+        "https://www.openstreetmap.org/node/13890300981",
+        "https://www.cityofwillits.org/DocumentCenter/View/546/Willits-Area-Business-Status-During-Power-Shutoff-Eventpdf"
+      ],
+      "verified": "2026-11-27",
+      "lat": 39.4128447,
+      "lon": -123.3484618
+    }
+  ]
 }
